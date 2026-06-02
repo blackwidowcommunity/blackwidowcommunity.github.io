@@ -14,6 +14,35 @@
   <script src="navbar-loader.js" defer></script>
 
   <style>
+    /* ── NAVBAR & SIDEBAR SIZE FIX — matches index.html exactly ── */
+
+    /* index.html uses 78% base font-size vs style.css 62.5%.
+       Override the navbar padding and font sizes to compensate. */
+    html {
+      font-size: 78% !important; /* matches index.html: 1rem ≈ 12.5px */
+    }
+
+    /* Navbar height: index.html uses padding: 2rem 5% on mobile */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 2rem 5% !important;
+      }
+    }
+
+    /* Sidebar links: match index.html font-size/weight exactly */
+    .sidebar a,
+    .sidebar ul li a {
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    /* Desktop nav links: match index.html */
+    .nav-links li a {
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+    }
+
     /* Page-specific styles */
     .home-content p {
       font-size: 1.8rem !important;
