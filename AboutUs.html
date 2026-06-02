@@ -8,7 +8,37 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
+  <!-- Google Fonts: Cinzel + Raleway — matches index.html -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ===== CSS VARIABLES — matches index.html exactly ===== */
+    :root {
+      --red: #c0392b;
+      --red-dark: #8e1c12;
+      --red-glow: rgba(192,57,43,0.25);
+      --black: #0a0a0a;
+      --black-2: #111111;
+      --black-3: #181818;
+      --black-4: #222222;
+      --white: #f5f0eb;
+      --white-muted: rgba(245,240,235,0.75);
+      --white-faint: rgba(245,240,235,0.12);
+      --glass: rgba(20,10,10,0.78);
+      --border: rgba(192,57,43,0.35);
+      --border-subtle: rgba(245,240,235,0.1);
+      --green: #4bb78e;
+      --green-glow: rgba(75,183,142,0.2);
+    }
+
+    html {
+      font-size: 78%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+    }
+
     /* ===== NAVBAR — matches index.html exactly ===== */
     header {
       position: fixed;
@@ -23,8 +53,8 @@
       align-items: center;
       justify-content: center;
       padding: 1rem 5%;
-      background: rgba(20,10,10,0.78);
-      border-bottom: 1px solid rgba(192,57,43,0.35);
+      background: var(--glass);
+      border-bottom: 1px solid var(--border);
       backdrop-filter: blur(14px);
       gap: 2rem;
       position: relative;
@@ -38,7 +68,7 @@
 
     .nav-links li a {
       text-decoration: none;
-      color: rgba(245,240,235,0.75);
+      color: var(--white-muted);
       font-size: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
@@ -48,14 +78,14 @@
 
     .nav-links li a:hover,
     .nav-links li a.active {
-      color: #c0392b;
+      color: var(--red);
     }
 
     .hamburger {
       display: none;
       font-size: 1.9rem;
       cursor: pointer;
-      color: rgba(245,240,235,0.75);
+      color: var(--white-muted);
       position: absolute;
       right: 5%;
       top: 50%;
@@ -97,7 +127,7 @@
     }
     .sidebar a {
       text-decoration: none;
-      color: rgba(245,240,235,0.75);
+      color: var(--white-muted);
       font-size: 1.4rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -107,7 +137,7 @@
       transition: color 0.2s;
     }
     .sidebar a:hover, .sidebar a.active {
-      color: #c0392b;
+      color: var(--red);
     }
     .overlay {
       position: fixed;
