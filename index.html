@@ -87,12 +87,13 @@
     .navbar {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       padding: 1rem 5%;
       background: var(--glass);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(14px);
       gap: 2rem;
+      position: relative;
     }
 
     .nav-links {
@@ -104,7 +105,7 @@
     .nav-links li a {
       text-decoration: none;
       color: var(--white-muted);
-      font-size: 1rem;  /* increased */
+      font-size: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -143,33 +144,44 @@
       font-size: 1.9rem;
       cursor: pointer;
       color: var(--white-muted);
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    /* Mobile Sidebar - ENHANCED GLASS EFFECT + 180° rotated words */
+    /* Mobile Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
       right: -100%;
       width: min(280px, 70%);
       height: 100vh;
-      /* ENHANCED GLASS EFFECT: stronger blur, semi-transparent background with subtle gradient */
       background: rgba(10, 10, 10, 0.55);
       backdrop-filter: blur(18px) saturate(180%);
       -webkit-backdrop-filter: blur(18px) saturate(180%);
-      /* glass border with red tint */
       border-left: 1px solid rgba(192, 57, 43, 0.5);
       box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5);
       z-index: 2000;
-      padding: 8rem 2rem 2rem;
+      padding: 2rem;
       transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .sidebar.active { right: 0; }
     .sidebar ul { 
       list-style: none; 
       display: flex; 
       flex-direction: column; 
-      gap: 2rem; 
+      gap: 2.5rem;
       align-items: center;
+      width: 100%;
+    }
+    .sidebar li {
+      text-align: center;
+      width: 100%;
     }
     .sidebar a { 
       text-decoration: none; 
@@ -178,20 +190,12 @@
       font-weight: 700; 
       text-transform: uppercase; 
       letter-spacing: 0.08em;
-      /* ROTATE TEXT 90 DEGREES */
-      transform: rotate(90deg);
-      display: inline-block;
-      transition: color 0.2s, transform 0.2s;
-      /* For better readability, we also flip horizontally if needed, but 180deg is exactly upside down */
-      writing-mode: horizontal-tb;
+      display: block;
+      padding: 0.4rem 0;
+      transition: color 0.2s;
     }
     .sidebar a:hover, .sidebar a.active { 
       color: var(--red);
-      transform: rotate(90deg) scale(1.05); /* maintain rotation on hover */
-    }
-    /* ensure proper layout when rotated 180deg (text appears upside down) */
-    .sidebar li {
-      text-align: center;
     }
     .overlay {
       position: fixed;
@@ -207,6 +211,8 @@
       .nav-links { display: none; }
       .hamburger { display: block; }
       .btn-nav { display: none; }
+      .navbar { padding: 2rem 5%; }
+      .urgency-strip { margin-top: 88px; }
     }
 
     /* ===== MAIN CONTENT ===== */
@@ -664,6 +670,7 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="AboutUs.html">About Us</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="guests.html">Guests</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
@@ -673,6 +680,7 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="AboutUs.html">About Us</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="guests.html">Guests</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
