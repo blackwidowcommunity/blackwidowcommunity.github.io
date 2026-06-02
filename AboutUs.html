@@ -3,18 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Founder Page</title>
+  <title>About Bree - Black Widow Community</title>
+  
+  <!-- External Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  <!-- Google Fonts: Cinzel + Raleway — matches index.html -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Shared navbar (styles + HTML + JS injected automatically) -->
+  
+  <!-- Your existing CSS file (contains all theme styles) -->
+  <link rel="stylesheet" href="style(9).css">
+  
+  <!-- Navbar loader (injects navbar HTML and handles everything) -->
   <script src="navbar-loader.js" defer></script>
 
   <style>
-    /* Page-specific styles */
+    /* Page-specific styles that don't conflict with navbar */
+    
+    /* Ensure the home section has proper spacing from navbar */
+    .home {
+      min-height: 100vh;
+      padding: 10rem 5% 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Make text larger on About page */
     .home-content p {
       font-size: 1.8rem !important;
       line-height: 1.7 !important;
@@ -26,35 +43,42 @@
         font-size: 1.6rem !important;
         line-height: 1.6 !important;
       }
+      .home {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+        padding-top: 8rem;
+      }
     }
     
     /* Audio player styles */
+    .ai-audio-card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--black-3);
+      border-radius: 3rem;
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-subtle);
+    }
+    
     .ai-audio-card .progress-container {
       height: 8px !important;
       background: var(--black-4);
       border-radius: 10px;
       cursor: pointer;
+      flex: 1;
     }
     
     .ai-audio-card .progress-bar {
       background: var(--red);
       height: 100%;
       border-radius: 10px;
+      width: 0%;
       position: relative;
-    }
-    
-    .ai-audio-card .progress-bar::after {
-      content: '';
-      position: absolute;
-      right: -10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      background: var(--red);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--red);
-      cursor: pointer;
     }
     
     .ai-audio-card .play-btn {
@@ -66,31 +90,145 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      cursor: pointer;
+      border: none;
     }
     
     .ai-audio-card .play-btn i {
       font-size: 1.8rem;
       color: var(--black);
     }
+    
+    .ai-audio-card .time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      color: var(--white-muted);
+      margin-top: 6px;
+    }
+    
+    .ai-audio-card .audio-info {
+      flex: 1;
+    }
+    
+    /* Typing text styles */
+    .typing-text {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    
+    .typing-wrapper {
+      display: inline-flex;
+      align-items: baseline;
+    }
+    
+    #dynamic-text {
+      display: inline-block;
+      min-width: 180px;
+    }
+    
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.2em;
+      background-color: var(--red);
+      margin-left: 4px;
+      animation: cursorBlink 0.7s infinite;
+    }
+    
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    @media (max-width: 768px) {
+      .typing-text {
+        font-size: 1.8rem;
+      }
+      #dynamic-text {
+        min-width: 140px;
+      }
+    }
+    
+    /* Home image */
+    .home-img {
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    
+    .home-img img {
+      width: clamp(200px, 35vw, 320px);
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 0 25px var(--red-glow);
+      border: 2px solid var(--border);
+    }
+    
+    /* Social icons */
+    .social-icons {
+      margin: 2rem 0 1rem;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 4rem;
+      height: 4rem;
+      background-color: transparent;
+      border: 0.2rem solid var(--red);
+      font-size: 2rem;
+      border-radius: 50%;
+      margin: 0 1rem 1rem 0;
+      transition: 0.3s ease;
+      color: var(--red);
+    }
+    
+    .social-icons a:hover {
+      color: var(--black);
+      transform: scale(1.1);
+      background-color: var(--red);
+      box-shadow: 0 0 15px var(--red);
+    }
+    
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background-color: transparent;
+      border-radius: 4rem;
+      font-size: 1.6rem;
+      color: var(--red);
+      letter-spacing: 0.2rem;
+      font-weight: 600;
+      border: 2px solid var(--red);
+      transition: 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      transform: scale(1.03);
+      background-color: var(--red);
+      color: var(--black);
+      box-shadow: 0 0 25px var(--red);
+    }
   </style>
 </head>
 <body>
 
-  <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
-    </g>
-  </svg>
-
+  <!-- Main Content - Home Section -->
   <section class="home">
     <div class="home-img">
       <img src="Headshot.jpg" alt="Bree's Headshot">
     </div>
+    
     <div class="home-content">
+      <!-- Audio Card -->
       <div class="ai-audio-card main-audio">
         <button id="ai-play-btn" class="play-btn">
           <i class="fa-solid fa-play"></i>
@@ -108,7 +246,12 @@
       </div>
 
       <h1>Hey, It's <span>Bree</span></h1>
-      <h3 class="typing-text">I'm a Jr. <br><span class="typing-wrapper"><span id="dynamic-text"></span><span class="cursor"></span></span></h3>
+      
+      <h3 class="typing-text">
+        I'm a Jr. <span class="typing-wrapper">
+          <span id="dynamic-text"></span><span class="cursor"></span>
+        </span>
+      </h3>
       
       <p>My vision is to create a community, The Black Widow Community, where cybersecurity beginners interested in offensive security stop feeling stuck between knowing cyber and doing cyber, where hands-on experience builds portfolios that don't just showcase skills, but will open doors for you, yes you who's reading this.</p>
       
@@ -123,14 +266,16 @@
         <a href="https://www.youtube.com/@HackerBree" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         <a href="certs.html"><i class="fa-solid fa-folder-open"></i></a>
       </div>
+      
       <a href="guests.html" class="btn">Our Guests</a>
     </div>
   </section>
 
-  <footer class="footer glass-footer">
-    <p>Based in <span>Melbourne, Australia</span></p>
+  <footer class="footer">
+    <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
   
@@ -145,14 +290,16 @@
     const playIcon = playBtn.querySelector('i');
 
     function formatTime(seconds) {
-      if (isNaN(seconds) || seconds === undefined) return '0:00';
+      if (isNaN(seconds) || seconds === undefined || seconds === Infinity) return '0:00';
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
       return `${mins}:${secs}`;
     }
 
     audio.addEventListener('loadedmetadata', () => {
-      durationSpan.textContent = formatTime(audio.duration);
+      if (audio.duration && isFinite(audio.duration)) {
+        durationSpan.textContent = formatTime(audio.duration);
+      }
     });
 
     playBtn.addEventListener('click', () => {
@@ -168,9 +315,11 @@
     });
 
     audio.addEventListener('timeupdate', () => {
-      const progress = (audio.currentTime / audio.duration) * 100;
-      progressBar.style.width = `${progress}%`;
-      currentTimeSpan.textContent = formatTime(audio.currentTime);
+      if (audio.duration && isFinite(audio.duration)) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        currentTimeSpan.textContent = formatTime(audio.currentTime);
+      }
     });
 
     audio.addEventListener('ended', () => {
@@ -180,12 +329,16 @@
       currentTimeSpan.textContent = '0:00';
     });
 
-    progressContainer.addEventListener('click', (e) => {
-      const rect = progressContainer.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const percentage = clickX / rect.width;
-      audio.currentTime = percentage * audio.duration;
-    });
+    if (progressContainer) {
+      progressContainer.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        if (audio.duration && isFinite(audio.duration)) {
+          audio.currentTime = percentage * audio.duration;
+        }
+      });
+    }
   </script>
 
   <!-- TYPING ANIMATION SCRIPT -->
