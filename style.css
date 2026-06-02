@@ -86,7 +86,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 5%;
+  padding: 1rem 5%;
   background: var(--glass);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(14px);
@@ -94,13 +94,13 @@ header {
 }
 
 @media (min-width: 1600px) {
-  .navbar { padding: 18px 8%; }
+  .navbar { padding: 1rem 8%; }
 }
 @media (max-width: 768px) {
-  .navbar { padding: 18px 4%; }
+  .navbar { padding: 1rem 4%; }
 }
 @media (max-width: 480px) {
-  .navbar { padding: 14px 4%; }
+  .navbar { padding: 0.8rem 4%; }
 }
 
 .navbar .logo-btn {
@@ -933,7 +933,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 5%;
+  padding: 1rem 5%;
   background: var(--glass);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(14px);
@@ -1084,8 +1084,8 @@ body.sidebar-open {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 18px 5%;
+  justify-content: center; /* Changed from space-between to center */
+  padding: 1rem 5%;
   background: var(--glass);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(14px);
@@ -1204,7 +1204,7 @@ body.sidebar-open {
     display: block !important;
   }
   .navbar {
-    padding: 18px 5%;
+    padding: 1rem 5%;
     justify-content: center;
   }
 }
