@@ -212,7 +212,6 @@
       .hamburger { display: block; }
       .btn-nav { display: none; }
       .navbar { padding: 2rem 5%; }
-      .urgency-strip { margin-top: 88px; }
     }
 
     /* ===== MAIN CONTENT ===== */
@@ -226,7 +225,6 @@
       font-weight: 500;
       color: var(--white-muted);
       backdrop-filter: blur(4px);
-      margin-top: 70px;
     }
     .urgency-strip strong { color: var(--red); font-size: 1.05rem; }
 
@@ -853,6 +851,19 @@
   <footer class="footer">
     <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
   </footer>
+
+  <!-- DYNAMIC NAVBAR OFFSET -->
+  <script>
+    function syncNavOffset() {
+      const navbar = document.querySelector('.navbar');
+      const urgency = document.querySelector('.urgency-strip');
+      if (navbar && urgency) {
+        urgency.style.marginTop = navbar.offsetHeight + 'px';
+      }
+    }
+    syncNavOffset();
+    window.addEventListener('resize', syncNavOffset);
+  </script>
 
   <!-- NAVIGATION SCRIPT -->
   <script>
