@@ -16,30 +16,33 @@
   <style>
     /* ── NAVBAR & SIDEBAR SIZE FIX — matches index.html exactly ── */
 
-    /* index.html uses 78% base font-size vs style.css 62.5%.
-       Override the navbar padding and font sizes to compensate. */
-    html {
-      font-size: 78% !important; /* matches index.html: 1rem ≈ 12.5px */
+    /* Use px so navbar height is independent of rem base-size differences.
+       index.html: padding: 1rem 5% at 78% base ≈ 12.5px top/bottom
+       style.css:  padding: 1rem 5% at 62.5% base = 10px top/bottom      */
+    .navbar {
+      padding-top: 14px !important;
+      padding-bottom: 14px !important;
     }
 
-    /* Navbar height: index.html uses padding: 2rem 5% on mobile */
     @media (max-width: 768px) {
+      /* index.html uses padding: 2rem 5% on mobile at 78% ≈ 25px top/bottom */
       .navbar {
-        padding: 2rem 5% !important;
+        padding-top: 25px !important;
+        padding-bottom: 25px !important;
       }
     }
 
-    /* Sidebar links: match index.html font-size/weight exactly */
+    /* Sidebar links: match index.html rendered size (1.4rem × 78% ≈ 17.5px) */
     .sidebar a,
     .sidebar ul li a {
-      font-size: 1.4rem !important;
+      font-size: 17.5px !important;
       font-weight: 700 !important;
       letter-spacing: 0.08em !important;
     }
 
-    /* Desktop nav links: match index.html */
+    /* Desktop nav links: match index.html rendered size (1rem × 78% ≈ 12.5px) */
     .nav-links li a {
-      font-size: 1rem !important;
+      font-size: 12.5px !important;
       font-weight: 600 !important;
     }
 
