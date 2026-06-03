@@ -1,1 +1,433 @@
-loading...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Shop — Black Widow Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #c0392b;
+      --red-dark: #8e1c12;
+      --black: #0a0a0a;
+      --white: #f5f0eb;
+      --white-muted: rgba(245,240,235,0.65);
+      --white-faint: rgba(245,240,235,0.08);
+      --border: rgba(192,57,43,0.35);
+      --gold: #c8a96e;
+      --gold-dim: rgba(200,169,110,0.45);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Raleway', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      cursor: default;
+    }
+
+    /* Grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ===== NAVBAR ===== */
+    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+    .navbar {
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.1rem 5%;
+      background: rgba(10,10,10,0.5);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      gap: 2rem; position: relative;
+    }
+    .nav-links { list-style: none; display: flex; gap: 2.8rem; }
+    .nav-links li a {
+      text-decoration: none; color: var(--white-muted);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links li a:hover, .nav-links li a.active { color: var(--red); }
+    .hamburger { display: none; font-size: 1.9rem; cursor: pointer; color: var(--white-muted); position: absolute; right: 5%; top: 50%; transform: translateY(-50%); }
+    .sidebar {
+      position: fixed; top: 0; right: -100%; width: min(280px, 70%); height: 100vh;
+      background: rgba(10,10,10,0.75); backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(192,57,43,0.5); z-index: 2000; padding: 2rem;
+      transition: right 0.3s ease; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .sidebar.active { right: 0; }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2.5rem; align-items: center; }
+    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; display: block; padding: 0.3rem 0; }
+    .sidebar a:hover, .sidebar a.active { color: var(--red); }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1500; }
+    .overlay.active { opacity: 1; pointer-events: all; }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } }
+
+    /* ===== SCENE — the whole viewport ===== */
+    .scene {
+      position: fixed; inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ===== GIANT BACKGROUND WORD ===== */
+    .bg-word {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10rem, 22vw, 22rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(245,240,235,0.06);
+      user-select: none;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      z-index: 0;
+    }
+
+    /* ===== FLOATING PRODUCT IMAGE ===== */
+    .product-img-wrap {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* floating animation */
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .product-img-wrap img {
+      max-height: 52vh;
+      max-width: 45vw;
+      object-fit: contain;
+      /* deep drop shadow for detached floating look */
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(192,57,43,0.12));
+      display: block;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-18px); }
+    }
+
+    /* ===== AMBIENT GLOW BEHIND PRODUCT ===== */
+    .product-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw; height: 50vh;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(192,57,43,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    /* ===== BOTTOM-LEFT PRODUCT INFO ===== */
+    .product-info {
+      position: fixed;
+      bottom: 3.5vh;
+      left: 5vw;
+      z-index: 10;
+      max-width: 260px;
+    }
+    .product-info-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+      transition: opacity 0.4s ease;
+    }
+    .product-info-name em { color: var(--red); font-style: normal; }
+    .product-info-desc {
+      font-size: 0.75rem;
+      color: var(--white-muted);
+      line-height: 1.6;
+      font-weight: 400;
+      transition: opacity 0.4s ease;
+    }
+
+    /* ===== BOTTOM-RIGHT CTA ===== */
+    .product-cta {
+      position: fixed;
+      bottom: 3.5vh;
+      right: 5vw;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.7rem;
+    }
+    .cta-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      font-weight: 600;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.75rem 1.7rem;
+      background: transparent;
+      border: 1px solid rgba(192,57,43,0.6);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .cta-btn:hover { background: var(--red); border-color: var(--red); }
+    .cta-btn i { font-size: 0.65rem; }
+
+    /* ===== DOT NAV ===== */
+    .dot-nav {
+      position: fixed;
+      bottom: 3.5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(245,240,235,0.2);
+      border: 1px solid rgba(245,240,235,0.25);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    }
+    .dot.active {
+      background: var(--red);
+      border-color: var(--red);
+      transform: scale(1.5);
+    }
+
+    /* ===== SLIDE COUNTER TOP RIGHT ===== */
+    .slide-num {
+      position: fixed;
+      top: 50%;
+      right: 2.5rem;
+      transform: translateY(-50%);
+      z-index: 10;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(245,240,235,0.2);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      user-select: none;
+    }
+
+    /* ===== SWIPE TRANSITION ===== */
+    .product-img-wrap.switching img {
+      opacity: 0;
+      transform: scale(0.94);
+    }
+
+    @media (max-width: 768px) {
+      .product-img-wrap img { max-height: 44vh; max-width: 70vw; }
+      .bg-word { font-size: clamp(6rem, 18vw, 12rem); }
+      .product-info { max-width: 55vw; }
+      .slide-num { display: none; }
+    }
+    @media (max-width: 500px) {
+      .product-cta { bottom: 9vh; }
+      .dot-nav { bottom: 5vh; }
+      .product-info { bottom: 13vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="AboutUs.html">About Us</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="guests.html">Guests</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
+    </nav>
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="AboutUs.html">About Us</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="guests.html">Guests</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+  </header>
+
+  <!-- Scene -->
+  <div class="scene">
+    <div class="bg-word" id="bg-word">GLOVES</div>
+    <div class="product-glow"></div>
+    <div class="product-img-wrap" id="img-wrap">
+      <img id="product-img" src="" alt="Product">
+    </div>
+  </div>
+
+  <!-- Bottom left info -->
+  <div class="product-info">
+    <div class="product-info-name" id="info-name"></div>
+    <div class="product-info-desc" id="info-desc"></div>
+  </div>
+
+  <!-- Bottom right CTA -->
+  <div class="product-cta">
+    <span class="cta-label">Members Save</span>
+    <a href="#" class="cta-btn" id="cta-btn">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+
+  <!-- Dot nav -->
+  <div class="dot-nav" id="dot-nav">
+    <div class="dot active" data-i="0"></div>
+    <div class="dot" data-i="1"></div>
+    <div class="dot" data-i="2"></div>
+  </div>
+
+  <!-- Slide counter -->
+  <div class="slide-num" id="slide-num">01 / 03</div>
+
+  <script>
+    const products = [
+      {
+        word:  'GLOVES',
+        img:   'https://www.army-range.com/1166-large_default/101inc-gloves-tactical-operator-black.jpg',
+        name:  'Tactical Operator <em>Gloves</em>',
+        desc:  'Full-dexterity cut-resistant gloves built for lab days and field operations. Touchscreen-compatible. You can still type fast.',
+        link:  '#'
+      },
+      {
+        word:  'WALLET',
+        img:   'https://m.media-amazon.com/images/I/71YQQTXDQ+L._AC_SX679_.jpg',
+        name:  'RFID Blocking <em>Wallet</em>',
+        desc:  'Military-grade RFID shielding in a slim front-pocket form. A daily reminder of what you protect — and what you know how to exploit.',
+        link:  '#'
+      },
+      {
+        word:  'DETECTOR',
+        img:   'https://m.media-amazon.com/images/I/61Z0jLMxfwL._AC_SX679_.jpg',
+        name:  'RF Signal Detector <em>Wand</em>',
+        desc:  'Sweeps 1MHz–8GHz. Detects hidden cameras, GPS trackers, wireless bugs. Know what\'s transmitting before you start work.',
+        link:  '#'
+      }
+    ];
+
+    let current = 0;
+    let locked  = false;
+
+    const bgWord   = document.getElementById('bg-word');
+    const imgWrap  = document.getElementById('img-wrap');
+    const img      = document.getElementById('product-img');
+    const infoName = document.getElementById('info-name');
+    const infoDesc = document.getElementById('info-desc');
+    const ctaBtn   = document.getElementById('cta-btn');
+    const slideNum = document.getElementById('slide-num');
+    const dots     = document.querySelectorAll('.dot');
+
+    function pad(n) { return String(n + 1).padStart(2, '0'); }
+
+    function goTo(idx) {
+      if (locked || idx === current || idx < 0 || idx >= products.length) return;
+      locked = true;
+
+      const p = products[idx];
+
+      // Fade out image
+      imgWrap.classList.add('switching');
+
+      setTimeout(() => {
+        // Swap everything
+        current = idx;
+        img.src        = p.img;
+        bgWord.textContent = p.word;
+        infoName.innerHTML = p.name;
+        infoDesc.textContent = p.desc;
+        ctaBtn.href    = p.link;
+        slideNum.textContent = `${pad(idx)} / ${pad(products.length - 1)}`;
+
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+        // Fade back in
+        imgWrap.classList.remove('switching');
+        locked = false;
+      }, 380);
+    }
+
+    // Init first slide immediately
+    (function init() {
+      const p = products[0];
+      img.src        = p.img;
+      bgWord.textContent = p.word;
+      infoName.innerHTML = p.name;
+      infoDesc.textContent = p.desc;
+    })();
+
+    // Dot clicks
+    dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i))));
+
+    // Touch swipe
+    let tx = 0;
+    document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) < 45) return;
+      goTo(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    // Mouse drag
+    let mx = 0, mdown = false;
+    document.addEventListener('mousedown', e => { mx = e.clientX; mdown = true; });
+    document.addEventListener('mouseup', e => {
+      if (!mdown) return;
+      mdown = false;
+      const dx = e.clientX - mx;
+      if (Math.abs(dx) < 55) return;
+      goTo(dx < 0 ? current + 1 : current - 1);
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft')  goTo(current - 1);
+    });
+
+    // Navbar
+    const hamburger = document.getElementById('hamburger');
+    const sidebar   = document.getElementById('sidebar');
+    const overlay   = document.getElementById('overlay');
+    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
+  </script>
+
+</body>
+</html>
