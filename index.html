@@ -527,6 +527,17 @@
       .portfolio-card-content p { font-size: 0.85rem; }
     }
 
+    /* Card option sub-label */
+    .card-option-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
     /* ===== TAB SWITCHER ===== */
     .tab-switcher {
       display: flex;
@@ -687,7 +698,7 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <div class="urgency-strip"> ⚠️ <strong>Only 20 seats per week.</strong> For both communities, seats refresh every Sunday. Early bird saves 70%, reserve your spot.</div>
+  <div class="urgency-strip"> ⚠️ <strong>Only 20 seats per session.</strong> Seats include existing members and refresh every week — they go fast. Reserve your spot before it fills up.</div>
 
   <div class="hero">
     <i class="fa-solid fa-spider spider-icon"></i>
@@ -716,44 +727,63 @@
     <section id="join">
       <p class="section-label">Choose Your Path</p>
       <h2 class="section-title">Pick Your Community</h2>
-      <p class="section-intro">Same tight circle of 20. Choose the format that fits where you are in the world.</p>
+      <p class="section-intro">Walk out with a live digital portfolio that attracts cyber recruiters that will take you seriously.</p>
+
       <div class="pricing-grid">
+
+        <!-- 1. PHYSICAL COMMUNITY -->
         <div class="pricing-card">
+          <div class="card-badge">📍 Melbourne CBD · Max 20 Seats</div>
+          <i class="fa-solid fa-location-dot card-icon"></i>
+          <div class="card-title">Physical Community</div>
+          <div class="card-option-label">One-off Weekly Workshop</div>
+          <p class="card-desc">Every week we run a live offensive security challenge in-person in Melbourne's CBD. If you're local and want to experience the community as a one-off, you're welcome to join — but spots are capped at 20 total including members, so everyone gets real one-to-one guidance. No fluff. You're in the room solving real problems.</p>
+          <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i>Done live and step-by-step in the room — errors fixed on the spot so you cannot fail</li>
+            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single afternoon</li>
+            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
+            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — quality one-to-one support guaranteed</li>
+            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
+          </ul>
+          <a href="#" class="cta-btn">Claim Your Physical Seat</a>
+        </div>
+
+        <!-- 2. ONLINE COMMUNITY -->
+        <div class="pricing-card">
+          <div class="card-badge">🌐 International · Max 20 Seats</div>
           <i class="fa-solid fa-wifi card-icon"></i>
           <div class="card-title">Online Community</div>
-          <p class="card-desc">Learn, ethical hack, and build alongside your cohort from anywhere.</p>
-          <div class="price-row">
-            <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-            <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
-            <div class="price-tier late"><span><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
-          </div>
+          <div class="card-option-label">One-off Weekly Workshop</div>
+          <p class="card-desc">Same weekly offensive security challenge, fully virtual. Perfect if you're based internationally or overseas. We cap it at 20 people including members — it's not a webinar where you disappear into a crowd. You'll get direct help when you're stuck, same as being in the room.</p>
           <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Live weekly virtual sessions with Bree</li>
-            <li><i class="fa-solid fa-check"></i>Private Discord & accountability pods</li>
-            <li><i class="fa-solid fa-check"></i>Hands-on CTF walkthroughs</li>
-            <li><i class="fa-solid fa-check"></i>Portfolio-building projects</li>
+            <li><i class="fa-solid fa-check"></i>Done live and step-by-step virtually — errors fixed in real-time so you cannot fall behind</li>
+            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single session</li>
+            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
+            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — personal, never a crowd</li>
+            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
           </ul>
-          <a href="#" class="cta-btn">Join Online — Claim Seat</a>
+          <a href="#" class="cta-btn">Claim Your Online Seat</a>
         </div>
+
+        <!-- 3. BECOME A MEMBER -->
         <div class="pricing-card featured">
-          <div class="card-badge">🔥 Limited Availability</div>
-          <i class="fa-solid fa-location-dot card-icon"></i>
-          <div class="card-title">In-Person Community</div>
-          <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners.</p>
-          <div class="price-row">
-            <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-            <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
-            <div class="price-tier late"><span><i class="fa-solid fa-lock"></i> Late Release</span><span class="tier-price">$99</span></div>
-          </div>
+          <div class="card-badge">⚡ Full Access · Best Value</div>
+          <i class="fa-solid fa-id-card card-icon"></i>
+          <div class="card-title">Become a Member</div>
+          <div class="card-option-label">Monthly Membership</div>
+          <p class="card-desc">Stop paying per session. A monthly membership gives you unrestricted access to both the physical and online weekly sessions, plus a full ecosystem built to accelerate your career in offensive security. For people who are serious about the long game.</p>
           <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Everything in Online, plus in-room access</li>
-            <li><i class="fa-solid fa-check"></i>Face-to-face mentorship with Bree</li>
-            <li><i class="fa-solid fa-check"></i>Networking with Melbourne's offensive security scene</li>
-            <li><i class="fa-solid fa-check"></i>Physical Kali rigs provided</li>
+            <li><i class="fa-solid fa-check"></i>Full access to both physical and online weekly sessions — free with membership</li>
+            <li><i class="fa-solid fa-check"></i>Discounted prices on our online shop</li>
+            <li><i class="fa-solid fa-check"></i>Community chat room — job postings, CTF challenges, and paid bug bounty opportunities</li>
+            <li><i class="fa-solid fa-check"></i>Recordings of all previous sessions — refer back whenever you need</li>
+            <li><i class="fa-solid fa-check"></i>Post your tech problems — the community helps you troubleshoot</li>
           </ul>
-          <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
+          <a href="#" class="cta-btn">Become a Member — Join Now</a>
         </div>
+
       </div>
+
     </section>
   </div>
 
@@ -937,6 +967,7 @@
       });
     });
   </script>
+
 
 </body>
 </html>
