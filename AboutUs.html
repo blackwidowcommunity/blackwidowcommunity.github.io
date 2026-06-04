@@ -74,7 +74,26 @@
       color: var(--black);
     }
 
-    /* ── FOOTER (UPDATED: single row with copyright + legal links + social icons) ── */
+    /* Portfolio button (Certificates) - green glow */
+    .social-icons a:last-child {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:last-child:hover {
+      color: #2ecc71 !important;
+      transform: translateY(-4px);
+      text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+    }
+    
+    /* Also style the portfolio icon in footer to green on hover */
+    .footer-socials-row a.s-portfolio-row:hover {
+      border-color: #2ecc71 !important;
+      color: #2ecc71 !important;
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.5) !important;
+    }
+
+    /* ── FOOTER (UPDATED: single row with centered copyright, legal left, social right) ── */
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
@@ -174,9 +193,9 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* ── SINGLE BOTTOM BAR (removed middle row) ── */
+    /* ── SINGLE BOTTOM BAR: 3-column layout with perfectly centered copyright ── */
     .footer-bottom {
-      border-top: none; /* removing the duplicate border, we'll have one clean row */
+      border-top: none;
       padding: 1.8rem 6%;
       background: transparent;
     }
@@ -188,23 +207,17 @@
       flex-wrap: wrap;
       gap: 1.5rem;
       font-family: 'Raleway', sans-serif;
+      position: relative;
     }
 
-    /* Copyright text */
-    .copyright {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.05em;
-      margin: 0;
-    }
-
-    /* Legal links row (inline, no extra titles) */
+    /* Left column: Legal links (Community Guidelines & Data Privacy) - no underline */
     .legal-links {
       display: flex;
       gap: 2.5rem;
       align-items: center;
       flex-wrap: wrap;
+      flex: 1;
+      justify-content: flex-start;
     }
 
     .legal-links a {
@@ -212,23 +225,39 @@
       font-size: 1.05rem;
       font-weight: 500;
       letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.55);
       text-decoration: none;
       transition: color 0.25s ease;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 0.2rem;
+      border-bottom: none; /* REMOVED underline completely */
+      padding-bottom: 0;
     }
 
     .legal-links a:hover {
       color: #fff;
-      border-bottom-color: var(--red, #c0392b);
     }
 
-    /* Social Icons (reduced size to match the row elegantly, but keeping the glow effect) */
+    /* Center column: Copyright text - 2026, perfectly centered */
+    .copyright {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+      margin: 0;
+      text-align: center;
+      flex-shrink: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    /* Right column: Social Icons */
     .footer-socials-row {
       display: flex;
       gap: 1.2rem;
       align-items: center;
+      flex: 1;
+      justify-content: flex-end;
     }
 
     .footer-socials-row a {
@@ -279,14 +308,14 @@
       transform: translateY(-3px) scale(1.05);
     }
 
-    /* Portfolio hover glow */
+    /* Portfolio/Certificates button - green glow on hover as requested */
     .footer-socials-row a.s-portfolio-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(180, 50, 30, 0.6) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.55) 0%, transparent 70%);
     }
     .footer-socials-row a.s-portfolio-row:hover {
-      border-color: var(--red, #c0392b);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(180, 50, 30, 0.45);
+      border-color: #2ecc71 !important;
+      color: #2ecc71 !important;
+      box-shadow: 0 0 22px rgba(46, 204, 113, 0.55) !important;
       transform: translateY(-3px) scale(1.05);
     }
 
@@ -295,21 +324,31 @@
       z-index: 1;
     }
 
-    /* Responsive: on mobile, stack everything nicely */
+    /* Responsive: for mobile, we stack and adjust centering */
     @media (max-width: 850px) {
       .footer-bottom-container {
         flex-direction: column;
         justify-content: center;
         text-align: center;
         gap: 1.2rem;
+        position: relative;
       }
       
       .legal-links {
         justify-content: center;
+        order: 1;
+      }
+      
+      .copyright {
+        position: static;
+        transform: none;
+        order: 2;
+        white-space: normal;
       }
       
       .footer-socials-row {
         justify-content: center;
+        order: 3;
       }
     }
 
@@ -337,7 +376,6 @@
       display: none;
     }
     
-    /* Ensure the old middle section is completely hidden */
     .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
       display: none;
     }
@@ -390,7 +428,7 @@
       <div class="social-icons">
         <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@HackerBree" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="certs.html"><i class="fa-solid fa-folder-open"></i></a>
+        <a href="certs.html" class="cert-btn-glow"><i class="fa-solid fa-folder-open"></i></a>
       </div>
       <a href="guests.html" class="btn">Our Guests</a>
     </div>
@@ -425,19 +463,19 @@
       </div>
     </div>
 
-    <!-- ── SINGLE BOTTOM ROW: copyright, legal links, social media icons (all inline) ── -->
+    <!-- ── SINGLE BOTTOM ROW: Legal links left | copyright 2026 center | social right ── -->
     <div class="footer-bottom">
       <div class="footer-bottom-container">
-        <!-- Copyright text -->
-        <div class="copyright">© 2025 Black Widow Community. All rights reserved.</div>
-        
-        <!-- Legal links (Community Guidelines & Data Privacy on same line) -->
+        <!-- LEFT: Legal links (Community Guidelines & Data Privacy) - no underline -->
         <div class="legal-links">
           <a href="community-guidelines.html">Community Guidelines</a>
           <a href="privacy.html">Data Privacy</a>
         </div>
         
-        <!-- Social media icons (LinkedIn, YouTube, Portfolio) -->
+        <!-- CENTER: Copyright 2026 (absolutely centered in desktop) -->
+        <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
+        
+        <!-- RIGHT: Social media icons (Certificates button glows green) -->
         <div class="footer-socials-row">
           <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
             <i class="fa-brands fa-linkedin"></i>
@@ -445,7 +483,7 @@
           <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
             <i class="fa-brands fa-youtube"></i>
           </a>
-          <a href="certs.html" aria-label="Portfolio" class="s-portfolio-row">
+          <a href="certs.html" aria-label="Certificates Portfolio" class="s-portfolio-row">
             <i class="fa-solid fa-folder-open"></i>
           </a>
         </div>
