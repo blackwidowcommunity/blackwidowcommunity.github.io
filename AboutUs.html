@@ -177,72 +177,53 @@
     /* ── MAIN FOOTER BODY ── */
     .footer-inner {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 3rem;
-      padding: 4rem 6%;
+      padding: 3.5rem 6% 3rem;
       flex-wrap: wrap;
     }
 
-    /* Brand column */
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .footer-location {
-      font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    .footer-location span {
-      color: var(--red, #c0392b);
-    }
-
-    /* Link columns */
+    /* Brand column - location removed, so we can hide or repurpose. We'll remove it entirely */
+    /* Link columns: legal links on ONE LINE horizontally */
     .footer-links {
       display: flex;
-      gap: 5rem;
+      gap: 3rem;
+      align-items: baseline;
       flex-wrap: wrap;
     }
 
-    .footer-col {
+    /* Single row for legal links without any extra column title */
+    .legal-row {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      gap: 2.8rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .footer-col-title {
+    .legal-row a {
       font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red, #c0392b);
-      margin: 0 0 0.4rem 0;
-    }
-
-    .footer-col a {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: rgba(255,255,255,0.5);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
       text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.25s ease;
-      white-space: nowrap;
+      transition: color 0.25s ease, border-color 0.2s;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 0.2rem;
     }
 
-    .footer-col a:hover {
+    .legal-row a:hover {
       color: #fff;
+      border-bottom-color: var(--red, #c0392b);
     }
 
-    /* ── SOCIAL ICONS ── */
+    /* Remove partnerships column entirely */
+    .footer-col-partnerships {
+      display: none;
+    }
+
+    /* Socials remain */
     .footer-socials {
       display: flex;
       gap: 1.4rem;
@@ -332,6 +313,11 @@
       letter-spacing: 0.06em;
     }
 
+    /* Remove the old brand/location element */
+    .footer-brand {
+      display: none;
+    }
+
     @media (max-width: 768px) {
       .footer-partners {
         padding: 2.5rem 5% 1.5rem;
@@ -341,21 +327,35 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 3rem 5%;
-        gap: 2.5rem;
+        padding: 2.8rem 5%;
+        gap: 2.2rem;
       }
 
-      .footer-links {
-        gap: 3rem;
+      .legal-row {
         justify-content: center;
-      }
-
-      .footer-col {
-        align-items: center;
+        gap: 2rem;
       }
 
       .footer-socials {
         justify-content: center;
+      }
+
+      .legal-row a {
+        font-size: 1rem;
+      }
+    }
+
+    /* Additional small screens */
+    @media (max-width: 480px) {
+      .legal-row {
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .legal-row a {
+        font-size: 1.1rem;
+      }
+      .footer-inner {
+        gap: 1.8rem;
       }
     }
   </style>
@@ -415,7 +415,7 @@
 
   <footer class="footer glass-footer">
 
-    <!-- ── BRAND PARTNERSHIPS ── -->
+    <!-- ── BRAND PARTNERSHIPS STRIP (animated track) ── -->
     <div class="footer-partners">
       <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
       <div class="partners-track-wrapper">
@@ -442,29 +442,19 @@
       </div>
     </div>
 
-    <!-- ── MAIN BODY ── -->
+    <!-- ── MAIN FOOTER BODY ── with Legal on single row, No 'Based in Melbourne', no partnerships column -->
     <div class="footer-inner">
-
-      <!-- Brand -->
-      <div class="footer-brand">
-        <p class="footer-location">Based in <span>Melbourne, Australia</span></p>
-      </div>
-
-      <!-- Nav links -->
+      
+      <!-- Legal links only: single line containing 'Community Guidelines' and 'Data Privacy' -->
       <div class="footer-links">
-        <div class="footer-col">
-          <h4 class="footer-col-title">Legal</h4>
+        <div class="legal-row">
           <a href="community-guidelines.html">Community Guidelines</a>
           <a href="privacy.html">Data Privacy</a>
-        </div>
-        <div class="footer-col">
-          <h4 class="footer-col-title">Partnerships</h4>
-          <a href="partnerships.html">Brand Partnerships</a>
-          <a href="mailto:bree@blackwidowsec.com">Work With Us</a>
+          <!-- Optionally, you could keep a mailto hidden, but requirement says remove partnerships words. So we omit Work With Us / Brand Partnerships entirely -->
         </div>
       </div>
 
-      <!-- Socials -->
+      <!-- Socials (same original design) -->
       <div class="footer-socials">
         <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin">
           <i class="fa-brands fa-linkedin"></i>
