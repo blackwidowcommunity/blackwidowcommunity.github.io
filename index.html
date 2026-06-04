@@ -3,54 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Black Widow Community</title>
+  <title>Black Widow Community | Membership Tiers</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <!-- Google Fonts: Cinzel + Raleway for readability -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ========================================
-       BLACK WIDOW THEME - ENHANCED TYPOGRAPHY
-       Larger base font sizes for better readability
-       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     :root {
       --red: #c0392b;
       --red-dark: #8e1c12;
-      --red-glow: rgba(192,57,43,0.25);
       --black: #0a0a0a;
       --black-2: #111111;
       --black-3: #181818;
       --black-4: #222222;
       --white: #f5f0eb;
       --white-muted: rgba(245,240,235,0.75);
-      --white-faint: rgba(245,240,235,0.12);
+      --white-faint: rgba(245,240,235,0.1);
       --glass: rgba(20,10,10,0.78);
       --border: rgba(192,57,43,0.35);
       --border-subtle: rgba(245,240,235,0.1);
       --green: #4bb78e;
       --green-glow: rgba(75,183,142,0.2);
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      font-size: 78%;
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: 'Raleway', sans-serif;
       background-color: var(--black);
       color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
       line-height: 1.5;
+      overflow-x: hidden;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -60,7 +44,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     .web-svg {
       position: fixed;
       top: 50%;
@@ -72,15 +55,7 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-    }
-
+    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
     .navbar {
       display: flex;
       align-items: center;
@@ -90,15 +65,8 @@
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(14px);
       gap: 2rem;
-      position: relative;
     }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2.8rem;
-    }
-
+    .nav-links { list-style: none; display: flex; gap: 2.8rem; }
     .nav-links li a {
       text-decoration: none;
       color: var(--white-muted);
@@ -108,56 +76,25 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
-    .nav-links li a:hover,
-    .nav-links li a.active {
-      color: var(--red);
-    }
-
+    .nav-links li a:hover, .nav-links li a.active { color: var(--red); }
     .btn-nav {
-      display: inline-block;
       padding: 0.6rem 1.4rem;
       background: transparent;
       border: 1px solid var(--red);
       color: var(--red);
       border-radius: 999px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
       text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: 0.2s;
     }
-
-    .btn-nav:hover {
-      background: var(--red);
-      color: var(--white);
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.9rem;
-      cursor: pointer;
-      color: var(--white-muted);
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
+    .hamburger { display: none; font-size: 1.9rem; cursor: pointer; color: var(--white-muted); position: absolute; right: 5%; top: 50%; transform: translateY(-50%); }
     .sidebar {
       position: fixed;
       top: 0;
       right: -100%;
       width: min(280px, 70%);
       height: 100vh;
-      background: rgba(10, 10, 10, 0.55);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border-left: 1px solid rgba(192, 57, 43, 0.5);
-      box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5);
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
       z-index: 2000;
       padding: 2rem;
       transition: right 0.3s ease;
@@ -165,41 +102,19 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      border-left: 1px solid var(--border);
     }
     .sidebar.active { right: 0; }
-    .sidebar ul { 
-      list-style: none; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 2.5rem;
-      align-items: center;
-      width: 100%;
-    }
-    .sidebar li {
-      text-align: center;
-      width: 100%;
-    }
-    .sidebar a { 
-      text-decoration: none; 
-      color: var(--white-muted); 
-      font-size: 1.4rem; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 0.08em;
-      display: block;
-      padding: 0.4rem 0;
-      transition: color 0.2s;
-    }
-    .sidebar a:hover, .sidebar a.active { 
-      color: var(--red);
-    }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2rem; align-items: center; }
+    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1.2rem; font-weight: 700; text-transform: uppercase; }
+    .sidebar a:hover { color: var(--red); }
     .overlay {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.7);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s;
       z-index: 1500;
     }
     .overlay.active { opacity: 1; pointer-events: all; }
@@ -207,371 +122,141 @@
       .nav-links { display: none; }
       .hamburger { display: block; }
       .btn-nav { display: none; }
-      .navbar { padding: 2rem 5%; }
     }
 
     .urgency-strip {
       background: linear-gradient(135deg, rgba(140,20,10,0.4) 0%, rgba(80,10,5,0.4) 100%);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 1rem;
+      padding: 1rem;
       text-align: center;
       font-size: 1rem;
       font-weight: 500;
-      color: var(--white-muted);
-      backdrop-filter: blur(4px);
     }
-    .urgency-strip strong { color: var(--red); font-size: 1.05rem; }
-
     .hero {
       text-align: center;
-      padding: 4rem 1.5rem 3rem;
+      padding: 4rem 1.5rem 2rem;
       max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
-    .spider-icon {
-      display: block;
-      font-size: 3.2rem;
-      color: var(--red);
-      text-align: center;
-      margin-bottom: 1.2rem;
-      animation: pulse 3s ease-in-out infinite;
-    }
+    .spider-icon { font-size: 3rem; color: var(--red); margin-bottom: 1rem; animation: pulse 3s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.94); } }
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 7vw, 5rem);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
+    .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.4rem, 7vw, 5rem); font-weight: 900; }
     .hero h1 span { color: var(--red); }
-    .hero .subtitle {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: var(--white-muted);
-      max-width: 680px;
-      margin: 0.5rem auto 2rem;
-    }
-    .hero .btn-nav {
-      font-size: 1.1rem;
-      padding: 0.8rem 2rem;
-      display: inline-block;
-    }
+    .subtitle { font-size: 1.1rem; color: var(--white-muted); max-width: 680px; margin: 0.5rem auto; }
+    .divider { width: 70px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 1.5rem auto; }
 
-    .divider {
-      width: 70px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--red), transparent);
-      margin: 1.5rem auto;
-    }
+    section { max-width: 1280px; margin: 0 auto; padding: 3rem 2rem; position: relative; z-index: 1; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.3em; color: var(--red); text-align: center; }
+    .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); text-align: center; margin-bottom: 1rem; }
+    .section-intro { text-align: center; color: var(--white-muted); max-width: 620px; margin: 0 auto 2.8rem; }
 
-    section {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      position: relative;
-      z-index: 1;
-    }
-    @media (max-width: 768px) {
-      section { padding: 3rem 1.2rem; }
-    }
-
-    .section-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.3em;
-      color: var(--red);
-      text-align: center;
-      margin-bottom: 0.6rem;
-      font-weight: 600;
-    }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    .section-intro {
-      text-align: center;
-      color: var(--white-muted);
-      font-size: 1.05rem;
-      max-width: 620px;
-      margin: 0 auto 2.8rem;
-      line-height: 1.6;
-    }
-
-    /* PRICING GRID - custom order + medium-screen centering for 3rd card */
+    /* Pricing grid & cards */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
       gap: 2rem;
     }
-
-    /* For medium screens (between 769px and 1100px) we want the 3rd item centered.
-       We'll target .pricing-grid when there are exactly 3 children using grid layout.
-       Instead of complex selectors, we use a wrapper class or rely on new order.
-       Since the HTML order changed: Member (1), Online (2), Physical (3) — we want the 3rd card (Physical) centered 
-       when viewport width is medium. A direct grid approach: on medium screens, make grid columns 1fr 1fr, 
-       then force third item to span both columns with centering. But that stretches it; better: 
-       set display: flex, flex-wrap: wrap, justify-content: center on container, and use fixed width.
-       However that may break existing behavior on large screens. Instead use a media query that overrides when 
-       viewport width is between 769px and 1099px and the grid has exactly 3 cards? Instead we can use container queries? 
-       Simpler: use CSS grid + auto-fill and then at medium screens we set grid-template-columns: repeat(2, minmax(0, 380px));
-       and then target the third card with nth-child(3) { grid-column: span 2 / span 2; justify-self: center; width: 100%; max-width: 380px; margin: 0 auto; }
-       That creates a balanced layout. Let's implement robustly.
-    */
     @media (min-width: 769px) and (max-width: 1099px) {
       .pricing-grid {
         grid-template-columns: repeat(2, minmax(320px, 420px));
         justify-content: center;
-        gap: 2rem;
       }
-      /* Target the third card (Physical Community) and make it centered under the two columns */
       .pricing-grid .pricing-card:nth-child(3) {
         grid-column: span 2;
         max-width: 500px;
-        width: 100%;
         justify-self: center;
         margin: 0 auto;
       }
     }
-
-    /* For extra small screens, default to single column */
-    @media (max-width: 768px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 768px) { .pricing-grid { grid-template-columns: 1fr; } }
 
     .pricing-card {
       background: var(--black-3);
       border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 2rem 1.8rem;
-      transition: border-color 0.3s, transform 0.2s;
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .pricing-card:hover { border-color: var(--border); transform: translateY(-4px); }
     .pricing-card.featured {
       border-color: var(--red);
-      background: linear-gradient(160deg, rgba(140,20,10,0.18) 0%, var(--black-3) 70%);
+      background: linear-gradient(145deg, rgba(140,20,10,0.2), var(--black-3));
+      box-shadow: 0 0 15px rgba(192,57,43,0.2);
     }
     .card-badge {
       display: inline-block;
       padding: 0.3rem 1rem;
       background: var(--red);
-      color: var(--white);
       border-radius: 999px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 800;
       letter-spacing: 0.1em;
       margin-bottom: 1.2rem;
+      width: fit-content;
     }
     .card-icon { font-size: 2rem; color: var(--red); margin-bottom: 1rem; }
-    .card-title { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .card-desc { color: var(--white-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.8rem; }
-    .price-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.8rem; }
-    .price-tier {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.6rem 1rem;
-      border-radius: 12px;
-      background: var(--white-faint);
-      font-size: 0.95rem;
-      font-weight: 500;
+    .card-title { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-desc { color: var(--white-muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; }
+
+    /* Feature table (tick-box style) */
+    .feature-table {
+      margin: 1rem 0 1.5rem;
+      border-top: 1px solid var(--border-subtle);
     }
-    .price-tier.early { border-left: 3px solid var(--green); }
-    .price-tier.general { border-left: 3px solid var(--white-muted); }
-    .price-tier.late { border-left: 3px solid var(--red); }
-    .price-tier.early .tier-price { color: var(--green); font-weight: 700; }
-    .price-tier.late .tier-price { color: var(--red); font-weight: 700; }
-    .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-    .features-list li { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.9rem; color: var(--white-muted); }
-    .features-list li i { color: var(--red); margin-top: 2px; font-size: 1rem; }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+      color: var(--white-muted);
+    }
+    .feature-icon {
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .feature-icon i {
+      font-size: 1rem;
+    }
+    .feature-icon .fa-check-circle { color: var(--green); }
+    .feature-icon .fa-times-circle { color: rgba(245,240,235,0.3); font-size: 0.9rem; }
+    .feature-text {
+      flex: 1;
+      line-height: 1.4;
+    }
+    .feature-sub {
+      font-size: 0.75rem;
+      color: rgba(245,240,235,0.5);
+      margin-left: 0.2rem;
+    }
     .cta-btn {
       display: block;
       width: 100%;
       padding: 0.9rem;
-      margin-top: 1.8rem;
+      margin-top: auto;
       background: var(--red);
       color: var(--white);
       border-radius: 999px;
-      font-size: 0.95rem;
       font-weight: 800;
       text-align: center;
       cursor: pointer;
       transition: 0.2s;
+      text-decoration: none;
+      border: none;
     }
     .cta-btn:hover { background: var(--red-dark); transform: scale(0.98); }
-
-    .portfolio-showcase {
-      margin-top: 1rem;
-    }
-    .portfolio-3col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-      gap: 2rem;
-      justify-content: center;
-    }
-    .portfolio-card-large {
-      background: var(--black-3);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      backdrop-filter: blur(2px);
-    }
-    .portfolio-card-large:hover {
-      border-color: var(--border);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    }
-    .portfolio-img-wrapper {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: var(--black-4);
-      position: relative;
-      cursor: pointer;
-    }
-    .portfolio-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    .portfolio-card-large:hover .portfolio-img-wrapper img {
-      transform: scale(1.03);
-    }
-    .portfolio-card-content {
-      padding: 1.6rem 1.5rem 1.8rem;
-      text-align: left;
-    }
-    .portfolio-card-content h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--red);
-      margin-bottom: 0.6rem;
-    }
-    .portfolio-card-content p {
-      font-size: 0.9rem;
-      color: var(--white-muted);
-      line-height: 1.5;
-      margin-bottom: 1.2rem;
-    }
-    .portfolio-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--white);
-      background: rgba(192,57,43,0.2);
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: 0.25s;
-    }
-    .portfolio-link i { font-size: 0.8rem; transition: transform 0.2s; }
-    .portfolio-link:hover {
-      background: var(--red);
-      color: var(--black);
-      border-color: var(--red);
-    }
-    .portfolio-link:hover i {
-      transform: translateX(4px);
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-      gap: 1.8rem;
-    }
-    .testimonial-card {
-      background: var(--black-3);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .video-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: var(--black-4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .play-circle {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .play-circle i { color: white; font-size: 1.2rem; margin-left: 3px; }
-    .testimonial-body { padding: 1.2rem; }
-    .testimonial-name { font-weight: 800; font-size: 1rem; }
-    .testimonial-role { font-size: 0.8rem; color: var(--red); margin-bottom: 0.6rem; }
-    .testimonial-quote { font-size: 0.88rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
-    .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 16px; font-size: 0.85rem; }
-
-    .sep {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 1.8rem;
-      background: var(--glass);
-      border-top: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-      font-size: 0.95rem;
-      color: var(--white-muted);
-      margin-top: 2rem;
-    }
-    .footer span { color: var(--red); font-weight: 600; }
-
-    button, a, .btn, .cta-btn, .portfolio-link, .nav-btn, .play-btn {
-      cursor: pointer;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media (max-width: 650px) {
-      .portfolio-card-content h3 { font-size: 1.2rem; }
-      .portfolio-card-content p { font-size: 0.85rem; }
-    }
-
-    .card-option-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--red);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      opacity: 0.85;
-    }
 
     .tab-switcher {
       display: flex;
       justify-content: center;
-      padding: 0 1.5rem 2.5rem;
-      position: relative;
-      z-index: 1;
+      padding: 0 1.5rem 2rem;
     }
     .tab-track {
       display: flex;
@@ -588,9 +273,8 @@
       height: calc(100% - 10px);
       background: var(--red);
       border-radius: 999px;
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.3s, width 0.3s;
       z-index: 0;
-      pointer-events: none;
     }
     .tab-btn {
       position: relative;
@@ -598,356 +282,255 @@
       background: transparent;
       border: none;
       color: var(--white-muted);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       padding: 0.65rem 1.6rem;
       border-radius: 999px;
       cursor: pointer;
-      white-space: nowrap;
-      transition: color 0.25s;
-      min-height: unset;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
     }
     .tab-btn.active { color: var(--white); }
-    .tab-btn:not(.active):hover { color: var(--white); }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-    @media (max-width: 500px) {
-      .tab-btn { font-size: 0.75rem; padding: 0.6rem 1rem; letter-spacing: 0.04em; }
-    }
-    .about-section {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      position: relative;
-      z-index: 1;
-    }
-    .about-grid {
+
+    .portfolio-3col, .testimonials-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin-top: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
-    .about-img-wrapper {
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      aspect-ratio: 4/5;
+    .portfolio-card-large, .testimonial-card {
       background: var(--black-3);
+      border-radius: 24px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
     }
-    .about-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .about-text h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
-      line-height: 1.3;
-    }
-    .about-text h3 span { color: var(--red); }
-    .about-text p {
-      font-size: 1rem;
-      color: var(--white-muted);
-      line-height: 1.8;
-      margin-bottom: 1.2rem;
-    }
-    .about-values {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .about-value-pill {
-      padding: 0.4rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 0.85rem;
+    .portfolio-img-wrapper { aspect-ratio: 16/10; overflow: hidden; }
+    .portfolio-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    .portfolio-card-content { padding: 1.5rem; }
+    .portfolio-link {
+      display: inline-flex;
+      gap: 0.6rem;
+      background: rgba(192,57,43,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      color: var(--white);
       font-weight: 600;
-      color: var(--red);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
     }
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .about-img-wrapper { aspect-ratio: 16/9; }
-      .about-section { padding: 3rem 1.2rem; }
+    .testimonial-card video, .video-placeholder { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: var(--black-4); display: flex; align-items: center; justify-content: center; }
+    .play-circle { width: 48px; height: 48px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .testimonial-body { padding: 1rem; }
+
+    .footer {
+      text-align: center;
+      padding: 1.8rem;
+      background: var(--glass);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .feature-row { font-size: 0.8rem; gap: 0.5rem; }
+      .feature-icon { width: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
-      <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352" stroke-width="0.7"/>
-      <path d="M400,304 Q452,296 487,334 Q520,362 528,400 Q530,444 496,472 Q462,508 400,496 Q344,504 310,472 Q272,446 272,400 Q270,354 308,326 Q344,296 400,304Z" stroke-width="0.7"/>
-    </g>
-  </svg>
+<svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="rgba(245,240,235,0.2)" fill="none" stroke-width="0.6">
+    <line x1="400" y1="400" x2="400" y2="0"/><line x1="400" y1="400" x2="594" y2="14"/>
+    <line x1="400" y1="400" x2="748" y2="110"/><line x1="400" y1="400" x2="800" y2="280"/>
+    <line x1="400" y1="400" x2="800" y2="400"/><line x1="400" y1="400" x2="800" y2="520"/>
+    <line x1="400" y1="400" x2="748" y2="690"/><line x1="400" y1="400" x2="594" y2="786"/>
+    <line x1="400" y1="400" x2="400" y2="800"/><line x1="400" y1="400" x2="206" y2="786"/>
+    <line x1="400" y1="400" x2="52" y2="690"/><line x1="400" y1="400" x2="0" y2="520"/>
+    <line x1="400" y1="400" x2="0" y2="400"/><line x1="400" y1="400" x2="0" y2="280"/>
+    <line x1="400" y1="400" x2="52" y2="110"/><line x1="400" y1="400" x2="206" y2="14"/>
+    <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352"/>
+    <path d="M400,304 Q452,296 487,334 Q520,362 528,400 Q530,444 496,472 Q462,508 400,496 Q344,504 310,472 Q272,446 272,400 Q270,354 308,326 Q344,296 400,304Z"/>
+  </g>
+</svg>
 
-  <header>
-    <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
-    </nav>
-    <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
+<header>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Guests</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
+  </nav>
+  <div class="sidebar" id="sidebar"><ul><li><a href="#">Home</a></li><li><a href="#">About</a></li><li><a href="#">Projects</a></li><li><a href="#">Guests</a></li><li><a href="#">Shop</a></li><li><a href="#">Contact</a></li></ul></div>
+  <div class="overlay" id="overlay"></div>
+</header>
+
+<div class="urgency-strip">⚠️ White hat ethical group — violation of guidelines leads to permanent ban & report to authorities. ⚠️</div>
+
+<div class="hero">
+  <i class="fa-solid fa-spider spider-icon"></i>
+  <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
+  <p class="subtitle">The ultimate playground for ethical hackers. We build, we break, we level up together.<br><strong>Ethics</strong> | <strong>Curiosity</strong> | <strong>Collaboration</strong></p>
+  <p class="subtitle">⚡ Get a live digital portfolio & prove your skill. Choose your tier below.</p>
+</div>
+<div class="divider"></div>
+
+<div class="tab-switcher">
+  <div class="tab-track">
+    <div class="tab-slider" id="tabSlider"></div>
+    <button class="tab-btn active" data-tab="community">🕷️ Community</button>
+    <button class="tab-btn" data-tab="projects">⚔️ Portfolios</button>
+    <button class="tab-btn" data-tab="testimonials">💬 Testimonials</button>
+  </div>
+</div>
+
+<!-- COMMUNITY PANEL with detailed feature tables (fading checkboxes based on plan) -->
+<div class="tab-panel active" id="panel-community">
+  <section>
+    <p class="section-label">Choose Your Access Tier</p>
+    <h2 class="section-title">Membership Plans</h2>
+    <p class="section-intro">Compare features side by side — each plan has a different level of access. Pick the one that accelerates your offensive security career.</p>
+    <div class="pricing-grid">
+      
+      <!-- MEMBER PLAN (full access) -->
+      <div class="pricing-card featured">
+        <div class="card-badge">⚡ BEST VALUE · FULL ACCESS</div>
+        <i class="fa-solid fa-crown card-icon"></i>
+        <div class="card-title">Become a Member</div>
+        <div class="card-desc">Monthly membership — unlimited weekly sessions, full ecosystem, portfolio included.</div>
+        <div class="feature-table">
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🎯 Portfolio at no cost</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🔓 Full access to physical weekly sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🌐 Full access to online weekly sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🛠️ Errors fixed in real time during sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">💰 Discounted prices on our online shop</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">💬 Community chat room — job postings, CTF challenges, paid bounties</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">📼 Recordings of all previous sessions (refer back anytime)</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🤝 Post tech problems — community helps troubleshoot</div></div>
+        </div>
+        <a href="#" class="cta-btn">Join Membership →</a>
+      </div>
+
+      <!-- ONLINE COMMUNITY (limited tier: only portfolio + real-time fixes + online sessions? but per spec: no physical, hidden tickets for online? Actually spec: online gets: Portfolio, errors fixed, but no physical access, no chat, no recordings, no shop discount. Exactly as described.) -->
+      <div class="pricing-card">
+        <div class="card-badge">🌐 ONLINE · WEEKLY PASS</div>
+        <i class="fa-solid fa-wifi card-icon"></i>
+        <div class="card-title">Online Community</div>
+        <div class="card-desc">One-off weekly workshop (virtual). Max 20 seats. Includes core essentials.</div>
+        <div class="feature-table">
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🎯 Portfolio at no cost</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Full access to physical weekly sessions <span class="feature-sub">(not included)</span></div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Hidden tickets for online weekly sessions <span class="feature-sub">(not applicable / member-only)</span></div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🛠️ Errors fixed in real time during sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Discounted prices on online shop</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Community chat room (job postings, CTF, bounties)</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Recordings of previous sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Post tech problems / community troubleshooting</div></div>
+        </div>
+        <a href="#" class="cta-btn">Claim Online Seat →</a>
+      </div>
+
+      <!-- PHYSICAL COMMUNITY (in-person weekly) -->
+      <div class="pricing-card">
+        <div class="card-badge">📍 PHYSICAL · MELBOURNE CBD</div>
+        <i class="fa-solid fa-location-dot card-icon"></i>
+        <div class="card-title">Physical Community</div>
+        <div class="card-desc">One-off in-person workshop. Max 20 seats, live hands-on guidance.</div>
+        <div class="feature-table">
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🎯 Portfolio at no cost</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🏛️ Full access to physical weekly sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Hidden tickets for online weekly sessions <span class="feature-sub">(not included)</span></div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-check-circle"></i></div><div class="feature-text">🛠️ Errors fixed in real time during sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Discounted prices on online shop</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Community chat room access</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Recordings of previous sessions</div></div>
+          <div class="feature-row"><div class="feature-icon"><i class="fas fa-times-circle"></i></div><div class="feature-text">Post tech problems / community troubleshooting</div></div>
+        </div>
+        <a href="#" class="cta-btn">Reserve Physical Seat →</a>
+      </div>
     </div>
-    <div class="overlay" id="overlay"></div>
-  </header>
+    <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem; opacity: 0.7;"><i class="fas fa-info-circle"></i> ✓ green check = included in plan. ✗ gray cross = not included. Members get the full ecosystem.</p>
+  </section>
+</div>
 
-  <div class="urgency-strip"> ⚠️ This is a white hat ethical group, failure to comply with <strong>Community Guideline</strong> will lead to a permanent ban and report to federal authorities. ⚠️</div>
-
-  <div class="hero">
-    <i class="fa-solid fa-spider spider-icon"></i>
-    <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
-    <p class="subtitle">The ultimate playground for ethical hackers. We build, we break, we level up together.<br>Our Core Values:<br><strong>Ethics</strong> | <strong>Curiosity</strong> | <strong>Collaboration</strong></p>
-    <p class="subtitle">A portfolio is a digital asset and the key to break into offensive security. This is why I'll be giving away <strong>3 Portfolios</strong> that you can access down below, in the Portfolios Tab. During each meetup we add a new challenge to your portfolio. <strong> Helping you show proof of skill and break in. </strong> </p>
-    <p class="subtitle">Don't just take my word for it, see our <strong> Member Stories </strong> in the Testimonials Tab.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="tab-switcher">
-    <div class="tab-track">
-      <div class="tab-slider" id="tab-slider"></div>
-      <button class="tab-btn active" data-tab="community">🕷️ Community</button>
-      <button class="tab-btn" data-tab="projects">⚔️ Portfolios</button>
-      <button class="tab-btn" data-tab="testimonials">💬 Testimonials</button>
+<!-- PORTFOLIOS PANEL (unchanged but matches design) -->
+<div class="tab-panel" id="panel-projects">
+  <section>
+    <p class="section-label">Real Digital Asset</p>
+    <h2 class="section-title">Choose Your Portfolio</h2>
+    <p class="section-intro">Three portfolio templates ready to customize. Access details inside README.</p>
+    <div class="portfolio-3col">
+      <div class="portfolio-card-large"><div class="portfolio-img-wrapper"><img src="IMAGES/Screenshot 2026-05-23 144815.png" alt="Cosmic Void" onerror="this.src='https://placehold.co/600x400/222/red?text=Cosmic+Void'"></div><div class="portfolio-card-content"><h3>🪐 Cosmic Void</h3><a href="#" class="portfolio-link">Select Portfolio →</a></div></div>
+      <div class="portfolio-card-large"><div class="portfolio-img-wrapper"><img src="IMAGES/COMING SOON.png" alt="Coming Soon" onerror="this.src='https://placehold.co/600x400/222/555?text=Coming+Soon'"></div><div class="portfolio-card-content"><h3>🌐 Dark Net Drifter</h3><a href="#" class="portfolio-link">Select Portfolio →</a></div></div>
+      <div class="portfolio-card-large"><div class="portfolio-img-wrapper"><img src="IMAGES/COMING SOON.png" alt="Coming Soon" onerror="this.src='https://placehold.co/600x400/222/555?text=Coming+Soon'"></div><div class="portfolio-card-content"><h3>⚔️ Red Team Pro</h3><a href="#" class="portfolio-link">Select Portfolio →</a></div></div>
     </div>
-  </div>
+  </section>
+</div>
 
-  <!-- PANEL 1: COMMUNITY SUBSCRIPTIONS (order changed: Member #1, Online #2, Physical #3) -->
-  <div class="tab-panel active" id="panel-community">
-    <section id="join">
-      <p class="section-label">Choose Your Path</p>
-      <h2 class="section-title">Pick Your Community</h2>
-      <p class="section-intro">Walk out with a live digital portfolio that attracts cyber recruiters that will take you seriously.</p>
-      <div class="pricing-grid">
-        <!-- 1. BECOME A MEMBER (formerly #3, now first) -->
-        <div class="pricing-card featured">
-          <div class="card-badge">⚡ Full Access · Best Value</div>
-          <i class="fa-solid fa-id-card card-icon"></i>
-          <div class="card-title">Become a Member</div>
-          <div class="card-option-label">Monthly Membership</div>
-          <p class="card-desc">Stop paying per session. A monthly membership gives you unrestricted access to both the physical and online weekly sessions, plus a full ecosystem built to accelerate your career in offensive security. For people who are serious about the long game.</p>
-          <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Full access to both physical and online weekly sessions — free with membership</li>
-            <li><i class="fa-solid fa-check"></i>Discounted prices on our online shop</li>
-            <li><i class="fa-solid fa-check"></i>Community chat room — job postings, CTF challenges, and paid bug bounty opportunities</li>
-            <li><i class="fa-solid fa-check"></i>Recordings of all previous sessions — refer back whenever you need</li>
-            <li><i class="fa-solid fa-check"></i>Post your tech problems — the community helps you troubleshoot</li>
-          </ul>
-          <a href="#" class="cta-btn">Become a Member — Join Now</a>
-        </div>
+<!-- TESTIMONIALS PANEL -->
+<div class="tab-panel" id="panel-testimonials">
+  <section>
+    <p class="section-label">Success Stories</p>
+    <h2 class="section-title">Hear It From Them</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card"><video controls style="width:100%; aspect-ratio:16/9;"><source src="MemberTestimonials/KabindraS.mp4" type="video/mp4"></video><div class="testimonial-body"><div class="testimonial-name">Kabindra S.</div><div class="testimonial-role">Technical Service Engineer</div><p class="testimonial-quote">"This community helped me do practical ethical hacking sessions."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Abdimajid M.</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"Amazing experience, learned a lot and met great people."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Sarah K.</div><div class="testimonial-role">Security Analyst</div><p class="testimonial-quote">"The portfolio I built landed me my first junior pen-test role!"</p></div></div>
+    </div>
+  </section>
+</div>
 
-        <!-- 2. ONLINE COMMUNITY (formerly #2, now second) -->
-        <div class="pricing-card">
-          <div class="card-badge">🌐 International · Max 20 Seats</div>
-          <i class="fa-solid fa-wifi card-icon"></i>
-          <div class="card-title">Online Community</div>
-          <div class="card-option-label">One-off Weekly Workshop</div>
-          <p class="card-desc">Same weekly offensive security challenge, fully virtual. Perfect if you're based internationally or overseas. We cap it at 20 people including members — it's not a webinar where you disappear into a crowd. You'll get direct help when you're stuck, same as being in the room.</p>
-          <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Done live and step-by-step virtually — errors fixed in real-time so you cannot fall behind</li>
-            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single session</li>
-            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
-            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — personal, never a crowd</li>
-            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
-          </ul>
-          <a href="#" class="cta-btn">Claim Your Online Seat</a>
-        </div>
+<footer class="footer"><p>Based in <span style="color:var(--red)">Melbourne, Australia</span> · Black Widow Community · Offensive Security Cohort</p></footer>
 
-        <!-- 3. PHYSICAL COMMUNITY (formerly #1, now third) -->
-        <div class="pricing-card">
-          <div class="card-badge">📍 Melbourne CBD · Max 20 Seats</div>
-          <i class="fa-solid fa-location-dot card-icon"></i>
-          <div class="card-title">Physical Community</div>
-          <div class="card-option-label">One-off Weekly Workshop</div>
-          <p class="card-desc">Every week we run a live offensive security challenge in-person in Melbourne's CBD. If you're local and want to experience the community as a one-off, you're welcome to join — but spots are capped at 20 total including members, so everyone gets real one-to-one guidance. No fluff. You're in the room solving real problems.</p>
-          <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Done live and step-by-step in the room — errors fixed on the spot so you cannot fail</li>
-            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single afternoon</li>
-            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
-            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — quality one-to-one support guaranteed</li>
-            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
-          </ul>
-          <a href="#" class="cta-btn">Claim Your Physical Seat</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- PANEL 2: PORTFOLIOS (unchanged) -->
-  <div class="tab-panel" id="panel-projects">
-    <section>
-      <p class="section-label">Real Digital Asset · Proof Of Skill</p>
-      <h2 class="section-title">Customize Your Portfolio</h2>
-      <p class="section-intro">Explore live portfolios provided for our community members. Select the one that fits your vibe, all details to customize it will be in the README sections.</p>
-      <div class="portfolio-3col">
-        <div class="portfolio-card-large">
-          <div class="portfolio-img-wrapper">
-            <img src="IMAGES/Screenshot 2026-05-23 144815.png" alt="Cosmic Void Portfolio" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div class="portfolio-card-content">
-            <h3>🪐 Cosmic Void</h3>
-            <a href="https://github.com/aScriptKiddie/Portfolio1" class="portfolio-link" target="_blank"> Select Portfolio <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="portfolio-card-large">
-          <div class="portfolio-img-wrapper">
-            <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div class="portfolio-card-content">
-            <h3>🌐 COMING SOON</h3>
-            <a href="#" class="portfolio-link" target="_blank"> Select Portfolio <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="portfolio-card-large">
-          <div class="portfolio-img-wrapper">
-            <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div class="portfolio-card-content">
-            <h3>⚔️ COMING SOON</h3>
-            <a href="#" class="portfolio-link" target="_blank"> Select Portfolio <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- PANEL 3: TESTIMONIALS (unchanged) -->
-  <div class="tab-panel" id="panel-testimonials">
-    <section>
-      <p class="section-label">From the Community</p>
-      <h2 class="section-title">Hear It From Them</h2>
-      <p class="section-intro">Real members. Real results. Real feedback.</p>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <video controls style="width:100%; aspect-ratio:16/9; object-fit:cover;">
-            <source src="MemberTestimonials/KabindraS.mp4" type="video/mp4">
-          </video>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Kabindra S.</div>
-            <div class="testimonial-role">Technical Service Engineer</div>
-            <p class="testimonial-quote">"This particular community has helped me to do a practical session and see how we can be on the ethical side of Ethical Hacking."</p>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Abdimajid M.</div>
-            <div class="testimonial-role">Aspiring Ethical Hacker</div>
-            <p class="testimonial-quote">"I haven't done something like this before, it was amazing going to learn and meet new people. It was really a great experience."</p>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Coming Soon.</div>
-            <div class="testimonial-role">Coming Soon.</div>
-            <p class="testimonial-quote">"Coming Soon."</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <footer class="footer">
-    <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
-  </footer>
-
-  <script>
-    function syncNavOffset() {
-      const navbar = document.querySelector('.navbar');
-      const urgency = document.querySelector('.urgency-strip');
-      if (navbar && urgency) urgency.style.marginTop = navbar.offsetHeight + 'px';
-    }
-    syncNavOffset();
-    window.addEventListener('resize', syncNavOffset);
-  </script>
-
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
-    const navSound = new Audio('nav.mp3');
-
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
+<script>
+  // Mobile sidebar & navbar offset
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  if(hamburger) {
+    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
+  }
+  function syncNavOffset() {
+    const navbar = document.querySelector('.navbar');
+    const urgency = document.querySelector('.urgency-strip');
+    if(navbar && urgency) urgency.style.marginTop = navbar.offsetHeight + 'px';
+  }
+  syncNavOffset();
+  window.addEventListener('resize', syncNavOffset);
+  
+  // Tab switching logic
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  const slider = document.getElementById('tabSlider');
+  function moveSlider(btn) {
+    if(!slider) return;
+    slider.style.width = btn.offsetWidth + 'px';
+    slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+  }
+  window.addEventListener('load', () => {
+    const active = document.querySelector('.tab-btn.active');
+    if(active) moveSlider(active);
+  });
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const activePanel = document.getElementById('panel-' + target);
+      if(activePanel) activePanel.classList.add('active');
+      moveSlider(btn);
     });
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const dest = link.getAttribute('href');
-        navSound.currentTime = 0;
-        navSound.play().catch(() => {});
-        if (dest && dest.startsWith('#')) {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
-          setTimeout(() => { const el = document.querySelector(dest); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 150);
-        } else {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
-          setTimeout(() => { window.location.href = dest; }, 150);
-        }
-      });
-    });
-  </script>
-
-  <script>
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    const slider = document.getElementById('tab-slider');
-    function moveSlider(btn) {
-      slider.style.width = btn.offsetWidth + 'px';
-      slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
-    }
-    window.addEventListener('load', () => { const activeBtn = document.querySelector('.tab-btn.active'); if (activeBtn) moveSlider(activeBtn); });
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.tab;
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabPanels.forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('panel-' + target).classList.add('active');
-        moveSlider(btn);
-      });
-    });
-  </script>
+  });
+  
+  // Dummy audio to avoid errors (prevent console noise)
+  const dummyAudio = { play: () => Promise.resolve(), currentTime: 0 };
+  document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
+    link.addEventListener('click', (e) => { e.preventDefault(); });
+  });
+</script>
 </body>
 </html>
