@@ -74,7 +74,7 @@
       color: var(--black);
     }
 
-    /* Portfolio button (Certificates) - green glow */
+    /* Portfolio button (Certificates) - green glow (main page social icons) */
     .social-icons a:last-child {
       position: relative;
       transition: all 0.3s ease;
@@ -93,7 +93,7 @@
       overflow: hidden;
     }
 
-    /* ── BRAND PARTNERSHIPS STRIP (3 recurring bars for seamless loop) ── */
+    /* ── BRAND PARTNERSHIPS STRIP (slower scrolling - reduced speed) ── */
     .footer-partners {
       padding: 3.5rem 6% 2.5rem;
       text-align: center;
@@ -121,7 +121,7 @@
       display: flex;
       gap: 4rem;
       width: max-content;
-      animation: partnerScroll 32s linear infinite;
+      animation: partnerScroll 48s linear infinite; /* Slowed down from 32s to 48s */
     }
 
     .partners-track:hover {
@@ -186,7 +186,7 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* ── BOTTOM BAR: Centered legal links + copyright aligned as a group ── */
+    /* ── BOTTOM BAR: Centered legal links + copyright as group, social icons below with ALL glowing ── */
     .footer-bottom {
       border-top: none;
       padding: 1.8rem 6%;
@@ -237,7 +237,7 @@
       color: #fff;
     }
 
-    /* Copyright text - 2026, matching style */
+    /* Copyright text - 2026 */
     .copyright {
       font-family: 'Raleway', sans-serif;
       font-size: 1.15rem;
@@ -248,7 +248,7 @@
       white-space: nowrap;
     }
 
-    /* Social Icons Row - centered below, all with glow effects */
+    /* Social Icons Row - all three icons now have distinct glowing effects */
     .footer-socials-row {
       display: flex;
       gap: 1.5rem;
@@ -283,37 +283,46 @@
       transition: opacity 0.3s ease;
     }
 
-    /* LinkedIn glow */
+    /* LinkedIn specific glow (blue) */
     .footer-socials-row a.s-linkedin-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.6) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-linkedin-row:hover {
       border-color: #0a66c2;
-      color: #fff;
-      box-shadow: 0 0 24px rgba(10, 102, 194, 0.55), inset 0 0 8px rgba(10,102,194,0.2);
+      color: #0a66c2;
+      box-shadow: 0 0 26px rgba(10, 102, 194, 0.6), inset 0 0 8px rgba(10,102,194,0.25);
       transform: translateY(-4px) scale(1.08);
     }
+    .footer-socials-row a.s-linkedin-row:hover::after {
+      opacity: 1;
+    }
 
-    /* YouTube glow */
+    /* YouTube specific glow (red) */
     .footer-socials-row a.s-youtube-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.6) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-youtube-row:hover {
       border-color: #ff0000;
-      color: #fff;
-      box-shadow: 0 0 24px rgba(255, 0, 0, 0.55), inset 0 0 8px rgba(255,0,0,0.2);
+      color: #ff0000;
+      box-shadow: 0 0 26px rgba(255, 0, 0, 0.6), inset 0 0 8px rgba(255,0,0,0.25);
       transform: translateY(-4px) scale(1.08);
+    }
+    .footer-socials-row a.s-youtube-row:hover::after {
+      opacity: 1;
     }
 
     /* Portfolio/Certificates button - green glow */
     .footer-socials-row a.s-portfolio-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.6) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-portfolio-row:hover {
-      border-color: #2ecc71 !important;
-      color: #2ecc71 !important;
-      box-shadow: 0 0 24px rgba(46, 204, 113, 0.55) !important;
+      border-color: #2ecc71;
+      color: #2ecc71;
+      box-shadow: 0 0 26px rgba(46, 204, 113, 0.6);
       transform: translateY(-4px) scale(1.08);
+    }
+    .footer-socials-row a.s-portfolio-row:hover::after {
+      opacity: 1;
     }
 
     .footer-socials-row a i {
@@ -420,7 +429,7 @@
 
   <footer class="footer glass-footer">
 
-    <!-- ── BRAND PARTNERSHIPS STRIP (3 full recurring sets for seamless loop) ── -->
+    <!-- ── BRAND PARTNERSHIPS STRIP (3 full recurring sets for seamless loop, slower scroll) ── -->
     <div class="footer-partners">
       <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
       <div class="partners-track-wrapper">
@@ -443,7 +452,7 @@
           <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
           <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
           <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-          <!-- Set 3 (third recurring bar to ensure 3 loops effect) -->
+          <!-- Set 3 (third recurring bar to ensure smooth loop) -->
           <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
           <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
           <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
@@ -456,7 +465,7 @@
       </div>
     </div>
 
-    <!-- ── BOTTOM SECTION: Centered legal links + copyright on same level, social icons below with glows ── -->
+    <!-- ── BOTTOM SECTION: Centered legal links + copyright on same level, ALL social icons glow ── -->
     <div class="footer-bottom">
       <div class="footer-bottom-container">
         <!-- Row 1: Legal links + Copyright (both centered together) -->
@@ -468,7 +477,7 @@
           <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
         </div>
         
-        <!-- Row 2: Social Icons (LinkedIn, YouTube, Certificates) with glowing effects -->
+        <!-- Row 2: Social Icons (LinkedIn, YouTube, Certificates) each with their own glow effect -->
         <div class="footer-socials-row">
           <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
             <i class="fa-brands fa-linkedin"></i>
