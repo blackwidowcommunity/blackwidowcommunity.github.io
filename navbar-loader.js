@@ -1,5 +1,5 @@
 /* =====================================================
-   navbar-loader.js - Works with style(9).css
+   navbar-loader.js - Shared Navigation Loader
    ===================================================== */
 
 (function () {
@@ -18,7 +18,174 @@
     document.head.appendChild(fonts);
   }
 
-  // ── 2. INJECT SPIDER WEB SVG (if not already in page) ─────────────────────
+  // ── 2. INJECT NAVBAR STYLES (if not already present) ─────────────────────
+  if (!document.getElementById('navbar-styles')) {
+    const navStyles = document.createElement('style');
+    navStyles.id = 'navbar-styles';
+    navStyles.textContent = `
+      /* ===== SHARED NAVBAR STYLES ===== */
+      :root {
+        --red: #c0392b;
+        --red-dark: #8e1c12;
+        --black: #0a0a0a;
+        --black-2: #111111;
+        --white: #f5f0eb;
+        --white-muted: rgba(245,240,235,0.75);
+        --glass: rgba(20,10,10,0.78);
+        --border: rgba(192,57,43,0.35);
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 5%;
+        background: var(--glass);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(14px);
+        gap: 2rem;
+        position: relative;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 2.8rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links li a {
+        text-decoration: none;
+        color: var(--white-muted);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      .nav-links li a:hover,
+      .nav-links li a.active {
+        color: var(--red);
+      }
+
+      .hamburger {
+        display: none;
+        background: transparent;
+        border: none;
+        font-size: 1.9rem;
+        cursor: pointer;
+        color: var(--white-muted);
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: min(280px, 70%);
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.55);
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        border-left: 1px solid rgba(192, 57, 43, 0.5);
+        box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        padding: 2rem;
+        transition: right 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .sidebar.active {
+        right: 0;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sidebar li {
+        text-align: center;
+        width: 100%;
+      }
+
+      .sidebar a {
+        text-decoration: none;
+        color: var(--white-muted);
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: block;
+        padding: 0.4rem 0;
+        transition: color 0.2s;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        color: var(--red);
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 1500;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .navbar {
+          padding: 1rem 5%;
+          justify-content: flex-start;
+        }
+      }
+
+      /* Prevent scroll when sidebar is open */
+      body.sidebar-open {
+        overflow: hidden;
+      }
+    `;
+    document.head.appendChild(navStyles);
+  }
+
+  // ── 3. INJECT SPIDER WEB SVG (if not already in page) ─────────────────────
   if (!document.querySelector('.web-svg')) {
     const webSVG = document.createElement('div');
     webSVG.innerHTML = `
@@ -48,74 +215,73 @@
     document.body.insertAdjacentElement('afterbegin', webSVG);
   }
 
-  // ── 3. FETCH & INJECT navbar.html ─────────────────────────────────────────
+  // ── 4. FETCH & INJECT navbar.html ─────────────────────────────────────────
   fetch('navbar.html')
     .then(r => r.text())
     .then(html => {
-      // Only inject if not already present
       if (!document.querySelector('header')) {
         document.body.insertAdjacentHTML('afterbegin', html);
       }
       init();
     })
-    .catch(() => console.warn('navbar-loader: could not load navbar.html'));
+    .catch(err => console.warn('navbar-loader: could not load navbar.html', err));
 
-  // ── 4. INITIALISE EVERYTHING AFTER INJECTION ──────────────────────────────
+  // ── 5. INITIALISE EVERYTHING AFTER INJECTION ──────────────────────────────
   function init() {
-    // Active link: match current filename
-    const page = location.pathname.split('/').pop().replace('.html', '') || 'index';
+    const currentPath = window.location.pathname;
+    let currentFile = currentPath.split('/').pop().replace('.html', '') || 'index';
+    
+    // Handle AboutUs(8).html type filenames
+    if (currentFile.includes('AboutUs')) currentFile = 'AboutUs';
+    if (currentFile.includes('contact')) currentFile = 'contact';
+    if (currentFile.includes('projects')) currentFile = 'projects';
+    if (currentFile.includes('guests')) currentFile = 'guests';
+    if (currentFile.includes('shop')) currentFile = 'shop';
+    
     document.querySelectorAll('.nav-links a, .sidebar a').forEach(a => {
-      if (a.dataset.page === page || a.getAttribute('href') === page + '.html' || 
-          (page === 'index' && a.getAttribute('href') === 'index.html')) {
+      const href = a.getAttribute('href');
+      const pageName = href ? href.replace('.html', '') : '';
+      if (pageName === currentFile) {
         a.classList.add('active');
       }
     });
 
-    // CRITICAL: Sync padding so content isn't hidden under fixed navbar
     function syncOffset() {
       const navbar = document.querySelector('.navbar');
       if (!navbar) return;
       const navbarHeight = navbar.offsetHeight;
       
-      // Find the first main content element
-      const firstElements = [
+      const contentSelectors = [
         '.urgency-strip',
         '.home', 
         '.hero',
         '.contact-section',
-        '.main-content',
-        '.certificates-heading',
+        '.guests-main',
         '#projects-slider',
         '.project-detail',
         '.about-section',
+        '.certificates-heading',
         'section:first-of-type',
         '.container:first-of-type'
       ];
       
       let targetElement = null;
-      for (const selector of firstElements) {
+      for (const selector of contentSelectors) {
         targetElement = document.querySelector(selector);
-        if (targetElement) break;
+        if (targetElement && targetElement !== document.querySelector('.web-svg')) break;
       }
       
       if (targetElement) {
-        // Apply padding-top to the target element
-        targetElement.style.paddingTop = (parseInt(getComputedStyle(targetElement).paddingTop) || 0) + navbarHeight + 'px';
+        targetElement.style.paddingTop = navbarHeight + 'px';
       } else {
-        // Fallback: add margin to body's first child
-        const bodyFirstChild = document.body.children[0];
-        if (bodyFirstChild && bodyFirstChild !== document.querySelector('.web-svg')) {
-          bodyFirstChild.style.marginTop = navbarHeight + 'px';
-        }
+        document.body.style.marginTop = navbarHeight + 'px';
       }
     }
     
-    // Run after a short delay to ensure DOM is ready
     setTimeout(syncOffset, 100);
     window.addEventListener('resize', syncOffset);
     window.addEventListener('load', syncOffset);
 
-    // Hamburger / Sidebar / Overlay
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
@@ -139,26 +305,14 @@
         document.body.classList.remove('sidebar-open');
       });
 
-      // Close sidebar when clicking a link
       document.querySelectorAll('.sidebar a, .nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
           const dest = link.getAttribute('href');
           navSound.currentTime = 0;
           navSound.play().catch(() => {});
-
           sidebar.classList.remove('active');
           overlay.classList.remove('active');
           document.body.classList.remove('sidebar-open');
-
-          // Handle anchor links
-          if (dest && dest.startsWith('#')) {
-            e.preventDefault();
-            setTimeout(() => {
-              const el = document.querySelector(dest);
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 150);
-          }
-          // For regular links, let the browser handle navigation
         });
       });
     }
