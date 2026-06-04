@@ -6,6 +6,8 @@
   <title>Shop | Black Widow Community</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Shared navbar loader -->
+  <script src="navbar-loader.js" defer></script>
   <style>
     :root {
       --red: #c0392b;
@@ -35,35 +37,14 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ===== NAVBAR ===== */
-    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
-    .navbar {
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.1rem 5%;
-      background: rgba(10,10,10,0.6);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
-      gap: 2rem; position: relative;
+    /* ===== NAVBAR CONTAINER - just to hold the injected navbar ===== */
+    #navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
     }
-    .nav-links { list-style: none; display: flex; gap: 2.8rem; }
-    .nav-links li a {
-      text-decoration: none; color: var(--white-muted);
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
-    }
-    .nav-links li a:hover, .nav-links li a.active { color: var(--red); }
-    .hamburger { display: none; font-size: 1.9rem; cursor: pointer; color: var(--white-muted); position: absolute; right: 5%; top: 50%; transform: translateY(-50%); }
-    .sidebar {
-      position: fixed; top: 0; right: -100%; width: min(280px, 70%); height: 100vh;
-      background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
-      border-left: 1px solid rgba(192,57,43,0.5); z-index: 2000; padding: 2rem;
-      transition: right 0.3s ease; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    }
-    .sidebar.active { right: 0; }
-    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2.5rem; align-items: center; }
-    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; display: block; padding: 0.3rem 0; }
-    .sidebar a:hover, .sidebar a.active { color: var(--red); }
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1500; }
-    .overlay.active { opacity: 1; pointer-events: all; }
 
     /* ===== FOOTER ===== */
     .footer {
@@ -269,9 +250,6 @@
        TABLET  (≤ 900px)
     ============================================================ */
     @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-
       .bg-word { font-size: clamp(4rem, 16vw, 10rem); }
       .product-img-wrap img { max-height: 44vh; max-width: 58vw; }
 
@@ -468,30 +446,8 @@
 </head>
 <body>
 
-  <header>
-    <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
-    </nav>
-    <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="overlay" id="overlay"></div>
-  </header>
+  <!-- Navigation bar will be injected here by navbar-loader.js -->
+  <div id="navbar-container"></div>
 
   <!-- ===== DESKTOP LAYOUT ===== -->
   <div class="scene">
@@ -705,13 +661,6 @@
       if (e.key === 'ArrowLeft')  goTo(current - 1);
     });
 
-    // Navbar
-    const hamburger = document.getElementById('hamburger');
-    const sidebar   = document.getElementById('sidebar');
-    const overlay   = document.getElementById('overlay');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-
     // Sync navbar top padding and footer bottom padding on mobile layout
     function syncLayout() {
       const navH    = document.querySelector('.navbar').offsetHeight;
@@ -720,7 +669,9 @@
       ml.style.paddingTop    = navH + 'px';
       ml.style.paddingBottom = footerH + 'px';
     }
-    syncLayout();
+    
+    // Wait for navbar to load before syncing
+    setTimeout(syncLayout, 100);
     window.addEventListener('resize', syncLayout);
   </script>
 </body>
