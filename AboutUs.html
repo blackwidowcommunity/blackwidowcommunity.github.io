@@ -74,16 +74,16 @@
       color: var(--black);
     }
 
-    /* ── FOOTER ─────────────────────────────────────────── */
+    /* ── FOOTER (UPDATED: single row with copyright + legal links + social icons) ── */
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
       overflow: hidden;
     }
 
-    /* ── BRAND PARTNERSHIPS STRIP ── */
+    /* ── BRAND PARTNERSHIPS STRIP (keeping the beautiful animation) ── */
     .footer-partners {
-      padding: 3.5rem 6% 2rem;
+      padding: 3.5rem 6% 2.5rem;
       text-align: center;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
@@ -174,189 +174,172 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* ── MAIN FOOTER BODY ── */
-    .footer-inner {
+    /* ── SINGLE BOTTOM BAR (removed middle row) ── */
+    .footer-bottom {
+      border-top: none; /* removing the duplicate border, we'll have one clean row */
+      padding: 1.8rem 6%;
+      background: transparent;
+    }
+
+    .footer-bottom-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 3rem;
-      padding: 3.5rem 6% 3rem;
       flex-wrap: wrap;
+      gap: 1.5rem;
+      font-family: 'Raleway', sans-serif;
     }
 
-    /* Brand column - location removed, so we can hide or repurpose. We'll remove it entirely */
-    /* Link columns: legal links on ONE LINE horizontally */
-    .footer-links {
-      display: flex;
-      gap: 3rem;
-      align-items: baseline;
-      flex-wrap: wrap;
+    /* Copyright text */
+    .copyright {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+      margin: 0;
     }
 
-    /* Single row for legal links without any extra column title */
-    .legal-row {
+    /* Legal links row (inline, no extra titles) */
+    .legal-links {
       display: flex;
-      gap: 2.8rem;
+      gap: 2.5rem;
       align-items: center;
       flex-wrap: wrap;
     }
 
-    .legal-row a {
+    .legal-links a {
       font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: 500;
       letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.5);
       text-decoration: none;
-      transition: color 0.25s ease, border-color 0.2s;
+      transition: color 0.25s ease;
       border-bottom: 1px solid transparent;
       padding-bottom: 0.2rem;
     }
 
-    .legal-row a:hover {
+    .legal-links a:hover {
       color: #fff;
       border-bottom-color: var(--red, #c0392b);
     }
 
-    /* Remove partnerships column entirely */
-    .footer-col-partnerships {
-      display: none;
-    }
-
-    /* Socials remain */
-    .footer-socials {
+    /* Social Icons (reduced size to match the row elegantly, but keeping the glow effect) */
+    .footer-socials-row {
       display: flex;
-      gap: 1.4rem;
+      gap: 1.2rem;
       align-items: center;
     }
 
-    .footer-socials a {
+    .footer-socials-row a {
       position: relative;
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.1);
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
       color: rgba(255,255,255,0.7);
-      font-size: 1.9rem;
+      font-size: 1.6rem;
       text-decoration: none;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.03);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       overflow: hidden;
     }
 
-    .footer-socials a::after {
+    .footer-socials-row a::after {
       content: '';
       position: absolute;
       inset: 0;
       opacity: 0;
-      border-radius: 14px;
+      border-radius: 12px;
       transition: opacity 0.3s ease;
     }
 
-    /* LinkedIn — brand blue glow */
-    .footer-socials a.s-linkedin::after {
-      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.45) 0%, transparent 70%);
+    /* LinkedIn hover glow */
+    .footer-socials-row a.s-linkedin-row::after {
+      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.5) 0%, transparent 70%);
     }
-    .footer-socials a.s-linkedin:hover {
+    .footer-socials-row a.s-linkedin-row:hover {
       border-color: #0a66c2;
       color: #fff;
-      box-shadow: 0 0 22px rgba(10, 102, 194, 0.4), inset 0 0 12px rgba(10,102,194,0.15);
-      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 0 20px rgba(10, 102, 194, 0.4);
+      transform: translateY(-3px) scale(1.05);
     }
 
-    /* YouTube — brand red glow */
-    .footer-socials a.s-youtube::after {
-      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.45) 0%, transparent 70%);
+    /* YouTube hover glow */
+    .footer-socials-row a.s-youtube-row::after {
+      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.5) 0%, transparent 70%);
     }
-    .footer-socials a.s-youtube:hover {
+    .footer-socials-row a.s-youtube-row:hover {
       border-color: #ff0000;
       color: #fff;
-      box-shadow: 0 0 22px rgba(255, 0, 0, 0.4), inset 0 0 12px rgba(255,0,0,0.15);
-      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+      transform: translateY(-3px) scale(1.05);
     }
 
-    /* Portfolio — site red glow */
-    .footer-socials a.s-portfolio::after {
-      background: radial-gradient(circle at 50% 120%, rgba(180, 50, 30, 0.55) 0%, transparent 70%);
+    /* Portfolio hover glow */
+    .footer-socials-row a.s-portfolio-row::after {
+      background: radial-gradient(circle at 50% 120%, rgba(180, 50, 30, 0.6) 0%, transparent 70%);
     }
-    .footer-socials a.s-portfolio:hover {
+    .footer-socials-row a.s-portfolio-row:hover {
       border-color: var(--red, #c0392b);
       color: #fff;
-      box-shadow: 0 0 22px rgba(180, 50, 30, 0.45), inset 0 0 12px rgba(180,50,30,0.2);
-      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 0 20px rgba(180, 50, 30, 0.45);
+      transform: translateY(-3px) scale(1.05);
     }
 
-    .footer-socials a:hover::after {
-      opacity: 1;
-    }
-
-    .footer-socials a i {
+    .footer-socials-row a i {
       position: relative;
       z-index: 1;
     }
 
-    /* Bottom bar */
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 1.6rem 6%;
-      text-align: center;
-    }
-
-    .footer-bottom p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.2);
-      margin: 0;
-      letter-spacing: 0.06em;
-    }
-
-    /* Remove the old brand/location element */
-    .footer-brand {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .footer-partners {
-        padding: 2.5rem 5% 1.5rem;
-      }
-
-      .footer-inner {
+    /* Responsive: on mobile, stack everything nicely */
+    @media (max-width: 850px) {
+      .footer-bottom-container {
         flex-direction: column;
-        align-items: center;
+        justify-content: center;
         text-align: center;
-        padding: 2.8rem 5%;
-        gap: 2.2rem;
-      }
-
-      .legal-row {
-        justify-content: center;
-        gap: 2rem;
-      }
-
-      .footer-socials {
-        justify-content: center;
-      }
-
-      .legal-row a {
-        font-size: 1rem;
-      }
-    }
-
-    /* Additional small screens */
-    @media (max-width: 480px) {
-      .legal-row {
-        flex-direction: column;
         gap: 1.2rem;
       }
-      .legal-row a {
-        font-size: 1.1rem;
+      
+      .legal-links {
+        justify-content: center;
       }
-      .footer-inner {
-        gap: 1.8rem;
+      
+      .footer-socials-row {
+        justify-content: center;
       }
+    }
+
+    @media (max-width: 480px) {
+      .legal-links {
+        gap: 1.5rem;
+        flex-direction: column;
+      }
+      
+      .footer-partners {
+        padding: 2.2rem 5% 1.8rem;
+      }
+      
+      .partner-logo {
+        padding: 0.6rem 1.4rem;
+      }
+      
+      .partner-logo .p-name {
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Remove any leftover middle row styles */
+    .footer-inner {
+      display: none;
+    }
+    
+    /* Ensure the old middle section is completely hidden */
+    .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
+      display: none;
     }
   </style>
 </head>
@@ -415,7 +398,7 @@
 
   <footer class="footer glass-footer">
 
-    <!-- ── BRAND PARTNERSHIPS STRIP (animated track) ── -->
+    <!-- ── BRAND PARTNERSHIPS STRIP (preserved animation) ── -->
     <div class="footer-partners">
       <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
       <div class="partners-track-wrapper">
@@ -442,35 +425,31 @@
       </div>
     </div>
 
-    <!-- ── MAIN FOOTER BODY ── with Legal on single row, No 'Based in Melbourne', no partnerships column -->
-    <div class="footer-inner">
-      
-      <!-- Legal links only: single line containing 'Community Guidelines' and 'Data Privacy' -->
-      <div class="footer-links">
-        <div class="legal-row">
+    <!-- ── SINGLE BOTTOM ROW: copyright, legal links, social media icons (all inline) ── -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <!-- Copyright text -->
+        <div class="copyright">© 2025 Black Widow Community. All rights reserved.</div>
+        
+        <!-- Legal links (Community Guidelines & Data Privacy on same line) -->
+        <div class="legal-links">
           <a href="community-guidelines.html">Community Guidelines</a>
           <a href="privacy.html">Data Privacy</a>
-          <!-- Optionally, you could keep a mailto hidden, but requirement says remove partnerships words. So we omit Work With Us / Brand Partnerships entirely -->
+        </div>
+        
+        <!-- Social media icons (LinkedIn, YouTube, Portfolio) -->
+        <div class="footer-socials-row">
+          <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a href="certs.html" aria-label="Portfolio" class="s-portfolio-row">
+            <i class="fa-solid fa-folder-open"></i>
+          </a>
         </div>
       </div>
-
-      <!-- Socials (same original design) -->
-      <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube">
-          <i class="fa-brands fa-youtube"></i>
-        </a>
-        <a href="certs.html" aria-label="Portfolio" class="s-portfolio">
-          <i class="fa-solid fa-folder-open"></i>
-        </a>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2025 Black Widow Community. All rights reserved.</p>
     </div>
   </footer>
 
