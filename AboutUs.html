@@ -96,7 +96,7 @@
       z-index: 1;
     }
 
-    /* ── BRAND PARTNERSHIPS STRIP WITH SCANNER EFFECT ── */
+    /* ── BRAND PARTNERSHIPS STRIP WITH SCANNER EFFECT (like certs page) ── */
     .footer-partners {
       position: relative;
       padding: 3rem 6% 2rem;
@@ -105,7 +105,7 @@
       overflow: hidden;
     }
 
-    /* Scanner overlay container (only over partnerships area) */
+    /* Scanner overlay container */
     .partners-scanner-overlay {
       position: absolute;
       top: 0;
@@ -135,7 +135,7 @@
       z-index: 1;
     }
 
-    /* Scanner red line */
+    /* Red scanner line */
     .partners-scanner-line {
       position: absolute;
       top: 0;
@@ -167,7 +167,7 @@
       }
     }
 
-    /* Partners content - above scanner */
+    /* Partners content */
     .partners-content {
       position: relative;
       z-index: 10;
@@ -181,16 +181,12 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
       margin: 0 0 2rem 0;
-      position: relative;
-      z-index: 10;
     }
 
     .partners-track-wrapper {
       overflow: hidden;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-      position: relative;
-      z-index: 10;
     }
 
     .partners-track {
@@ -209,7 +205,9 @@
       to   { transform: translateX(-50%); }
     }
 
+    /* Partner Logo - with code overlay like cert cards */
     .partner-logo {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -222,17 +220,7 @@
       white-space: nowrap;
       cursor: default;
       transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-      position: relative;
       overflow: hidden;
-    }
-
-    .partner-logo::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(180,50,30,0.2) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
     .partner-logo:hover {
@@ -241,13 +229,11 @@
       transform: translateY(-3px);
     }
 
-    .partner-logo:hover::before {
-      opacity: 1;
-    }
-
     .partner-logo .p-icon {
       font-size: 1.6rem;
       line-height: 1;
+      position: relative;
+      z-index: 2;
     }
 
     .partner-logo .p-name {
@@ -257,62 +243,65 @@
       letter-spacing: 0.08em;
       color: rgba(255,255,255,0.7);
       transition: color 0.3s ease;
+      position: relative;
+      z-index: 2;
     }
 
     .partner-logo:hover .p-name {
       color: rgba(255,255,255,1);
     }
 
-    /* Code matrix cards that appear on scan - hidden by default, shown when scanned */
-    .code-matrix-card {
+    /* Code Matrix Card - like certs page, appears when scanned */
+    .partner-code-card {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.95);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.15s ease;
       pointer-events: none;
       z-index: 20;
       overflow: hidden;
+      backdrop-filter: blur(4px);
     }
 
-    .code-matrix-card.active {
+    .partner-code-card.active {
       opacity: 1;
     }
 
-    .code-matrix-content {
+    .partner-code-content {
       font-family: 'Courier New', monospace;
       font-size: 0.7rem;
       color: #0f0;
       text-shadow: 0 0 5px #0f0;
       white-space: pre-wrap;
       word-break: break-all;
-      padding: 1rem;
+      padding: 0.8rem;
       text-align: center;
       line-height: 1.3;
       max-height: 100%;
       overflow: hidden;
+      letter-spacing: 0.5px;
     }
 
-    /* Scan effect flash */
+    /* Scan flash effect */
     .scan-flash {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
       transform: translateX(-100%);
       pointer-events: none;
-      z-index: 15;
-      animation: scanFlash 0.5s ease-out;
+      z-index: 25;
+      animation: scanFlash 0.4s ease-out;
     }
 
     @keyframes scanFlash {
@@ -449,7 +438,6 @@
       z-index: 1;
     }
 
-    /* Responsive */
     @media (max-width: 650px) {
       .legal-copyright-row {
         flex-direction: column;
@@ -470,6 +458,9 @@
       .partner-logo .p-name {
         font-size: 0.85rem;
       }
+      .partner-code-content {
+        font-size: 0.55rem;
+      }
       .footer-socials-row a {
         width: 40px;
         height: 40px;
@@ -477,7 +468,6 @@
       }
     }
 
-    /* Hide old footer inner */
     .footer-inner, .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
       display: none;
     }
@@ -539,7 +529,7 @@
   <footer class="footer glass-footer">
     <!-- Brand Partnerships Strip with Scanner Effect -->
     <div class="footer-partners">
-      <!-- Scanner overlay (only over this section) -->
+      <!-- Scanner overlay -->
       <div class="partners-scanner-overlay">
         <canvas id="partnersParticleCanvas"></canvas>
         <canvas id="partnersScannerCanvas"></canvas>
@@ -550,18 +540,58 @@
         <p class="footer-partners-label">TRUSTED PARTNERS &amp; SPONSORS</p>
         <div class="partners-track-wrapper">
           <div class="partners-track" id="partnersTrack">
-            <div class="partner-logo" data-brand="offsec"><span class="p-icon">🔥</span><span class="p-name">OffSec</span><div class="code-matrix-card"><div class="code-matrix-content"># Exploit Dev<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec</div></div></div>
-            <div class="partner-logo" data-brand="ine"><span class="p-icon">💻</span><span class="p-name">INE Security</span><div class="code-matrix-card"><div class="code-matrix-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted</div></div></div>
-            <div class="partner-logo" data-brand="blackwidow"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span><div class="code-matrix-card"><div class="code-matrix-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready</div></div></div>
-            <div class="partner-logo" data-brand="offsec"><span class="p-icon">🔥</span><span class="p-name">OffSec</span><div class="code-matrix-card"><div class="code-matrix-content"># Exploit Dev<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec</div></div></div>
-            <div class="partner-logo" data-brand="ine"><span class="p-icon">💻</span><span class="p-name">INE Security</span><div class="code-matrix-card"><div class="code-matrix-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted</div></div></div>
-            <div class="partner-logo" data-brand="blackwidow"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span><div class="code-matrix-card"><div class="code-matrix-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready</div></div></div>
+            <!-- OffSec with code overlay -->
+            <div class="partner-logo" data-brand="offsec">
+              <span class="p-icon">🔥</span>
+              <span class="p-name">OffSec</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content"># Exploit Development<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec<br>root_access</div>
+              </div>
+            </div>
+            <!-- INE Security with code overlay -->
+            <div class="partner-logo" data-brand="ine">
+              <span class="p-icon">💻</span>
+              <span class="p-name">INE Security</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted<br>network_scan</div>
+              </div>
+            </div>
+            <!-- BlackWidow Labs with code overlay -->
+            <div class="partner-logo" data-brand="blackwidow">
+              <span class="p-icon">🕷️</span>
+              <span class="p-name">BlackWidow Labs</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready<br>payload_injected</div>
+              </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="partner-logo" data-brand="offsec">
+              <span class="p-icon">🔥</span>
+              <span class="p-name">OffSec</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content"># Exploit Development<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec<br>root_access</div>
+              </div>
+            </div>
+            <div class="partner-logo" data-brand="ine">
+              <span class="p-icon">💻</span>
+              <span class="p-name">INE Security</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted<br>network_scan</div>
+              </div>
+            </div>
+            <div class="partner-logo" data-brand="blackwidow">
+              <span class="p-icon">🕷️</span>
+              <span class="p-name">BlackWidow Labs</span>
+              <div class="partner-code-card">
+                <div class="partner-code-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready<br>payload_injected</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Clean Bottom Bar (no scanner effect) -->
+    <!-- Clean Bottom Bar -->
     <div class="footer-bottom">
       <div class="footer-bottom-container">
         <div class="legal-copyright-row">
@@ -675,7 +705,7 @@
     scrambleText(roles[0]);
   </script>
 
-  <!-- Partners Scanner Effect Scripts (Only for partnerships strip) -->
+  <!-- Scanner Effect Scripts for Partners Section (like certs page) -->
   <script>
     (function() {
       const partnersSection = document.querySelector('.footer-partners');
@@ -704,7 +734,6 @@
         renderer.setSize(sectionWidth, sectionHeight);
         renderer.setClearColor(0x000000, 0);
         
-        // Particle texture
         const canvas = document.createElement('canvas');
         canvas.width = 32;
         canvas.height = 32;
@@ -795,7 +824,7 @@
         }
       }
       
-      // Scanner 2D effect with code matrix on brands
+      // Scanner 2D effect
       let scannerCtx;
       let scannerParticles = [];
       let scanAnimationId;
@@ -809,7 +838,6 @@
         scannerCanvas.style.height = sectionHeight + 'px';
         scannerCtx = scannerCanvas.getContext('2d');
         
-        // Create gradient cache
         const gradCanvas = document.createElement('canvas');
         gradCanvas.width = 20;
         gradCanvas.height = 20;
@@ -826,7 +854,6 @@
         gCtx.fill();
         window.partnersGradientCache = gradCanvas;
         
-        // Initialize particles
         for (let i = 0; i < 300; i++) {
           scannerParticles.push({
             x: window.innerWidth/2 + (Math.random() - 0.5) * 30,
@@ -841,7 +868,7 @@
         }
         
         animateScanner();
-        startScanDetection();
+        startCodeScanDetection();
       }
       
       function animateScanner() {
@@ -862,7 +889,6 @@
         
         const scannerX = width / 2;
         
-        // Draw glow line
         scannerCtx.globalCompositeOperation = 'source-over';
         
         const coreGrad = scannerCtx.createLinearGradient(scannerX - 3, 0, scannerX + 3, 0);
@@ -879,7 +905,6 @@
         scannerCtx.fillStyle = redGrad;
         scannerCtx.fillRect(scannerX - 12, 0, 24, height);
         
-        // Particles
         scannerCtx.globalCompositeOperation = 'lighter';
         for (let i = 0; i < scannerParticles.length; i++) {
           const p = scannerParticles[i];
@@ -901,8 +926,8 @@
         }
       }
       
-      // Detect when scanner passes over a brand logo and trigger code matrix
-      function startScanDetection() {
+      // Detect when scanner passes over a brand logo and trigger code matrix (like certs page)
+      function startCodeScanDetection() {
         const brands = document.querySelectorAll('.partner-logo');
         let lastScanned = new Set();
         
@@ -911,14 +936,13 @@
           
           brands.forEach(brand => {
             const rect = brand.getBoundingClientRect();
-            const parentRect = partnersSection.getBoundingClientRect();
             const brandCenterX = rect.left + rect.width / 2;
             const distance = Math.abs(brandCenterX - scannerX);
             
-            if (distance < 30) {
+            if (distance < 40) {
               if (!lastScanned.has(brand)) {
                 // Trigger code matrix effect
-                const codeCard = brand.querySelector('.code-matrix-card');
+                const codeCard = brand.querySelector('.partner-code-card');
                 if (codeCard) {
                   codeCard.classList.add('active');
                   
@@ -927,15 +951,15 @@
                   flash.className = 'scan-flash';
                   brand.style.position = 'relative';
                   brand.appendChild(flash);
-                  setTimeout(() => flash.remove(), 500);
+                  setTimeout(() => flash.remove(), 400);
                   
-                  // Hide after 0.5 seconds
+                  // Hide after 0.4 seconds
                   setTimeout(() => {
                     codeCard.classList.remove('active');
-                  }, 500);
+                  }, 400);
                 }
                 lastScanned.add(brand);
-                setTimeout(() => lastScanned.delete(brand), 800);
+                setTimeout(() => lastScanned.delete(brand), 600);
               }
             }
           });
@@ -971,7 +995,6 @@
         setTimeout(resizeEffects, 100);
       });
       
-      // Initialize
       setTimeout(() => {
         initParticles();
         initScanner();
