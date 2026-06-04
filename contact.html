@@ -5,46 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Contact | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
+  <script src="navbar-loader.js" defer></script>
+  <style>
+    :root {
+      --red: #c0392b;
+      --red-dark: #8e1c12;
+      --black: #0a0a0a;
+      --white: #f5f0eb;
+      --white-muted: rgba(245,240,235,0.75);
+      --border: rgba(192,57,43,0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .web-svg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110vmax;
+      height: 110vmax;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .contact-heading {
+      text-align: center;
+      padding: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-heading h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    .contact-heading h1 span {
+      color: var(--red);
+    }
+
+    .contact-calendly {
+      padding: 2rem;
+      min-height: 650px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(10, 10, 10, 0.7);
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--white-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer span {
+      color: var(--red);
+    }
+  </style>
 </head>
 <body>
 
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
     </g>
   </svg>
 
-  <header>
-    <nav class="navbar glass">
-      <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
-      <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html" class="active">Contact</a></li></ul>
-      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
-    </nav>
-    <div class="sidebar" id="sidebar"><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html" class="active">Contact</a></li></ul></div>
-    <div class="overlay" id="overlay"></div>
-  </header>
-
   <section class="contact-section">
     <div class="contact-container">
-      <div class="contact-heading"><h1>Let's have a <br><span>Conversation</span></h1></div>
-      <div class="contact-calendly"><div class="calendly-inline-widget" data-url="https://calendly.com/kagwe-bridgette/30min"></div><script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script></div>
+      <div class="contact-heading">
+        <h1>Let's have a <br><span>Conversation</span></h1>
+      </div>
+      <div class="contact-calendly">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/kagwe-bridgette/30min"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
     </div>
   </section>
 
-  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
+  <footer class="footer">
+    <p>Based in <span>Melbourne, Australia</span></p>
+  </footer>
 
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    const hamburger = document.getElementById('hamburger'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('overlay'), menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-    const navSound = new Audio('nav.mp3');
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150); }); });
-  </script>
 </body>
 </html>
