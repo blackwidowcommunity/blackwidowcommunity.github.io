@@ -37,12 +37,9 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ===== NAVBAR CONTAINER - just to hold the injected navbar ===== */
+    /* Simple container for injected navbar - no extra styling */
     #navbar-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      position: relative;
       z-index: 1000;
     }
 
@@ -572,10 +569,7 @@
 
     // Scale the bg word so it always fits within the mobile viewport
     function setWordSize(word) {
-      // Max chars we can fit at 13vw each before hitting ~90vw total
-      // vw per char: slightly less for longer words
       const len = word.length;
-      // approx each Cinzel char ≈ 0.72em wide; target max 88vw
       const vw = Math.min(13, Math.floor(88 / (len * 0.78)));
       document.documentElement.style.setProperty('--word-size', vw + 'vw');
     }
@@ -612,7 +606,6 @@
       if (locked || idx === current || idx < 0 || idx >= products.length) return;
       locked = true;
 
-      // fade out both image wraps
       imgWrap.classList.add('switching');
       mImgWrap.classList.add('switching');
 
@@ -636,7 +629,7 @@
     // Mobile dots
     mDots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.mi))));
 
-    // Touch swipe (works on both layouts)
+    // Touch swipe
     let tx = 0;
     document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', e => {
@@ -645,7 +638,7 @@
       goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
 
-    // Mouse drag (desktop)
+    // Mouse drag
     let mx = 0, mdown = false;
     document.addEventListener('mousedown', e => { mx = e.clientX; mdown = true; });
     document.addEventListener('mouseup', e => {
@@ -661,17 +654,20 @@
       if (e.key === 'ArrowLeft')  goTo(current - 1);
     });
 
-    // Sync navbar top padding and footer bottom padding on mobile layout
+    // Sync layout for mobile
     function syncLayout() {
-      const navH    = document.querySelector('.navbar').offsetHeight;
+      const navbar = document.querySelector('.navbar');
       const footerH = document.querySelector('.footer').offsetHeight;
       const ml = document.getElementById('mobile-layout');
-      ml.style.paddingTop    = navH + 'px';
+      if (navbar) {
+        const navH = navbar.offsetHeight;
+        ml.style.paddingTop = navH + 'px';
+      }
       ml.style.paddingBottom = footerH + 'px';
     }
     
-    // Wait for navbar to load before syncing
-    setTimeout(syncLayout, 100);
+    // Wait for navbar to load
+    setTimeout(syncLayout, 150);
     window.addEventListener('resize', syncLayout);
   </script>
 </body>
