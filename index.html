@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <!-- Google Fonts: Cinzel + Raleway for readability -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Shared navbar loader - ONLY ADDITION -->
+  <script src="navbar-loader.js" defer></script>
   <style>
     /* ========================================
        BLACK WIDOW THEME - ENHANCED TYPOGRAPHY
@@ -75,8 +77,8 @@
       z-index: 0;
     }
 
-    /* ===== FIXED NAVBAR (larger tap targets) ===== */
-    header {
+    /* ===== NAVBAR CONTAINER - just to hold the injected navbar ===== */
+    #navbar-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -84,135 +86,7 @@
       z-index: 1000;
     }
 
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 5%;
-      background: var(--glass);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-      gap: 2rem;
-      position: relative;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2.8rem;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      color: var(--white-muted);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links li a:hover,
-    .nav-links li a.active {
-      color: var(--red);
-    }
-
-    .btn-nav {
-      display: inline-block;
-      padding: 0.6rem 1.4rem;
-      background: transparent;
-      border: 1px solid var(--red);
-      color: var(--red);
-      border-radius: 999px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-nav:hover {
-      background: var(--red);
-      color: var(--white);
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.9rem;
-      cursor: pointer;
-      color: var(--white-muted);
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    /* Mobile Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: min(280px, 70%);
-      height: 100vh;
-      background: rgba(10, 10, 10, 0.55);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border-left: 1px solid rgba(192, 57, 43, 0.5);
-      box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5);
-      z-index: 2000;
-      padding: 2rem;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .sidebar.active { right: 0; }
-    .sidebar ul { 
-      list-style: none; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 2.5rem;
-      align-items: center;
-      width: 100%;
-    }
-    .sidebar li {
-      text-align: center;
-      width: 100%;
-    }
-    .sidebar a { 
-      text-decoration: none; 
-      color: var(--white-muted); 
-      font-size: 1.4rem; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 0.08em;
-      display: block;
-      padding: 0.4rem 0;
-      transition: color 0.2s;
-    }
-    .sidebar a:hover, .sidebar a.active { 
-      color: var(--red);
-    }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1500;
-    }
-    .overlay.active { opacity: 1; pointer-events: all; }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      .btn-nav { display: none; }
-      .navbar { padding: 2rem 5%; }
-    }
+    /* REMOVED all navbar CSS (.navbar, .nav-links, .hamburger, .sidebar, .overlay) */
 
     /* ===== MAIN CONTENT ===== */
     .urgency-strip {
@@ -673,30 +547,8 @@
     </g>
   </svg>
 
-  <header>
-    <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
-    </nav>
-    <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="AboutUs.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="guests.html">Guests</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="overlay" id="overlay"></div>
-  </header>
+  <!-- Navigation bar will be injected here by navbar-loader.js -->
+  <div id="navbar-container"></div>
 
   <div class="urgency-strip"> ⚠️ <strong>Only 20 seats per session.</strong> Seats include existing members and refresh every week — they go fast. Reserve your spot before it fills up.</div>
 
@@ -884,7 +736,7 @@
     <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
   </footer>
 
-  <!-- DYNAMIC NAVBAR OFFSET -->
+  <!-- DYNAMIC NAVBAR OFFSET - UPDATED to work with injected navbar -->
   <script>
     function syncNavOffset() {
       const navbar = document.querySelector('.navbar');
@@ -893,52 +745,12 @@
         urgency.style.marginTop = navbar.offsetHeight + 'px';
       }
     }
-    syncNavOffset();
+    // Wait for navbar to load before syncing
+    setTimeout(syncNavOffset, 150);
     window.addEventListener('resize', syncNavOffset);
   </script>
 
-  <!-- NAVIGATION SCRIPT -->
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
-    const navSound = new Audio('nav.mp3');
-
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
-    });
-
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const dest = link.getAttribute('href');
-        navSound.currentTime = 0;
-        navSound.play().catch(() => {});
-        // If it's an anchor link (#about), smooth scroll instead of navigating
-        if (dest && dest.startsWith('#')) {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
-          setTimeout(() => {
-            const el = document.querySelector(dest);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
-        } else {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
-          setTimeout(() => { window.location.href = dest; }, 150);
-        }
-      });
-    });
-  </script>
+  <!-- REMOVED the old navbar JavaScript (hamburger, sidebar, overlay, nav-links click handlers) -->
 
   <!-- TAB SWITCHER SCRIPT -->
   <script>
@@ -967,7 +779,6 @@
       });
     });
   </script>
-
 
 </body>
 </html>
