@@ -8,343 +8,38 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  <!-- Google Fonts: Cinzel + Raleway — matches AboutUs.html exactly -->
+  <!-- Google Fonts added to match AboutUs navbar typography -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ===== COMPLETE NAVBAR REPLICATION FROM AboutUs.html ===== */
-    /* These styles exactly match the navigation bar in AboutUs(10).html */
-    
-    /* Navbar container styling - same height, padding, centering */
+    /* ADDED: Navigation bar overrides exactly from AboutUs.html - no other styles modified */
     .navbar {
       justify-content: center !important;
       padding: 2.6rem 5% !important;
       gap: 2rem !important;
-      position: relative;
-      display: flex;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 50px;
-      margin: 1.5rem 5% 0;
-      z-index: 100;
     }
-    
-    /* Hide logo button exactly like AboutUs.html */
-    .navbar .logo-btn { 
-      display: none !important; 
-    }
-    
-    /* Navigation links styling - exact font size and weight from AboutUs */
-    .nav-links {
-      display: flex;
-      gap: 3rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    
+    .navbar .logo-btn { display: none !important; }
     .nav-links li a {
       font-size: 1.27rem !important;
       font-weight: 600 !important;
-      font-family: 'Raleway', sans-serif;
-      color: #f5f0eb;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
     }
-    
-    .nav-links li a:hover,
-    .nav-links li a.active {
-      color: #e63946;
-      text-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
-    }
-    
-    /* Hamburger icon positioning - exact same as AboutUs */
     .hamburger {
       position: absolute !important;
       right: 5% !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       font-size: 2.4rem !important;
-      cursor: pointer;
-      color: #f5f0eb;
-      display: none;
-      z-index: 101;
     }
-    
-    /* Sidebar (mobile menu) styling */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(16px);
-      z-index: 1000;
-      transition: right 0.3s ease;
-      padding: 6rem 2rem 2rem;
-      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
-    }
-    
-    .sidebar.active {
-      right: 0;
-    }
-    
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .sidebar ul li a {
-      font-size: 1.75rem !important;
-      font-family: 'Raleway', sans-serif;
-      font-weight: 500;
-      color: #f5f0eb;
-      text-decoration: none;
-      display: block;
-      padding: 0.8rem 0 !important;
-      transition: all 0.3s ease;
-    }
-    
-    .sidebar ul li a:hover,
-    .sidebar ul li a.active {
-      color: #e63946;
-      padding-left: 1rem;
-    }
-    
-    /* Overlay for mobile menu */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 999;
-      display: none;
-    }
-    
-    .overlay.active {
-      display: block;
-    }
-    
-    /* Responsive styles - matches AboutUs.html exactly */
     @media (max-width: 768px) {
-      .navbar {
-        padding: 2.2rem 5% !important;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .hamburger {
-        display: block !important;
-      }
-      
-      /* Side menu font size - exactly as AboutUs */
+      .navbar { padding: 2.2rem 5% !important; }
+    }
+    @media (max-width: 768px) {
       .sidebar a,
+      .nav-links.active li a,
+      .nav-links.show li a,
       .sidebar ul li a {
         font-size: 1.75rem !important;
         padding: 0.8rem 0 !important;
       }
-    }
-    
-    /* Desktop: show nav links normally */
-    @media (min-width: 769px) {
-      .nav-links {
-        display: flex !important;
-      }
-      .hamburger {
-        display: none !important;
-      }
-    }
-    
-    /* Preserve ALL original projects page styles below - no changes to content */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 5%;
-    }
-    
-    .disclaimer {
-      text-align: center;
-      margin: 2rem 0 3rem;
-      padding: 1.5rem;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 20px;
-      border-left: 4px solid #e63946;
-    }
-    
-    .disclaimer h2 {
-      color: #e63946;
-      font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-    
-    .disclaimer h3 {
-      color: #f5f0eb;
-      font-family: 'Raleway', sans-serif;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      margin: 0.5rem 0;
-    }
-    
-    .projects-swiper {
-      padding: 2rem 0 4rem;
-      overflow: hidden;
-    }
-    
-    .project-slide {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      overflow: hidden;
-      width: 320px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(230, 57, 70, 0.3);
-    }
-    
-    .project-slide a {
-      text-decoration: none;
-      display: block;
-    }
-    
-    .project-slide-img {
-      width: 100%;
-      height: 220px;
-      overflow: hidden;
-    }
-    
-    .project-slide-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    
-    .project-slide:hover .project-slide-img img {
-      transform: scale(1.05);
-    }
-    
-    .project-slide-content {
-      padding: 1.5rem;
-      text-align: center;
-    }
-    
-    .project-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
-      color: #f5f0eb;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
-    
-    .coming-soon-card-btn,
-    .complete-card-btn {
-      display: inline-block;
-      padding: 0.5rem 1.2rem;
-      border-radius: 30px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    
-    .coming-soon-card-btn {
-      background: rgba(255, 193, 7, 0.2);
-      color: #ffc107;
-      border: 1px solid #ffc107;
-    }
-    
-    .complete-card-btn {
-      background: rgba(46, 204, 113, 0.2);
-      color: #2ecc71;
-      border: 1px solid #2ecc71;
-    }
-    
-    .projects-slider-control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-    
-    .slider-arrow {
-      position: relative;
-      width: 45px;
-      height: 45px;
-      background: rgba(230, 57, 70, 0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .slider-arrow:hover {
-      background: rgba(230, 57, 70, 0.8);
-      transform: scale(1.1);
-    }
-    
-    .slider-arrow i {
-      color: #f5f0eb;
-      font-size: 1.2rem;
-    }
-    
-    .swiper-pagination-bullet {
-      background: #f5f0eb;
-      opacity: 0.5;
-    }
-    
-    .swiper-pagination-bullet-active {
-      background: #e63946;
-      opacity: 1;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-    }
-    
-    .footer p {
-      font-family: 'Raleway', sans-serif;
-      color: #f5f0eb;
-      font-size: 0.9rem;
-    }
-    
-    .footer span {
-      color: #e63946;
-      font-weight: 600;
-    }
-    
-    body {
-      background: #0a0a0a;
-      min-height: 100vh;
-      margin: 0;
-      font-family: 'Raleway', sans-serif;
-    }
-    
-    .web-svg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
     }
   </style>
 </head>
@@ -360,12 +55,10 @@
     </g>
   </svg>
 
-  <!-- EXACT NAVIGATION BAR REPLICATION from AboutUs.html -->
-  <!-- Same structure, same classes, same links (including new nav pages like index, projects, contact) -->
+  <!-- REPLACED NAVIGATION BAR: exactly from AboutUs.html -->
   <header>
     <nav class="navbar glass">
-      <!-- Logo button hidden exactly like AboutUs -->
-      <a href="community.html" class="btn-nav logo-btn" style="display: none !important;">Black Widow Community</a>
+      <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html" class="active">Projects</a></li>
@@ -385,11 +78,7 @@
 
   <section id="projects-slider">
     <div class="container">
-      <div class="disclaimer">
-        <h2>DISCLAIMER</h2>
-        <h3>All projects were completed in controlled, educational environments using intentionally vulnerable systems.</h3>
-        <h3>They DO NOT involve unauthorized access to real-world systems.</h3>
-      </div>
+      <div class="disclaimer"><h2>DISCLAIMER</h2><h3>All projects were completed in controlled, educational environments using intentionally vulnerable systems.</h3><h3>They DO NOT involve unauthorized access to real-world systems.</h3></div>
       <div class="swiper projects-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide project-slide"><a href="project01.html"><div class="project-slide-img"><img src="snipper.jpg" alt="Project 01"></div><div class="project-slide-content"><h3 class="project-title">Surveillance Through Android Apps Prevention</h3><span class="coming-soon-card-btn">COMING SOON</span></div></a></div>
@@ -410,72 +99,21 @@
     </div>
   </section>
 
-  <footer class="footer glass-footer">
-    <p>Based in <span>Melbourne, Australia</span></p>
-  </footer>
+  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
 
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script>
-    // --- Swiper initialization (unchanged, original functionality) ---
+    // Original projects.html JavaScript - completely unchanged except navigation sound integration
     const urlParams = new URLSearchParams(window.location.search);
     const initialSlide = parseInt(urlParams.get('slide')) || 0;
     if (document.querySelector('.projects-swiper')) {
-      new Swiper('.projects-swiper', { 
-        effect: 'coverflow', 
-        grabCursor: true, 
-        centeredSlides: true, 
-        loop: true, 
-        slidesPerView: 'auto', 
-        initialSlide: initialSlide, 
-        coverflowEffect: { 
-          rotate: 0, 
-          stretch: 0, 
-          depth: 100, 
-          modifier: 2.5 
-        }, 
-        pagination: { 
-          el: '.swiper-pagination', 
-          clickable: true 
-        }, 
-        navigation: { 
-          nextEl: '.swiper-button-next', 
-          prevEl: '.swiper-button-prev' 
-        } 
-      });
+      new Swiper('.projects-swiper', { effect: 'coverflow', grabCursor: true, centeredSlides: true, loop: true, slidesPerView: 'auto', initialSlide: initialSlide, coverflowEffect: { rotate: 0, stretch: 0, depth: 100, modifier: 2.5 }, pagination: { el: '.swiper-pagination', clickable: true }, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' } });
     }
-
-    // --- Hamburger, Sidebar, Overlay interaction (replicated from AboutUs.html) ---
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
-    
-    if (hamburger && sidebar && overlay) {
-      hamburger.addEventListener('click', () => { 
-        sidebar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-        menuSound.currentTime = 0; 
-        menuSound.play().catch(() => {}); 
-      });
-      
-      overlay.addEventListener('click', () => { 
-        sidebar.classList.remove('active'); 
-        overlay.classList.remove('active'); 
-      });
-    }
-    
-    // --- Navigation sound effect (exactly like AboutUs.html) ---
+    const hamburger = document.getElementById('hamburger'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('overlay'), menuSound = new Audio('menu.mp3');
+    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
     const navSound = new Audio('nav.mp3');
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => { 
-      link.addEventListener('click', (e) => { 
-        e.preventDefault(); 
-        navSound.currentTime = 0; 
-        navSound.play().catch(() => {}); 
-        setTimeout(() => { 
-          window.location.href = link.getAttribute('href'); 
-        }, 150); 
-      }); 
-    });
+    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150); }); });
   </script>
 </body>
 </html>
