@@ -85,22 +85,15 @@
       transform: translateY(-4px);
       text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
     }
-    
-    /* Also style the portfolio icon in footer to green on hover */
-    .footer-socials-row a.s-portfolio-row:hover {
-      border-color: #2ecc71 !important;
-      color: #2ecc71 !important;
-      box-shadow: 0 0 20px rgba(46, 204, 113, 0.5) !important;
-    }
 
-    /* ── FOOTER (UPDATED: single row with centered copyright, legal left, social right) ── */
+    /* ── FOOTER ── */
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
       overflow: hidden;
     }
 
-    /* ── BRAND PARTNERSHIPS STRIP (keeping the beautiful animation) ── */
+    /* ── BRAND PARTNERSHIPS STRIP (3 recurring bars for seamless loop) ── */
     .footer-partners {
       padding: 3.5rem 6% 2.5rem;
       text-align: center;
@@ -128,7 +121,7 @@
       display: flex;
       gap: 4rem;
       width: max-content;
-      animation: partnerScroll 28s linear infinite;
+      animation: partnerScroll 32s linear infinite;
     }
 
     .partners-track:hover {
@@ -193,7 +186,7 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* ── SINGLE BOTTOM BAR: 3-column layout with perfectly centered copyright ── */
+    /* ── BOTTOM BAR: Centered legal links + copyright aligned as a group ── */
     .footer-bottom {
       border-top: none;
       padding: 1.8rem 6%;
@@ -202,22 +195,30 @@
 
     .footer-bottom-container {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
+      justify-content: center;
+      gap: 1rem;
       font-family: 'Raleway', sans-serif;
-      position: relative;
     }
 
-    /* Left column: Legal links (Community Guidelines & Data Privacy) - no underline */
+    /* Legal + Copyright row: both centered together */
+    .legal-copyright-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      row-gap: 0.8rem;
+    }
+
+    /* Legal links (Community Guidelines & Data Privacy) - centered, no underline */
     .legal-links {
       display: flex;
       gap: 2.5rem;
       align-items: center;
       flex-wrap: wrap;
-      flex: 1;
-      justify-content: flex-start;
+      justify-content: center;
     }
 
     .legal-links a {
@@ -228,7 +229,7 @@
       color: rgba(255,255,255,0.55);
       text-decoration: none;
       transition: color 0.25s ease;
-      border-bottom: none; /* REMOVED underline completely */
+      border-bottom: none;
       padding-bottom: 0;
     }
 
@@ -236,7 +237,7 @@
       color: #fff;
     }
 
-    /* Center column: Copyright text - 2026, perfectly centered */
+    /* Copyright text - 2026, matching style */
     .copyright {
       font-family: 'Raleway', sans-serif;
       font-size: 1.15rem;
@@ -244,33 +245,29 @@
       letter-spacing: 0.05em;
       margin: 0;
       text-align: center;
-      flex-shrink: 0;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       white-space: nowrap;
     }
 
-    /* Right column: Social Icons */
+    /* Social Icons Row - centered below, all with glow effects */
     .footer-socials-row {
       display: flex;
-      gap: 1.2rem;
+      gap: 1.5rem;
       align-items: center;
-      flex: 1;
-      justify-content: flex-end;
+      justify-content: center;
+      margin-top: 0.5rem;
     }
 
     .footer-socials-row a {
       position: relative;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,0.7);
-      font-size: 1.6rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 1.8rem;
       text-decoration: none;
       background: rgba(255,255,255,0.03);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -282,41 +279,41 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      border-radius: 12px;
+      border-radius: 14px;
       transition: opacity 0.3s ease;
     }
 
-    /* LinkedIn hover glow */
+    /* LinkedIn glow */
     .footer-socials-row a.s-linkedin-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.5) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.6) 0%, transparent 70%);
     }
     .footer-socials-row a.s-linkedin-row:hover {
       border-color: #0a66c2;
       color: #fff;
-      box-shadow: 0 0 20px rgba(10, 102, 194, 0.4);
-      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 24px rgba(10, 102, 194, 0.55), inset 0 0 8px rgba(10,102,194,0.2);
+      transform: translateY(-4px) scale(1.08);
     }
 
-    /* YouTube hover glow */
+    /* YouTube glow */
     .footer-socials-row a.s-youtube-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.5) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.6) 0%, transparent 70%);
     }
     .footer-socials-row a.s-youtube-row:hover {
       border-color: #ff0000;
       color: #fff;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 24px rgba(255, 0, 0, 0.55), inset 0 0 8px rgba(255,0,0,0.2);
+      transform: translateY(-4px) scale(1.08);
     }
 
-    /* Portfolio/Certificates button - green glow on hover as requested */
+    /* Portfolio/Certificates button - green glow */
     .footer-socials-row a.s-portfolio-row::after {
-      background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.55) 0%, transparent 70%);
+      background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.6) 0%, transparent 70%);
     }
     .footer-socials-row a.s-portfolio-row:hover {
       border-color: #2ecc71 !important;
       color: #2ecc71 !important;
-      box-shadow: 0 0 22px rgba(46, 204, 113, 0.55) !important;
-      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 24px rgba(46, 204, 113, 0.55) !important;
+      transform: translateY(-4px) scale(1.08);
     }
 
     .footer-socials-row a i {
@@ -324,38 +321,19 @@
       z-index: 1;
     }
 
-    /* Responsive: for mobile, we stack and adjust centering */
-    @media (max-width: 850px) {
-      .footer-bottom-container {
+    /* Responsive adjustments */
+    @media (max-width: 650px) {
+      .legal-copyright-row {
         flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        gap: 1.2rem;
-        position: relative;
-      }
-      
-      .legal-links {
-        justify-content: center;
-        order: 1;
+        gap: 0.8rem;
       }
       
       .copyright {
-        position: static;
-        transform: none;
-        order: 2;
         white-space: normal;
       }
       
-      .footer-socials-row {
-        justify-content: center;
-        order: 3;
-      }
-    }
-
-    @media (max-width: 480px) {
       .legal-links {
-        gap: 1.5rem;
-        flex-direction: column;
+        gap: 1.8rem;
       }
       
       .footer-partners {
@@ -369,14 +347,20 @@
       .partner-logo .p-name {
         font-size: 0.9rem;
       }
+      
+      .footer-socials-row {
+        gap: 1.2rem;
+      }
+      
+      .footer-socials-row a {
+        width: 44px;
+        height: 44px;
+        font-size: 1.6rem;
+      }
     }
     
-    /* Remove any leftover middle row styles */
-    .footer-inner {
-      display: none;
-    }
-    
-    .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
+    /* Remove leftover middle row elements */
+    .footer-inner, .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
       display: none;
     }
   </style>
@@ -436,12 +420,12 @@
 
   <footer class="footer glass-footer">
 
-    <!-- ── BRAND PARTNERSHIPS STRIP (preserved animation) ── -->
+    <!-- ── BRAND PARTNERSHIPS STRIP (3 full recurring sets for seamless loop) ── -->
     <div class="footer-partners">
       <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
       <div class="partners-track-wrapper">
         <div class="partners-track">
-          <!-- Set A -->
+          <!-- Set 1 -->
           <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
           <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
           <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
@@ -450,7 +434,16 @@
           <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
           <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
           <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-          <!-- Set B — exact duplicate for seamless loop -->
+          <!-- Set 2 (duplicate for smoothness) -->
+          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
+          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
+          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
+          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
+          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
+          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
+          <!-- Set 3 (third recurring bar to ensure 3 loops effect) -->
           <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
           <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
           <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
@@ -463,19 +456,19 @@
       </div>
     </div>
 
-    <!-- ── SINGLE BOTTOM ROW: Legal links left | copyright 2026 center | social right ── -->
+    <!-- ── BOTTOM SECTION: Centered legal links + copyright on same level, social icons below with glows ── -->
     <div class="footer-bottom">
       <div class="footer-bottom-container">
-        <!-- LEFT: Legal links (Community Guidelines & Data Privacy) - no underline -->
-        <div class="legal-links">
-          <a href="community-guidelines.html">Community Guidelines</a>
-          <a href="privacy.html">Data Privacy</a>
+        <!-- Row 1: Legal links + Copyright (both centered together) -->
+        <div class="legal-copyright-row">
+          <div class="legal-links">
+            <a href="community-guidelines.html">Community Guidelines</a>
+            <a href="privacy.html">Data Privacy</a>
+          </div>
+          <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
         </div>
         
-        <!-- CENTER: Copyright 2026 (absolutely centered in desktop) -->
-        <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
-        
-        <!-- RIGHT: Social media icons (Certificates button glows green) -->
+        <!-- Row 2: Social Icons (LinkedIn, YouTube, Certificates) with glowing effects -->
         <div class="footer-socials-row">
           <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
             <i class="fa-brands fa-linkedin"></i>
