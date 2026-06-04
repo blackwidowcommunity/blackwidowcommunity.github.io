@@ -87,7 +87,7 @@
       text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
     }
 
-    /* ── FOOTER WITH SCANNER EFFECT ── */
+    /* ── FOOTER ── */
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
@@ -96,40 +96,47 @@
       z-index: 1;
     }
 
-    /* Scanner Canvas Container */
-    .footer-scanner-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+    /* ── BRAND PARTNERSHIPS STRIP WITH SCANNER EFFECT ── */
+    .footer-partners {
+      position: relative;
+      padding: 3rem 6% 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       overflow: hidden;
     }
 
-    #footerParticleCanvas {
+    /* Scanner overlay container (only over partnerships area) */
+    .partners-scanner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    #partnersParticleCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
-      pointer-events: none;
     }
 
-    #footerScannerCanvas {
+    #partnersScannerCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
-      pointer-events: none;
     }
 
-    /* Scanner red line overlay */
-    .footer-scanner-line {
+    /* Scanner red line */
+    .partners-scanner-line {
       position: absolute;
       top: 0;
       left: 50%;
@@ -145,12 +152,11 @@
         transparent
       );
       box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
-      animation: footerScanPulse 2s ease-in-out infinite alternate;
+      animation: partnersScanPulse 2s ease-in-out infinite alternate;
       z-index: 2;
-      pointer-events: none;
     }
 
-    @keyframes footerScanPulse {
+    @keyframes partnersScanPulse {
       0% {
         opacity: 0.7;
         transform: translateX(-50%) scaleY(1);
@@ -161,19 +167,8 @@
       }
     }
 
-    /* Footer content wrapper - above scanner */
-    .footer-content {
-      position: relative;
-      z-index: 10;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(2px);
-    }
-
-    /* ── BRAND PARTNERSHIPS STRIP ── */
-    .footer-partners {
-      padding: 3rem 6% 2rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    /* Partners content - above scanner */
+    .partners-content {
       position: relative;
       z-index: 10;
     }
@@ -184,14 +179,18 @@
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.4);
       margin: 0 0 2rem 0;
+      position: relative;
+      z-index: 10;
     }
 
     .partners-track-wrapper {
       overflow: hidden;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      position: relative;
+      z-index: 10;
     }
 
     .partners-track {
@@ -218,7 +217,8 @@
       padding: 0.9rem 2rem;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
       white-space: nowrap;
       cursor: default;
       transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
@@ -230,14 +230,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(180,50,30,0.12) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(180,50,30,0.2) 0%, transparent 60%);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     .partner-logo:hover {
-      border-color: rgba(180,50,30,0.55);
-      background: rgba(180,50,30,0.07);
+      border-color: rgba(180,50,30,0.7);
+      background: rgba(0, 0, 0, 0.8);
       transform: translateY(-3px);
     }
 
@@ -255,16 +255,77 @@
       font-size: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.7);
       transition: color 0.3s ease;
     }
 
     .partner-logo:hover .p-name {
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,1);
     }
 
-    /* ── BOTTOM BAR ── */
+    /* Code matrix cards that appear on scan - hidden by default, shown when scanned */
+    .code-matrix-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 20;
+      overflow: hidden;
+    }
+
+    .code-matrix-card.active {
+      opacity: 1;
+    }
+
+    .code-matrix-content {
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0;
+      white-space: pre-wrap;
+      word-break: break-all;
+      padding: 1rem;
+      text-align: center;
+      line-height: 1.3;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    /* Scan effect flash */
+    .scan-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.6), transparent);
+      transform: translateX(-100%);
+      pointer-events: none;
+      z-index: 15;
+      animation: scanFlash 0.5s ease-out;
+    }
+
+    @keyframes scanFlash {
+      0% { transform: translateX(-100%); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateX(100%); opacity: 0; }
+    }
+
+    /* ── BOTTOM BAR (clean, no scanner) ── */
     .footer-bottom {
+      position: relative;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.8);
       padding: 1.8rem 6%;
     }
 
@@ -476,50 +537,50 @@
   </section>
 
   <footer class="footer glass-footer">
-    <!-- Scanner Effect Container -->
-    <div class="footer-scanner-container">
-      <canvas id="footerParticleCanvas"></canvas>
-      <canvas id="footerScannerCanvas"></canvas>
-      <div class="footer-scanner-line"></div>
-    </div>
-
-    <div class="footer-content">
-      <!-- Brand Partnerships Strip (3 brands only) -->
-      <div class="footer-partners">
+    <!-- Brand Partnerships Strip with Scanner Effect -->
+    <div class="footer-partners">
+      <!-- Scanner overlay (only over this section) -->
+      <div class="partners-scanner-overlay">
+        <canvas id="partnersParticleCanvas"></canvas>
+        <canvas id="partnersScannerCanvas"></canvas>
+        <div class="partners-scanner-line"></div>
+      </div>
+      
+      <div class="partners-content">
         <p class="footer-partners-label">TRUSTED PARTNERS &amp; SPONSORS</p>
         <div class="partners-track-wrapper">
-          <div class="partners-track">
-            <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
-            <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
-            <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-            <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
-            <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
-            <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
+          <div class="partners-track" id="partnersTrack">
+            <div class="partner-logo" data-brand="offsec"><span class="p-icon">🔥</span><span class="p-name">OffSec</span><div class="code-matrix-card"><div class="code-matrix-content"># Exploit Dev<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec</div></div></div>
+            <div class="partner-logo" data-brand="ine"><span class="p-icon">💻</span><span class="p-name">INE Security</span><div class="code-matrix-card"><div class="code-matrix-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted</div></div></div>
+            <div class="partner-logo" data-brand="blackwidow"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span><div class="code-matrix-card"><div class="code-matrix-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready</div></div></div>
+            <div class="partner-logo" data-brand="offsec"><span class="p-icon">🔥</span><span class="p-name">OffSec</span><div class="code-matrix-card"><div class="code-matrix-content"># Exploit Dev<br>0x7F3A2B1C<br>buffer_overflow()<br>shellcode_exec</div></div></div>
+            <div class="partner-logo" data-brand="ine"><span class="p-icon">💻</span><span class="p-name">INE Security</span><div class="code-matrix-card"><div class="code-matrix-content">>>> PWNED<br>root@ine:~#<br>certificate_verified<br>access_granted</div></div></div>
+            <div class="partner-logo" data-brand="blackwidow"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span><div class="code-matrix-card"><div class="code-matrix-content">black_widow.init()<br>scanning_network...<br>vulnerabilities: 42<br>exploit_ready</div></div></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Bottom Bar -->
-      <div class="footer-bottom">
-        <div class="footer-bottom-container">
-          <div class="legal-copyright-row">
-            <div class="legal-links">
-              <a href="community-guidelines.html">Community Guidelines</a>
-              <a href="privacy.html">Data Privacy</a>
-            </div>
-            <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
+    <!-- Clean Bottom Bar (no scanner effect) -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <div class="legal-copyright-row">
+          <div class="legal-links">
+            <a href="community-guidelines.html">Community Guidelines</a>
+            <a href="privacy.html">Data Privacy</a>
           </div>
-          <div class="footer-socials-row">
-            <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
-              <i class="fa-brands fa-youtube"></i>
-            </a>
-            <a href="certs.html" aria-label="Certificates" class="s-portfolio-row">
-              <i class="fa-solid fa-folder-open"></i>
-            </a>
-          </div>
+          <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
+        </div>
+        <div class="footer-socials-row">
+          <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a href="certs.html" aria-label="Certificates" class="s-portfolio-row">
+            <i class="fa-solid fa-folder-open"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -614,51 +675,47 @@
     scrambleText(roles[0]);
   </script>
 
-  <!-- Footer Scanner Effect Scripts (Particle System + Scanner) -->
+  <!-- Partners Scanner Effect Scripts (Only for partnerships strip) -->
   <script>
     (function() {
-      // Footer Particle System (Three.js)
-      const particleCanvas = document.getElementById('footerParticleCanvas');
-      const scannerCanvas = document.getElementById('footerScannerCanvas');
-      let footerHeight = 0;
+      const partnersSection = document.querySelector('.footer-partners');
+      const particleCanvas = document.getElementById('partnersParticleCanvas');
+      const scannerCanvas = document.getElementById('partnersScannerCanvas');
       
-      function getFooterHeight() {
-        const footer = document.querySelector('.footer');
-        if (footer) return footer.offsetHeight;
-        return 350;
-      }
+      if (!partnersSection) return;
       
-      // Simple particle system for footer
-      let particleScene, particleCamera, particleRenderer, particles;
-      let particleCount = 300;
+      let sectionHeight = partnersSection.offsetHeight;
+      let sectionWidth = window.innerWidth;
+      
+      // Particle System (Three.js)
+      let scene, camera, renderer, particles;
+      let particleCount = 200;
       let velocities = [];
-      let alphas = [];
       
-      function initFooterParticles() {
-        footerHeight = getFooterHeight();
-        const width = window.innerWidth;
-        const height = footerHeight;
+      function initParticles() {
+        sectionHeight = partnersSection.offsetHeight;
+        sectionWidth = window.innerWidth;
         
-        particleScene = new THREE.Scene();
-        particleCamera = new THREE.OrthographicCamera(-width/2, width/2, height/2, -height/2, 1, 1000);
-        particleCamera.position.z = 100;
+        scene = new THREE.Scene();
+        camera = new THREE.OrthographicCamera(-sectionWidth/2, sectionWidth/2, sectionHeight/2, -sectionHeight/2, 1, 1000);
+        camera.position.z = 100;
         
-        particleRenderer = new THREE.WebGLRenderer({ canvas: particleCanvas, alpha: true, antialias: true });
-        particleRenderer.setSize(width, height);
-        particleRenderer.setClearColor(0x000000, 0);
+        renderer = new THREE.WebGLRenderer({ canvas: particleCanvas, alpha: true, antialias: true });
+        renderer.setSize(sectionWidth, sectionHeight);
+        renderer.setClearColor(0x000000, 0);
         
-        // Create particle texture
+        // Particle texture
         const canvas = document.createElement('canvas');
         canvas.width = 32;
         canvas.height = 32;
         const ctx = canvas.getContext('2d');
         const half = canvas.width/2;
-        const gradient = ctx.createRadialGradient(half, half, 0, half, half, half);
-        gradient.addColorStop(0, '#fff');
-        gradient.addColorStop(0.2, 'rgba(200, 0, 0, 0.8)');
-        gradient.addColorStop(0.5, 'rgba(139, 0, 0, 0.4)');
-        gradient.addColorStop(1, 'transparent');
-        ctx.fillStyle = gradient;
+        const grad = ctx.createRadialGradient(half, half, 0, half, half, half);
+        grad.addColorStop(0, '#fff');
+        grad.addColorStop(0.2, 'rgba(200, 0, 0, 0.8)');
+        grad.addColorStop(0.5, 'rgba(139, 0, 0, 0.4)');
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(half, half, half, 0, Math.PI*2);
         ctx.fill();
@@ -668,29 +725,23 @@
         const positions = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
         velocities = new Float32Array(particleCount);
-        alphas = new Float32Array(particleCount);
         
         for (let i = 0; i < particleCount; i++) {
-          positions[i*3] = (Math.random() - 0.5) * width;
-          positions[i*3+1] = (Math.random() - 0.5) * height;
+          positions[i*3] = (Math.random() - 0.5) * sectionWidth;
+          positions[i*3+1] = (Math.random() - 0.5) * sectionHeight;
           positions[i*3+2] = 0;
-          sizes[i] = Math.random() * 6 + 3;
-          velocities[i] = Math.random() * 40 + 20;
-          alphas[i] = Math.random() * 0.6 + 0.2;
+          sizes[i] = Math.random() * 5 + 2;
+          velocities[i] = Math.random() * 30 + 15;
         }
         
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-        geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1));
         
         const material = new THREE.ShaderMaterial({
           uniforms: { pointTexture: { value: texture } },
           vertexShader: `
-            attribute float alpha;
             attribute float size;
-            varying float vAlpha;
             void main() {
-              vAlpha = alpha;
               vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
               gl_PointSize = size;
               gl_Position = projectionMatrix * mvPosition;
@@ -698,9 +749,8 @@
           `,
           fragmentShader: `
             uniform sampler2D pointTexture;
-            varying float vAlpha;
             void main() {
-              gl_FragColor = vec4(1.0, 0.2, 0.1, vAlpha * 0.7) * texture2D(pointTexture, gl_PointCoord);
+              gl_FragColor = vec4(1.0, 0.2, 0.1, 0.5) * texture2D(pointTexture, gl_PointCoord);
             }
           `,
           transparent: true,
@@ -709,17 +759,16 @@
         });
         
         particles = new THREE.Points(geometry, material);
-        particleScene.add(particles);
-        
+        scene.add(particles);
         animateParticles();
       }
       
       function animateParticles() {
         requestAnimationFrame(animateParticles);
-        if (!particles) return;
+        if (!particles || !particles.geometry) return;
         
         const width = window.innerWidth;
-        const height = getFooterHeight();
+        const height = partnersSection.offsetHeight;
         const positions = particles.geometry.attributes.position.array;
         
         for (let i = 0; i < particleCount; i++) {
@@ -728,40 +777,36 @@
             positions[i*3] = -width/2 - 50;
             positions[i*3+1] = (Math.random() - 0.5) * height;
           }
-          positions[i*3+1] += Math.sin(Date.now() * 0.002 + i) * 0.3;
         }
         
         particles.geometry.attributes.position.needsUpdate = true;
         
-        if (particleCamera) {
-          particleCamera.left = -width/2;
-          particleCamera.right = width/2;
-          particleCamera.top = height/2;
-          particleCamera.bottom = -height/2;
-          particleCamera.updateProjectionMatrix();
+        if (camera) {
+          camera.left = -width/2;
+          camera.right = width/2;
+          camera.top = height/2;
+          camera.bottom = -height/2;
+          camera.updateProjectionMatrix();
         }
         
-        if (particleRenderer) {
-          particleRenderer.setSize(width, height);
-          particleRenderer.render(particleScene, particleCamera);
+        if (renderer) {
+          renderer.setSize(width, height);
+          renderer.render(scene, camera);
         }
       }
       
-      // Scanner canvas 2D effect
+      // Scanner 2D effect with code matrix on brands
       let scannerCtx;
       let scannerParticles = [];
-      let scannerAnimationId;
-      let scannerWidth = window.innerWidth;
-      let scannerHeight = 0;
-      let scannerActive = true;
-      let scannerIntensity = 0.8;
+      let scanAnimationId;
       
-      function initFooterScanner() {
-        scannerHeight = getFooterHeight();
-        scannerCanvas.width = window.innerWidth;
-        scannerCanvas.height = scannerHeight;
-        scannerCanvas.style.width = window.innerWidth + 'px';
-        scannerCanvas.style.height = scannerHeight + 'px';
+      function initScanner() {
+        sectionHeight = partnersSection.offsetHeight;
+        sectionWidth = window.innerWidth;
+        scannerCanvas.width = sectionWidth;
+        scannerCanvas.height = sectionHeight;
+        scannerCanvas.style.width = sectionWidth + 'px';
+        scannerCanvas.style.height = sectionHeight + 'px';
         scannerCtx = scannerCanvas.getContext('2d');
         
         // Create gradient cache
@@ -779,61 +824,60 @@
         gCtx.beginPath();
         gCtx.arc(halfG, halfG, halfG, 0, Math.PI*2);
         gCtx.fill();
-        window.footerGradientCache = gradCanvas;
+        window.partnersGradientCache = gradCanvas;
         
         // Initialize particles
-        for (let i = 0; i < 400; i++) {
+        for (let i = 0; i < 300; i++) {
           scannerParticles.push({
-            x: window.innerWidth/2 + (Math.random() - 0.5) * 20,
-            y: Math.random() * scannerHeight,
-            vx: Math.random() * 0.8 + 0.3,
-            vy: (Math.random() - 0.5) * 0.2,
+            x: window.innerWidth/2 + (Math.random() - 0.5) * 30,
+            y: Math.random() * sectionHeight,
+            vx: Math.random() * 0.6 + 0.2,
+            vy: (Math.random() - 0.5) * 0.15,
             radius: Math.random() * 3 + 1.5,
-            alpha: Math.random() * 0.7 + 0.3,
+            alpha: Math.random() * 0.6 + 0.2,
             life: Math.random() * 0.8 + 0.2,
-            decay: Math.random() * 0.008 + 0.004
+            decay: Math.random() * 0.006 + 0.003
           });
         }
         
         animateScanner();
+        startScanDetection();
       }
       
       function animateScanner() {
         if (!scannerCtx) return;
-        scannerAnimationId = requestAnimationFrame(animateScanner);
+        scanAnimationId = requestAnimationFrame(animateScanner);
         
-        scannerWidth = window.innerWidth;
-        scannerHeight = getFooterHeight();
+        const width = window.innerWidth;
+        const height = partnersSection.offsetHeight;
         
-        if (scannerCanvas.width !== scannerWidth || scannerCanvas.height !== scannerHeight) {
-          scannerCanvas.width = scannerWidth;
-          scannerCanvas.height = scannerHeight;
-          scannerCanvas.style.width = scannerWidth + 'px';
-          scannerCanvas.style.height = scannerHeight + 'px';
+        if (scannerCanvas.width !== width || scannerCanvas.height !== height) {
+          scannerCanvas.width = width;
+          scannerCanvas.height = height;
+          scannerCanvas.style.width = width + 'px';
+          scannerCanvas.style.height = height + 'px';
         }
         
-        scannerCtx.clearRect(0, 0, scannerWidth, scannerHeight);
+        scannerCtx.clearRect(0, 0, width, height);
         
-        const scannerX = scannerWidth / 2;
+        const scannerX = width / 2;
         
         // Draw glow line
         scannerCtx.globalCompositeOperation = 'source-over';
         
-        // Core white line
         const coreGrad = scannerCtx.createLinearGradient(scannerX - 3, 0, scannerX + 3, 0);
         coreGrad.addColorStop(0, 'rgba(255,255,255,0)');
         coreGrad.addColorStop(0.5, 'rgba(255,255,255,0.9)');
         coreGrad.addColorStop(1, 'rgba(255,255,255,0)');
         scannerCtx.fillStyle = coreGrad;
-        scannerCtx.fillRect(scannerX - 2, 0, 4, scannerHeight);
+        scannerCtx.fillRect(scannerX - 2, 0, 4, height);
         
-        // Red glow
         const redGrad = scannerCtx.createLinearGradient(scannerX - 15, 0, scannerX + 15, 0);
         redGrad.addColorStop(0, 'rgba(139,0,0,0)');
         redGrad.addColorStop(0.5, 'rgba(200,0,0,0.6)');
         redGrad.addColorStop(1, 'rgba(139,0,0,0)');
         scannerCtx.fillStyle = redGrad;
-        scannerCtx.fillRect(scannerX - 12, 0, 24, scannerHeight);
+        scannerCtx.fillRect(scannerX - 12, 0, 24, height);
         
         // Particles
         scannerCtx.globalCompositeOperation = 'lighter';
@@ -843,48 +887,94 @@
           p.y += p.vy;
           p.life -= p.decay;
           
-          if (p.x > scannerWidth + 30 || p.life <= 0) {
-            p.x = scannerX + (Math.random() - 0.5) * 15;
-            p.y = Math.random() * scannerHeight;
-            p.vx = Math.random() * 0.8 + 0.3;
+          if (p.x > width + 30 || p.life <= 0) {
+            p.x = scannerX + (Math.random() - 0.5) * 20;
+            p.y = Math.random() * height;
+            p.vx = Math.random() * 0.6 + 0.2;
             p.life = Math.random() * 0.8 + 0.2;
             p.alpha = Math.random() * 0.6 + 0.2;
           }
           
           const alpha = p.alpha * p.life;
           scannerCtx.globalAlpha = alpha;
-          scannerCtx.drawImage(window.footerGradientCache, p.x - p.radius, p.y - p.radius, p.radius*2, p.radius*2);
+          scannerCtx.drawImage(window.partnersGradientCache, p.x - p.radius, p.y - p.radius, p.radius*2, p.radius*2);
         }
       }
       
-      function resizeFooterEffects() {
-        const height = getFooterHeight();
-        if (particleRenderer) {
-          particleRenderer.setSize(window.innerWidth, height);
-          if (particleCamera) {
-            particleCamera.left = -window.innerWidth/2;
-            particleCamera.right = window.innerWidth/2;
-            particleCamera.top = height/2;
-            particleCamera.bottom = -height/2;
-            particleCamera.updateProjectionMatrix();
+      // Detect when scanner passes over a brand logo and trigger code matrix
+      function startScanDetection() {
+        const brands = document.querySelectorAll('.partner-logo');
+        let lastScanned = new Set();
+        
+        function checkScan() {
+          const scannerX = window.innerWidth / 2;
+          
+          brands.forEach(brand => {
+            const rect = brand.getBoundingClientRect();
+            const parentRect = partnersSection.getBoundingClientRect();
+            const brandCenterX = rect.left + rect.width / 2;
+            const distance = Math.abs(brandCenterX - scannerX);
+            
+            if (distance < 30) {
+              if (!lastScanned.has(brand)) {
+                // Trigger code matrix effect
+                const codeCard = brand.querySelector('.code-matrix-card');
+                if (codeCard) {
+                  codeCard.classList.add('active');
+                  
+                  // Add scan flash
+                  const flash = document.createElement('div');
+                  flash.className = 'scan-flash';
+                  brand.style.position = 'relative';
+                  brand.appendChild(flash);
+                  setTimeout(() => flash.remove(), 500);
+                  
+                  // Hide after 0.5 seconds
+                  setTimeout(() => {
+                    codeCard.classList.remove('active');
+                  }, 500);
+                }
+                lastScanned.add(brand);
+                setTimeout(() => lastScanned.delete(brand), 800);
+              }
+            }
+          });
+          
+          requestAnimationFrame(checkScan);
+        }
+        
+        requestAnimationFrame(checkScan);
+      }
+      
+      function resizeEffects() {
+        const height = partnersSection.offsetHeight;
+        const width = window.innerWidth;
+        if (renderer) {
+          renderer.setSize(width, height);
+          if (camera) {
+            camera.left = -width/2;
+            camera.right = width/2;
+            camera.top = height/2;
+            camera.bottom = -height/2;
+            camera.updateProjectionMatrix();
           }
         }
         if (scannerCtx) {
-          scannerCanvas.width = window.innerWidth;
+          scannerCanvas.width = width;
           scannerCanvas.height = height;
-          scannerCanvas.style.width = window.innerWidth + 'px';
+          scannerCanvas.style.width = width + 'px';
           scannerCanvas.style.height = height + 'px';
         }
       }
       
       window.addEventListener('resize', () => {
-        resizeFooterEffects();
+        setTimeout(resizeEffects, 100);
       });
       
-      // Initialize after DOM
+      // Initialize
       setTimeout(() => {
-        initFooterParticles();
-        initFooterScanner();
+        initParticles();
+        initScanner();
       }, 100);
     })();
   </script>
