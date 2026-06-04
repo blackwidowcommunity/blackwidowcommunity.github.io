@@ -78,8 +78,103 @@
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
+      overflow: hidden;
     }
 
+    /* ── BRAND PARTNERSHIPS STRIP ── */
+    .footer-partners {
+      padding: 3.5rem 6% 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-partners-label {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin: 0 0 2.4rem 0;
+    }
+
+    /* Infinite scroll track */
+    .partners-track-wrapper {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+
+    .partners-track {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: partnerScroll 28s linear infinite;
+    }
+
+    .partners-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes partnerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      padding: 1rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      white-space: nowrap;
+      cursor: default;
+      transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .partner-logo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(180,50,30,0.12) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .partner-logo:hover {
+      border-color: rgba(180,50,30,0.55);
+      background: rgba(180,50,30,0.07);
+      transform: translateY(-3px);
+    }
+
+    .partner-logo:hover::before {
+      opacity: 1;
+    }
+
+    .partner-logo .p-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .partner-logo .p-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.3s ease;
+    }
+
+    .partner-logo:hover .p-name {
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ── MAIN FOOTER BODY ── */
     .footer-inner {
       display: flex;
       align-items: flex-start;
@@ -147,31 +242,79 @@
       color: #fff;
     }
 
-    /* Social icons */
+    /* ── SOCIAL ICONS ── */
     .footer-socials {
       display: flex;
-      gap: 1.6rem;
+      gap: 1.4rem;
       align-items: center;
     }
 
     .footer-socials a {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(180, 50, 30, 0.4);
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,0.5);
-      font-size: 1.5rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.9rem;
       text-decoration: none;
-      transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+      background: rgba(255,255,255,0.04);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
     }
 
-    .footer-socials a:hover {
+    .footer-socials a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      border-radius: 14px;
+      transition: opacity 0.3s ease;
+    }
+
+    /* LinkedIn — brand blue glow */
+    .footer-socials a.s-linkedin::after {
+      background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.45) 0%, transparent 70%);
+    }
+    .footer-socials a.s-linkedin:hover {
+      border-color: #0a66c2;
+      color: #fff;
+      box-shadow: 0 0 22px rgba(10, 102, 194, 0.4), inset 0 0 12px rgba(10,102,194,0.15);
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    /* YouTube — brand red glow */
+    .footer-socials a.s-youtube::after {
+      background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.45) 0%, transparent 70%);
+    }
+    .footer-socials a.s-youtube:hover {
+      border-color: #ff0000;
+      color: #fff;
+      box-shadow: 0 0 22px rgba(255, 0, 0, 0.4), inset 0 0 12px rgba(255,0,0,0.15);
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    /* Portfolio — site red glow */
+    .footer-socials a.s-portfolio::after {
+      background: radial-gradient(circle at 50% 120%, rgba(180, 50, 30, 0.55) 0%, transparent 70%);
+    }
+    .footer-socials a.s-portfolio:hover {
       border-color: var(--red, #c0392b);
       color: #fff;
-      background: rgba(180, 50, 30, 0.15);
+      box-shadow: 0 0 22px rgba(180, 50, 30, 0.45), inset 0 0 12px rgba(180,50,30,0.2);
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    .footer-socials a:hover::after {
+      opacity: 1;
+    }
+
+    .footer-socials a i {
+      position: relative;
+      z-index: 1;
     }
 
     /* Bottom bar */
@@ -190,6 +333,10 @@
     }
 
     @media (max-width: 768px) {
+      .footer-partners {
+        padding: 2.5rem 5% 1.5rem;
+      }
+
       .footer-inner {
         flex-direction: column;
         align-items: center;
@@ -267,6 +414,35 @@
   </section>
 
   <footer class="footer glass-footer">
+
+    <!-- ── BRAND PARTNERSHIPS ── -->
+    <div class="footer-partners">
+      <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
+      <div class="partners-track-wrapper">
+        <div class="partners-track">
+          <!-- Set A -->
+          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
+          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
+          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
+          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
+          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
+          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
+          <!-- Set B — exact duplicate for seamless loop -->
+          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
+          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
+          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
+          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
+          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
+          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
+          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MAIN BODY ── -->
     <div class="footer-inner">
 
       <!-- Brand -->
@@ -290,13 +466,13 @@
 
       <!-- Socials -->
       <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin">
           <i class="fa-brands fa-linkedin"></i>
         </a>
-        <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube">
+        <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube">
           <i class="fa-brands fa-youtube"></i>
         </a>
-        <a href="certs.html" aria-label="Portfolio">
+        <a href="certs.html" aria-label="Portfolio" class="s-portfolio">
           <i class="fa-solid fa-folder-open"></i>
         </a>
       </div>
