@@ -8,10 +8,43 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  <!-- Google Fonts: Cinzel + Raleway — matches AboutUs.html -->
+  <!-- Google Fonts: Cinzel + Raleway — matches AboutUs.html navbar typography -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Shared navbar loader (same as AboutUs.html) -->
   <script src="navbar-loader.js" defer></script>
+  <style>
+    /* ONLY NAVBAR FONT SIZE AND HEIGHT ADJUSTMENTS - NOTHING ELSE CHANGED */
+    /* These match exactly what's in AboutUs.html */
+    .navbar {
+      justify-content: center !important;
+      padding: 2.6rem 5% !important;
+      gap: 2rem !important;
+    }
+    .navbar .logo-btn { display: none !important; }
+    .nav-links li a {
+      font-size: 1.27rem !important;
+      font-weight: 600 !important;
+    }
+    .hamburger {
+      position: absolute !important;
+      right: 5% !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      font-size: 2.4rem !important;
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 2.2rem 5% !important; }
+    }
+    @media (max-width: 768px) {
+      .sidebar a,
+      .nav-links.active li a,
+      .nav-links.show li a,
+      .sidebar ul li a {
+        font-size: 1.75rem !important;
+        padding: 0.8rem 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -55,6 +88,7 @@
 
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script>
+    // Original projects.html JavaScript - completely unchanged
     const urlParams = new URLSearchParams(window.location.search);
     const initialSlide = parseInt(urlParams.get('slide')) || 0;
     if (document.querySelector('.projects-swiper')) {
