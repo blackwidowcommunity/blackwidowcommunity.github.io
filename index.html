@@ -38,7 +38,7 @@
     }
 
     html {
-      font-size: 78%; /* bumped up from 68.5%: 1rem ≈ 12.5px, better readability across all text */
+      font-size: 78%;
       scroll-behavior: smooth;
     }
 
@@ -51,7 +51,6 @@
       line-height: 1.5;
     }
 
-    /* Texture overlay + subtle web grain */
     body::before {
       content: '';
       position: fixed;
@@ -62,7 +61,6 @@
       z-index: 0;
     }
 
-    /* Spider web SVG (elegant background) */
     .web-svg {
       position: fixed;
       top: 50%;
@@ -75,7 +73,6 @@
       z-index: 0;
     }
 
-    /* ===== FIXED NAVBAR (larger tap targets) ===== */
     header {
       position: fixed;
       top: 0;
@@ -150,7 +147,6 @@
       transform: translateY(-50%);
     }
 
-    /* Mobile Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -214,14 +210,13 @@
       .navbar { padding: 2rem 5%; }
     }
 
-    /* ===== MAIN CONTENT ===== */
     .urgency-strip {
       background: linear-gradient(135deg, rgba(140,20,10,0.4) 0%, rgba(80,10,5,0.4) 100%);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 1rem 1rem;
       text-align: center;
-      font-size: 1rem;  /* larger */
+      font-size: 1rem;
       font-weight: 500;
       color: var(--white-muted);
       backdrop-filter: blur(4px);
@@ -309,12 +304,49 @@
       line-height: 1.6;
     }
 
-    /* PRICING GRID - same as before but larger type */
+    /* PRICING GRID - custom order + medium-screen centering for 3rd card */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
       gap: 2rem;
     }
+
+    /* For medium screens (between 769px and 1100px) we want the 3rd item centered.
+       We'll target .pricing-grid when there are exactly 3 children using grid layout.
+       Instead of complex selectors, we use a wrapper class or rely on new order.
+       Since the HTML order changed: Member (1), Online (2), Physical (3) — we want the 3rd card (Physical) centered 
+       when viewport width is medium. A direct grid approach: on medium screens, make grid columns 1fr 1fr, 
+       then force third item to span both columns with centering. But that stretches it; better: 
+       set display: flex, flex-wrap: wrap, justify-content: center on container, and use fixed width.
+       However that may break existing behavior on large screens. Instead use a media query that overrides when 
+       viewport width is between 769px and 1099px and the grid has exactly 3 cards? Instead we can use container queries? 
+       Simpler: use CSS grid + auto-fill and then at medium screens we set grid-template-columns: repeat(2, minmax(0, 380px));
+       and then target the third card with nth-child(3) { grid-column: span 2 / span 2; justify-self: center; width: 100%; max-width: 380px; margin: 0 auto; }
+       That creates a balanced layout. Let's implement robustly.
+    */
+    @media (min-width: 769px) and (max-width: 1099px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(320px, 420px));
+        justify-content: center;
+        gap: 2rem;
+      }
+      /* Target the third card (Physical Community) and make it centered under the two columns */
+      .pricing-grid .pricing-card:nth-child(3) {
+        grid-column: span 2;
+        max-width: 500px;
+        width: 100%;
+        justify-self: center;
+        margin: 0 auto;
+      }
+    }
+
+    /* For extra small screens, default to single column */
+    @media (max-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .pricing-card {
       background: var(--black-3);
       border: 1px solid var(--border-subtle);
@@ -375,7 +407,6 @@
     }
     .cta-btn:hover { background: var(--red-dark); transform: scale(0.98); }
 
-    /* ===== NEW PORTFOLIO SHOWCASE - 3 CARDS MATCHING PRICING CARD SIZE ===== */
     .portfolio-showcase {
       margin-top: 1rem;
     }
@@ -458,7 +489,6 @@
       transform: translateX(4px);
     }
 
-    /* ===== Testimonials ===== */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -513,7 +543,6 @@
     }
     .footer span { color: var(--red); font-weight: 600; }
 
-    /* larger tap targets for all buttons */
     button, a, .btn, .cta-btn, .portfolio-link, .nav-btn, .play-btn {
       cursor: pointer;
       min-height: 44px;
@@ -527,7 +556,6 @@
       .portfolio-card-content p { font-size: 0.85rem; }
     }
 
-    /* Card option sub-label */
     .card-option-label {
       font-size: 0.8rem;
       font-weight: 600;
@@ -538,7 +566,6 @@
       opacity: 0.85;
     }
 
-    /* ===== TAB SWITCHER ===== */
     .tab-switcher {
       display: flex;
       justify-content: center;
@@ -590,8 +617,6 @@
     @media (max-width: 500px) {
       .tab-btn { font-size: 0.75rem; padding: 0.6rem 1rem; letter-spacing: 0.04em; }
     }
-
-    /* ===== ABOUT US SECTION ===== */
     .about-section {
       max-width: 1000px;
       margin: 0 auto;
@@ -657,7 +682,6 @@
 </head>
 <body>
 
-  <!-- spider web decoration -->
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
       <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
@@ -704,17 +728,12 @@
     <i class="fa-solid fa-spider spider-icon"></i>
     <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
     <p class="subtitle">The ultimate playground for ethical hackers. We build, we break, we level up together.<br>Our Core Values:<br><strong>Ethics</strong> | <strong>Curiosity</strong> | <strong>Collaboration</strong></p>
-    </br>
     <p class="subtitle">A portfolio is a digital asset and the key to break into offensive security. This is why I'll be giving away <strong>3 Portfolios</strong> that you can access down below, in the Portfolios Tab. During each meetup we add a new challenge to your portfolio. <strong> Helping you show proof of skill and break in. </strong> </p>
-    </br>
     <p class="subtitle">Don't just take my word for it, see our <strong> Member Stories </strong> in the Testimonials Tab.</p>
   </div>
 
   <div class="divider"></div>
 
-  </br>
-
-  <!-- TAB SWITCHER -->
   <div class="tab-switcher">
     <div class="tab-track">
       <div class="tab-slider" id="tab-slider"></div>
@@ -724,50 +743,14 @@
     </div>
   </div>
 
-  <!-- PANEL 1: COMMUNITY SUBSCRIPTIONS -->
+  <!-- PANEL 1: COMMUNITY SUBSCRIPTIONS (order changed: Member #1, Online #2, Physical #3) -->
   <div class="tab-panel active" id="panel-community">
     <section id="join">
       <p class="section-label">Choose Your Path</p>
-      <h2 class="section-title">Our Community Options</h2>
+      <h2 class="section-title">Pick Your Community</h2>
       <p class="section-intro">Walk out with a live digital portfolio that attracts cyber recruiters that will take you seriously.</p>
-
       <div class="pricing-grid">
-
-        <!-- 1. PHYSICAL COMMUNITY -->
-        <div class="pricing-card">
-          <div class="card-badge">📍 Melbourne CBD · Max 20 Seats</div>
-          <i class="fa-solid fa-location-dot card-icon"></i>
-          <div class="card-title">Physical Community</div>
-          <div class="card-option-label">One-off Weekly Workshop</div>
-          <p class="card-desc">Every week we run a live offensive security challenge in-person in Melbourne's CBD. If you're local and want to experience the community as a one-off, you're welcome to join — but spots are capped at 20 total including members, so everyone gets real one-to-one guidance. No fluff. You're in the room solving real problems.</p>
-          <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Done live and step-by-step in the room — errors fixed on the spot so you cannot fail</li>
-            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single afternoon</li>
-            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
-            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — quality one-to-one support guaranteed</li>
-            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
-          </ul>
-          <a href="#" class="cta-btn">Claim Your Physical Seat</a>
-        </div>
-
-        <!-- 2. ONLINE COMMUNITY -->
-        <div class="pricing-card">
-          <div class="card-badge">🌐 International · Max 20 Seats</div>
-          <i class="fa-solid fa-wifi card-icon"></i>
-          <div class="card-title">Online Community</div>
-          <div class="card-option-label">One-off Weekly Workshop</div>
-          <p class="card-desc">Same weekly offensive security challenge, fully virtual. Perfect if you're based internationally or overseas. We cap it at 20 people including members — it's not a webinar where you disappear into a crowd. You'll get direct help when you're stuck, same as being in the room.</p>
-          <ul class="features-list">
-            <li><i class="fa-solid fa-check"></i>Done live and step-by-step virtually — errors fixed in real-time so you cannot fall behind</li>
-            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single session</li>
-            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
-            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — personal, never a crowd</li>
-            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
-          </ul>
-          <a href="#" class="cta-btn">Claim Your Online Seat</a>
-        </div>
-
-        <!-- 3. BECOME A MEMBER -->
+        <!-- 1. BECOME A MEMBER (formerly #3, now first) -->
         <div class="pricing-card featured">
           <div class="card-badge">⚡ Full Access · Best Value</div>
           <i class="fa-solid fa-id-card card-icon"></i>
@@ -784,21 +767,49 @@
           <a href="#" class="cta-btn">Become a Member — Join Now</a>
         </div>
 
-      </div>
+        <!-- 2. ONLINE COMMUNITY (formerly #2, now second) -->
+        <div class="pricing-card">
+          <div class="card-badge">🌐 International · Max 20 Seats</div>
+          <i class="fa-solid fa-wifi card-icon"></i>
+          <div class="card-title">Online Community</div>
+          <div class="card-option-label">One-off Weekly Workshop</div>
+          <p class="card-desc">Same weekly offensive security challenge, fully virtual. Perfect if you're based internationally or overseas. We cap it at 20 people including members — it's not a webinar where you disappear into a crowd. You'll get direct help when you're stuck, same as being in the room.</p>
+          <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i>Done live and step-by-step virtually — errors fixed in real-time so you cannot fall behind</li>
+            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single session</li>
+            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
+            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — personal, never a crowd</li>
+            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
+          </ul>
+          <a href="#" class="cta-btn">Claim Your Online Seat</a>
+        </div>
 
+        <!-- 3. PHYSICAL COMMUNITY (formerly #1, now third) -->
+        <div class="pricing-card">
+          <div class="card-badge">📍 Melbourne CBD · Max 20 Seats</div>
+          <i class="fa-solid fa-location-dot card-icon"></i>
+          <div class="card-title">Physical Community</div>
+          <div class="card-option-label">One-off Weekly Workshop</div>
+          <p class="card-desc">Every week we run a live offensive security challenge in-person in Melbourne's CBD. If you're local and want to experience the community as a one-off, you're welcome to join — but spots are capped at 20 total including members, so everyone gets real one-to-one guidance. No fluff. You're in the room solving real problems.</p>
+          <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i>Done live and step-by-step in the room — errors fixed on the spot so you cannot fail</li>
+            <li><i class="fa-solid fa-check"></i>Go from zero to a live digital asset in a single afternoon</li>
+            <li><i class="fa-solid fa-check"></i>All lab infrastructure provided — just bring a laptop and follow along</li>
+            <li><i class="fa-solid fa-check"></i>Max 20 seats including members — quality one-to-one support guaranteed</li>
+            <li><i class="fa-solid fa-check"></i>Seats sell out fast — reserve yours before they're gone</li>
+          </ul>
+          <a href="#" class="cta-btn">Claim Your Physical Seat</a>
+        </div>
+      </div>
     </section>
   </div>
 
-
-
-  
-  <!-- PANEL 2: PORTFOLIOS -->
+  <!-- PANEL 2: PORTFOLIOS (unchanged) -->
   <div class="tab-panel" id="panel-projects">
     <section>
       <p class="section-label">Real Digital Asset · Proof Of Skill</p>
       <h2 class="section-title">Customize Your Portfolio</h2>
       <p class="section-intro">Explore live portfolios provided for our community members. Select the one that fits your vibe, all details to customize it will be in the README sections.</p>
-      
       <div class="portfolio-3col">
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
@@ -809,7 +820,6 @@
             <a href="https://github.com/aScriptKiddie/Portfolio1" class="portfolio-link" target="_blank"> Select Portfolio <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
-        
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
             <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
@@ -819,7 +829,6 @@
             <a href="#" class="portfolio-link" target="_blank"> Select Portfolio <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
-        
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
             <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
@@ -833,52 +842,40 @@
     </section>
   </div>
 
-
-
-  
-  <!-- PANEL 3: TESTIMONIALS -->
+  <!-- PANEL 3: TESTIMONIALS (unchanged) -->
   <div class="tab-panel" id="panel-testimonials">
     <section>
       <p class="section-label">From the Community</p>
       <h2 class="section-title">Hear It From Them</h2>
       <p class="section-intro">Real members. Real results. Real feedback.</p>
-      
       <div class="testimonials-grid">
-
-        <!-- MEMBER #1 -->
-          <div class="testimonial-card">
-            <video controls style="width:100%; aspect-ratio:16/9; object-fit:cover;">
-              <source src="MemberTestimonials/KabindraS.mp4" type="video/mp4">
-            </video>
-            <div class="testimonial-body">
-              <div class="testimonial-name">Kabindra S.</div>
-              <div class="testimonial-role">Technical Service Engineer</div>
-              <p class="testimonial-quote">"This particular community has helped me to do a practical session and see how we can be on the ethical side of Ethical Hacking."</p>
-            </div>
+        <div class="testimonial-card">
+          <video controls style="width:100%; aspect-ratio:16/9; object-fit:cover;">
+            <source src="MemberTestimonials/KabindraS.mp4" type="video/mp4">
+          </video>
+          <div class="testimonial-body">
+            <div class="testimonial-name">Kabindra S.</div>
+            <div class="testimonial-role">Technical Service Engineer</div>
+            <p class="testimonial-quote">"This particular community has helped me to do a practical session and see how we can be on the ethical side of Ethical Hacking."</p>
           </div>
-
-        <!-- MEMBER #2 -->
-          <div class="testimonial-card">
-            <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-            <div class="testimonial-body">
-              <div class="testimonial-name">Abdimajid M.</div>
-              <div class="testimonial-role">Aspiring Ethical Hacker</div>
-              <p class="testimonial-quote">"I haven't done something like this before, it was amazing going to learn and meet new people. It was really a great experience."</p>
-            </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+          <div class="testimonial-body">
+            <div class="testimonial-name">Abdimajid M.</div>
+            <div class="testimonial-role">Aspiring Ethical Hacker</div>
+            <p class="testimonial-quote">"I haven't done something like this before, it was amazing going to learn and meet new people. It was really a great experience."</p>
           </div>
-
-        <!-- MEMBER #3 -->
-          <div class="testimonial-card">
-            <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-            <div class="testimonial-body">
-              <div class="testimonial-name">Coming Soon.</div>
-              <div class="testimonial-role">Coming Soon.</div>
-              <p class="testimonial-quote">"Coming Soon."</p>
-            </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+          <div class="testimonial-body">
+            <div class="testimonial-name">Coming Soon.</div>
+            <div class="testimonial-role">Coming Soon.</div>
+            <p class="testimonial-quote">"Coming Soon."</p>
           </div>
-        
+        </div>
       </div>
-      
     </section>
   </div>
 
@@ -886,20 +883,16 @@
     <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
   </footer>
 
-  <!-- DYNAMIC NAVBAR OFFSET -->
   <script>
     function syncNavOffset() {
       const navbar = document.querySelector('.navbar');
       const urgency = document.querySelector('.urgency-strip');
-      if (navbar && urgency) {
-        urgency.style.marginTop = navbar.offsetHeight + 'px';
-      }
+      if (navbar && urgency) urgency.style.marginTop = navbar.offsetHeight + 'px';
     }
     syncNavOffset();
     window.addEventListener('resize', syncNavOffset);
   </script>
 
-  <!-- NAVIGATION SCRIPT -->
   <script>
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
@@ -913,26 +906,20 @@
       menuSound.currentTime = 0;
       menuSound.play().catch(() => {});
     });
-
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
-
     document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const dest = link.getAttribute('href');
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        // If it's an anchor link (#about), smooth scroll instead of navigating
         if (dest && dest.startsWith('#')) {
           sidebar.classList.remove('active');
           overlay.classList.remove('active');
-          setTimeout(() => {
-            const el = document.querySelector(dest);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
+          setTimeout(() => { const el = document.querySelector(dest); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 150);
         } else {
           sidebar.classList.remove('active');
           overlay.classList.remove('active');
@@ -942,22 +929,15 @@
     });
   </script>
 
-  <!-- TAB SWITCHER SCRIPT -->
   <script>
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
     const slider = document.getElementById('tab-slider');
-
     function moveSlider(btn) {
       slider.style.width = btn.offsetWidth + 'px';
       slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
     }
-
-    window.addEventListener('load', () => {
-      const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) moveSlider(activeBtn);
-    });
-
+    window.addEventListener('load', () => { const activeBtn = document.querySelector('.tab-btn.active'); if (activeBtn) moveSlider(activeBtn); });
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
@@ -969,7 +949,5 @@
       });
     });
   </script>
-
-
 </body>
 </html>
