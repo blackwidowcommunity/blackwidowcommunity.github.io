@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  <!-- Google Fonts: Cinzel + Raleway — matches index.html -->
+  <!-- Google Fonts: Cinzel + Raleway -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Shared navbar (styles + HTML + JS injected automatically) -->
+  <!-- Three.js for particles -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="navbar-loader.js" defer></script>
 
   <style>
@@ -74,7 +75,7 @@
       color: var(--black);
     }
 
-    /* Portfolio button (Certificates) - green glow (main page social icons) */
+    /* Portfolio button (Certificates) - green glow */
     .social-icons a:last-child {
       position: relative;
       transition: all 0.3s ease;
@@ -86,18 +87,95 @@
       text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
     }
 
-    /* ── FOOTER ── */
+    /* ── FOOTER WITH SCANNER EFFECT ── */
     .footer.glass-footer {
       padding: 0;
       border-top: 1px solid rgba(180, 50, 30, 0.25);
       overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── BRAND PARTNERSHIPS STRIP (slower scrolling - reduced speed) ── */
+    /* Scanner Canvas Container */
+    .footer-scanner-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #footerParticleCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #footerScannerCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Scanner red line overlay */
+    .footer-scanner-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(200, 0, 0, 0.8),
+        rgba(255, 0, 0, 1),
+        rgba(200, 0, 0, 0.8),
+        transparent
+      );
+      box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
+      animation: footerScanPulse 2s ease-in-out infinite alternate;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes footerScanPulse {
+      0% {
+        opacity: 0.7;
+        transform: translateX(-50%) scaleY(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) scaleY(1.05);
+      }
+    }
+
+    /* Footer content wrapper - above scanner */
+    .footer-content {
+      position: relative;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(2px);
+    }
+
+    /* ── BRAND PARTNERSHIPS STRIP ── */
     .footer-partners {
-      padding: 3.5rem 6% 2.5rem;
+      padding: 3rem 6% 2rem;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 10;
     }
 
     .footer-partners-label {
@@ -106,11 +184,10 @@
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      margin: 0 0 2.4rem 0;
+      color: rgba(255,255,255,0.3);
+      margin: 0 0 2rem 0;
     }
 
-    /* Infinite scroll track */
     .partners-track-wrapper {
       overflow: hidden;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
@@ -121,7 +198,7 @@
       display: flex;
       gap: 4rem;
       width: max-content;
-      animation: partnerScroll 48s linear infinite; /* Slowed down from 32s to 48s */
+      animation: partnerScroll 28s linear infinite;
     }
 
     .partners-track:hover {
@@ -138,8 +215,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.9rem;
-      padding: 1rem 2.2rem;
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.9rem 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
       background: rgba(255,255,255,0.03);
       white-space: nowrap;
@@ -169,13 +246,13 @@
     }
 
     .partner-logo .p-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       line-height: 1;
     }
 
     .partner-logo .p-name {
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       color: rgba(255,255,255,0.55);
@@ -186,11 +263,9 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* ── BOTTOM BAR: Centered legal links + copyright as group, social icons below with ALL glowing ── */
+    /* ── BOTTOM BAR ── */
     .footer-bottom {
-      border-top: none;
       padding: 1.8rem 6%;
-      background: transparent;
     }
 
     .footer-bottom-container {
@@ -202,7 +277,6 @@
       font-family: 'Raleway', sans-serif;
     }
 
-    /* Legal + Copyright row: both centered together */
     .legal-copyright-row {
       display: flex;
       align-items: baseline;
@@ -212,7 +286,6 @@
       row-gap: 0.8rem;
     }
 
-    /* Legal links (Community Guidelines & Data Privacy) - centered, no underline */
     .legal-links {
       display: flex;
       gap: 2.5rem;
@@ -223,24 +296,22 @@
 
     .legal-links a {
       font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.08em;
       color: rgba(255,255,255,0.55);
       text-decoration: none;
       transition: color 0.25s ease;
       border-bottom: none;
-      padding-bottom: 0;
     }
 
     .legal-links a:hover {
       color: #fff;
     }
 
-    /* Copyright text - 2026 */
     .copyright {
       font-family: 'Raleway', sans-serif;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: rgba(255,255,255,0.35);
       letter-spacing: 0.05em;
       margin: 0;
@@ -248,26 +319,25 @@
       white-space: nowrap;
     }
 
-    /* Social Icons Row - all three icons now have distinct glowing effects */
     .footer-socials-row {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.3rem;
       align-items: center;
       justify-content: center;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
     }
 
     .footer-socials-row a {
       position: relative;
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,0.75);
-      font-size: 1.8rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.6rem;
       text-decoration: none;
       background: rgba(255,255,255,0.03);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -279,50 +349,38 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      border-radius: 14px;
+      border-radius: 12px;
       transition: opacity 0.3s ease;
     }
 
-    /* LinkedIn specific glow (blue) */
     .footer-socials-row a.s-linkedin-row::after {
       background: radial-gradient(circle at 50% 120%, rgba(10, 102, 194, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-linkedin-row:hover {
       border-color: #0a66c2;
       color: #0a66c2;
-      box-shadow: 0 0 26px rgba(10, 102, 194, 0.6), inset 0 0 8px rgba(10,102,194,0.25);
-      transform: translateY(-4px) scale(1.08);
-    }
-    .footer-socials-row a.s-linkedin-row:hover::after {
-      opacity: 1;
+      box-shadow: 0 0 22px rgba(10, 102, 194, 0.55);
+      transform: translateY(-3px) scale(1.05);
     }
 
-    /* YouTube specific glow (red) */
     .footer-socials-row a.s-youtube-row::after {
       background: radial-gradient(circle at 50% 120%, rgba(255, 0, 0, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-youtube-row:hover {
       border-color: #ff0000;
       color: #ff0000;
-      box-shadow: 0 0 26px rgba(255, 0, 0, 0.6), inset 0 0 8px rgba(255,0,0,0.25);
-      transform: translateY(-4px) scale(1.08);
-    }
-    .footer-socials-row a.s-youtube-row:hover::after {
-      opacity: 1;
+      box-shadow: 0 0 22px rgba(255, 0, 0, 0.55);
+      transform: translateY(-3px) scale(1.05);
     }
 
-    /* Portfolio/Certificates button - green glow */
     .footer-socials-row a.s-portfolio-row::after {
       background: radial-gradient(circle at 50% 120%, rgba(46, 204, 113, 0.65) 0%, transparent 70%);
     }
     .footer-socials-row a.s-portfolio-row:hover {
       border-color: #2ecc71;
       color: #2ecc71;
-      box-shadow: 0 0 26px rgba(46, 204, 113, 0.6);
-      transform: translateY(-4px) scale(1.08);
-    }
-    .footer-socials-row a.s-portfolio-row:hover::after {
-      opacity: 1;
+      box-shadow: 0 0 22px rgba(46, 204, 113, 0.55);
+      transform: translateY(-3px) scale(1.05);
     }
 
     .footer-socials-row a i {
@@ -330,45 +388,35 @@
       z-index: 1;
     }
 
-    /* Responsive adjustments */
+    /* Responsive */
     @media (max-width: 650px) {
       .legal-copyright-row {
         flex-direction: column;
         gap: 0.8rem;
       }
-      
       .copyright {
         white-space: normal;
       }
-      
       .legal-links {
-        gap: 1.8rem;
+        gap: 1.5rem;
       }
-      
       .footer-partners {
-        padding: 2.2rem 5% 1.8rem;
+        padding: 2rem 5% 1.5rem;
       }
-      
       .partner-logo {
         padding: 0.6rem 1.4rem;
       }
-      
       .partner-logo .p-name {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
-      
-      .footer-socials-row {
-        gap: 1.2rem;
-      }
-      
       .footer-socials-row a {
-        width: 44px;
-        height: 44px;
-        font-size: 1.6rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
       }
     }
-    
-    /* Remove leftover middle row elements */
+
+    /* Hide old footer inner */
     .footer-inner, .footer-brand, .footer-links, .footer-col, .footer-col-partnerships {
       display: none;
     }
@@ -421,73 +469,57 @@
       <div class="social-icons">
         <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@HackerBree" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="certs.html" class="cert-btn-glow"><i class="fa-solid fa-folder-open"></i></a>
+        <a href="certs.html"><i class="fa-solid fa-folder-open"></i></a>
       </div>
       <a href="guests.html" class="btn">Our Guests</a>
     </div>
   </section>
 
   <footer class="footer glass-footer">
-
-    <!-- ── BRAND PARTNERSHIPS STRIP (3 full recurring sets for seamless loop, slower scroll) ── -->
-    <div class="footer-partners">
-      <p class="footer-partners-label">Trusted Partners &amp; Sponsors</p>
-      <div class="partners-track-wrapper">
-        <div class="partners-track">
-          <!-- Set 1 -->
-          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
-          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
-          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
-          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
-          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
-          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-          <!-- Set 2 (duplicate for smoothness) -->
-          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
-          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
-          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
-          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
-          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
-          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-          <!-- Set 3 (third recurring bar to ensure smooth loop) -->
-          <div class="partner-logo"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div>
-          <div class="partner-logo"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div>
-          <div class="partner-logo"><span class="p-icon">🔐</span><span class="p-name">CrowdStrike</span></div>
-          <div class="partner-logo"><span class="p-icon">🌐</span><span class="p-name">Kali Linux</span></div>
-          <div class="partner-logo"><span class="p-icon">🎯</span><span class="p-name">TCM Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
-          <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
-          <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
-        </div>
-      </div>
+    <!-- Scanner Effect Container -->
+    <div class="footer-scanner-container">
+      <canvas id="footerParticleCanvas"></canvas>
+      <canvas id="footerScannerCanvas"></canvas>
+      <div class="footer-scanner-line"></div>
     </div>
 
-    <!-- ── BOTTOM SECTION: Centered legal links + copyright on same level, ALL social icons glow ── -->
-    <div class="footer-bottom">
-      <div class="footer-bottom-container">
-        <!-- Row 1: Legal links + Copyright (both centered together) -->
-        <div class="legal-copyright-row">
-          <div class="legal-links">
-            <a href="community-guidelines.html">Community Guidelines</a>
-            <a href="privacy.html">Data Privacy</a>
+    <div class="footer-content">
+      <!-- Brand Partnerships Strip (3 brands only) -->
+      <div class="footer-partners">
+        <p class="footer-partners-label">TRUSTED PARTNERS &amp; SPONSORS</p>
+        <div class="partners-track-wrapper">
+          <div class="partners-track">
+            <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
+            <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
+            <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
+            <div class="partner-logo"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div>
+            <div class="partner-logo"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div>
+            <div class="partner-logo"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div>
           </div>
-          <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
         </div>
-        
-        <!-- Row 2: Social Icons (LinkedIn, YouTube, Certificates) each with their own glow effect -->
-        <div class="footer-socials-row">
-          <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-          <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
-            <i class="fa-brands fa-youtube"></i>
-          </a>
-          <a href="certs.html" aria-label="Certificates Portfolio" class="s-portfolio-row">
-            <i class="fa-solid fa-folder-open"></i>
-          </a>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-container">
+          <div class="legal-copyright-row">
+            <div class="legal-links">
+              <a href="community-guidelines.html">Community Guidelines</a>
+              <a href="privacy.html">Data Privacy</a>
+            </div>
+            <div class="copyright">© 2026 Black Widow Community. All rights reserved.</div>
+          </div>
+          <div class="footer-socials-row">
+            <a href="https://www.linkedin.com/in/bree-kagwe" target="_blank" aria-label="LinkedIn" class="s-linkedin-row">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@HackerBree" target="_blank" aria-label="YouTube" class="s-youtube-row">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="certs.html" aria-label="Certificates" class="s-portfolio-row">
+              <i class="fa-solid fa-folder-open"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -496,7 +528,7 @@
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
   
-  <!-- AUDIO PLAYER SCRIPT -->
+  <!-- Audio Player Script -->
   <script>
     const audio = document.getElementById('ai-audio');
     const playBtn = document.getElementById('ai-play-btn');
@@ -550,7 +582,7 @@
     });
   </script>
 
-  <!-- TYPING ANIMATION SCRIPT -->
+  <!-- Typing Animation Script -->
   <script>
     const roles = ["Sec Analyst", "Ethical Hacker", "Threat Hunter", "Inc Responder", "SOC Analyst"];
     const dynamicText = document.getElementById("dynamic-text");
@@ -580,6 +612,281 @@
     }
 
     scrambleText(roles[0]);
+  </script>
+
+  <!-- Footer Scanner Effect Scripts (Particle System + Scanner) -->
+  <script>
+    (function() {
+      // Footer Particle System (Three.js)
+      const particleCanvas = document.getElementById('footerParticleCanvas');
+      const scannerCanvas = document.getElementById('footerScannerCanvas');
+      let footerHeight = 0;
+      
+      function getFooterHeight() {
+        const footer = document.querySelector('.footer');
+        if (footer) return footer.offsetHeight;
+        return 350;
+      }
+      
+      // Simple particle system for footer
+      let particleScene, particleCamera, particleRenderer, particles;
+      let particleCount = 300;
+      let velocities = [];
+      let alphas = [];
+      
+      function initFooterParticles() {
+        footerHeight = getFooterHeight();
+        const width = window.innerWidth;
+        const height = footerHeight;
+        
+        particleScene = new THREE.Scene();
+        particleCamera = new THREE.OrthographicCamera(-width/2, width/2, height/2, -height/2, 1, 1000);
+        particleCamera.position.z = 100;
+        
+        particleRenderer = new THREE.WebGLRenderer({ canvas: particleCanvas, alpha: true, antialias: true });
+        particleRenderer.setSize(width, height);
+        particleRenderer.setClearColor(0x000000, 0);
+        
+        // Create particle texture
+        const canvas = document.createElement('canvas');
+        canvas.width = 32;
+        canvas.height = 32;
+        const ctx = canvas.getContext('2d');
+        const half = canvas.width/2;
+        const gradient = ctx.createRadialGradient(half, half, 0, half, half, half);
+        gradient.addColorStop(0, '#fff');
+        gradient.addColorStop(0.2, 'rgba(200, 0, 0, 0.8)');
+        gradient.addColorStop(0.5, 'rgba(139, 0, 0, 0.4)');
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(half, half, half, 0, Math.PI*2);
+        ctx.fill();
+        const texture = new THREE.CanvasTexture(canvas);
+        
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const sizes = new Float32Array(particleCount);
+        velocities = new Float32Array(particleCount);
+        alphas = new Float32Array(particleCount);
+        
+        for (let i = 0; i < particleCount; i++) {
+          positions[i*3] = (Math.random() - 0.5) * width;
+          positions[i*3+1] = (Math.random() - 0.5) * height;
+          positions[i*3+2] = 0;
+          sizes[i] = Math.random() * 6 + 3;
+          velocities[i] = Math.random() * 40 + 20;
+          alphas[i] = Math.random() * 0.6 + 0.2;
+        }
+        
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+        geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1));
+        
+        const material = new THREE.ShaderMaterial({
+          uniforms: { pointTexture: { value: texture } },
+          vertexShader: `
+            attribute float alpha;
+            attribute float size;
+            varying float vAlpha;
+            void main() {
+              vAlpha = alpha;
+              vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+              gl_PointSize = size;
+              gl_Position = projectionMatrix * mvPosition;
+            }
+          `,
+          fragmentShader: `
+            uniform sampler2D pointTexture;
+            varying float vAlpha;
+            void main() {
+              gl_FragColor = vec4(1.0, 0.2, 0.1, vAlpha * 0.7) * texture2D(pointTexture, gl_PointCoord);
+            }
+          `,
+          transparent: true,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        });
+        
+        particles = new THREE.Points(geometry, material);
+        particleScene.add(particles);
+        
+        animateParticles();
+      }
+      
+      function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        if (!particles) return;
+        
+        const width = window.innerWidth;
+        const height = getFooterHeight();
+        const positions = particles.geometry.attributes.position.array;
+        
+        for (let i = 0; i < particleCount; i++) {
+          positions[i*3] += velocities[i] * 0.016;
+          if (positions[i*3] > width/2 + 50) {
+            positions[i*3] = -width/2 - 50;
+            positions[i*3+1] = (Math.random() - 0.5) * height;
+          }
+          positions[i*3+1] += Math.sin(Date.now() * 0.002 + i) * 0.3;
+        }
+        
+        particles.geometry.attributes.position.needsUpdate = true;
+        
+        if (particleCamera) {
+          particleCamera.left = -width/2;
+          particleCamera.right = width/2;
+          particleCamera.top = height/2;
+          particleCamera.bottom = -height/2;
+          particleCamera.updateProjectionMatrix();
+        }
+        
+        if (particleRenderer) {
+          particleRenderer.setSize(width, height);
+          particleRenderer.render(particleScene, particleCamera);
+        }
+      }
+      
+      // Scanner canvas 2D effect
+      let scannerCtx;
+      let scannerParticles = [];
+      let scannerAnimationId;
+      let scannerWidth = window.innerWidth;
+      let scannerHeight = 0;
+      let scannerActive = true;
+      let scannerIntensity = 0.8;
+      
+      function initFooterScanner() {
+        scannerHeight = getFooterHeight();
+        scannerCanvas.width = window.innerWidth;
+        scannerCanvas.height = scannerHeight;
+        scannerCanvas.style.width = window.innerWidth + 'px';
+        scannerCanvas.style.height = scannerHeight + 'px';
+        scannerCtx = scannerCanvas.getContext('2d');
+        
+        // Create gradient cache
+        const gradCanvas = document.createElement('canvas');
+        gradCanvas.width = 20;
+        gradCanvas.height = 20;
+        const gCtx = gradCanvas.getContext('2d');
+        const halfG = gradCanvas.width/2;
+        const grad = gCtx.createRadialGradient(halfG, halfG, 0, halfG, halfG, halfG);
+        grad.addColorStop(0, 'rgba(255,255,255,1)');
+        grad.addColorStop(0.3, 'rgba(200,0,0,0.8)');
+        grad.addColorStop(0.7, 'rgba(139,0,0,0.4)');
+        grad.addColorStop(1, 'transparent');
+        gCtx.fillStyle = grad;
+        gCtx.beginPath();
+        gCtx.arc(halfG, halfG, halfG, 0, Math.PI*2);
+        gCtx.fill();
+        window.footerGradientCache = gradCanvas;
+        
+        // Initialize particles
+        for (let i = 0; i < 400; i++) {
+          scannerParticles.push({
+            x: window.innerWidth/2 + (Math.random() - 0.5) * 20,
+            y: Math.random() * scannerHeight,
+            vx: Math.random() * 0.8 + 0.3,
+            vy: (Math.random() - 0.5) * 0.2,
+            radius: Math.random() * 3 + 1.5,
+            alpha: Math.random() * 0.7 + 0.3,
+            life: Math.random() * 0.8 + 0.2,
+            decay: Math.random() * 0.008 + 0.004
+          });
+        }
+        
+        animateScanner();
+      }
+      
+      function animateScanner() {
+        if (!scannerCtx) return;
+        scannerAnimationId = requestAnimationFrame(animateScanner);
+        
+        scannerWidth = window.innerWidth;
+        scannerHeight = getFooterHeight();
+        
+        if (scannerCanvas.width !== scannerWidth || scannerCanvas.height !== scannerHeight) {
+          scannerCanvas.width = scannerWidth;
+          scannerCanvas.height = scannerHeight;
+          scannerCanvas.style.width = scannerWidth + 'px';
+          scannerCanvas.style.height = scannerHeight + 'px';
+        }
+        
+        scannerCtx.clearRect(0, 0, scannerWidth, scannerHeight);
+        
+        const scannerX = scannerWidth / 2;
+        
+        // Draw glow line
+        scannerCtx.globalCompositeOperation = 'source-over';
+        
+        // Core white line
+        const coreGrad = scannerCtx.createLinearGradient(scannerX - 3, 0, scannerX + 3, 0);
+        coreGrad.addColorStop(0, 'rgba(255,255,255,0)');
+        coreGrad.addColorStop(0.5, 'rgba(255,255,255,0.9)');
+        coreGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        scannerCtx.fillStyle = coreGrad;
+        scannerCtx.fillRect(scannerX - 2, 0, 4, scannerHeight);
+        
+        // Red glow
+        const redGrad = scannerCtx.createLinearGradient(scannerX - 15, 0, scannerX + 15, 0);
+        redGrad.addColorStop(0, 'rgba(139,0,0,0)');
+        redGrad.addColorStop(0.5, 'rgba(200,0,0,0.6)');
+        redGrad.addColorStop(1, 'rgba(139,0,0,0)');
+        scannerCtx.fillStyle = redGrad;
+        scannerCtx.fillRect(scannerX - 12, 0, 24, scannerHeight);
+        
+        // Particles
+        scannerCtx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < scannerParticles.length; i++) {
+          const p = scannerParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life -= p.decay;
+          
+          if (p.x > scannerWidth + 30 || p.life <= 0) {
+            p.x = scannerX + (Math.random() - 0.5) * 15;
+            p.y = Math.random() * scannerHeight;
+            p.vx = Math.random() * 0.8 + 0.3;
+            p.life = Math.random() * 0.8 + 0.2;
+            p.alpha = Math.random() * 0.6 + 0.2;
+          }
+          
+          const alpha = p.alpha * p.life;
+          scannerCtx.globalAlpha = alpha;
+          scannerCtx.drawImage(window.footerGradientCache, p.x - p.radius, p.y - p.radius, p.radius*2, p.radius*2);
+        }
+      }
+      
+      function resizeFooterEffects() {
+        const height = getFooterHeight();
+        if (particleRenderer) {
+          particleRenderer.setSize(window.innerWidth, height);
+          if (particleCamera) {
+            particleCamera.left = -window.innerWidth/2;
+            particleCamera.right = window.innerWidth/2;
+            particleCamera.top = height/2;
+            particleCamera.bottom = -height/2;
+            particleCamera.updateProjectionMatrix();
+          }
+        }
+        if (scannerCtx) {
+          scannerCanvas.width = window.innerWidth;
+          scannerCanvas.height = height;
+          scannerCanvas.style.width = window.innerWidth + 'px';
+          scannerCanvas.style.height = height + 'px';
+        }
+      }
+      
+      window.addEventListener('resize', () => {
+        resizeFooterEffects();
+      });
+      
+      // Initialize after DOM
+      setTimeout(() => {
+        initFooterParticles();
+        initFooterScanner();
+      }, 100);
+    })();
   </script>
 </body>
 </html>
