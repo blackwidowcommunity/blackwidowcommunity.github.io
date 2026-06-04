@@ -6,7 +6,7 @@
   <title>Shop | Black Widow Community</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Shared navbar loader -->
+  <!-- Shared navbar loader - ONLY ADDITION -->
   <script src="navbar-loader.js" defer></script>
   <style>
     :root {
@@ -37,7 +37,7 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* Simple container for injected navbar - no extra styling */
+    /* Container for injected navbar */
     #navbar-container {
       position: relative;
       z-index: 1000;
@@ -443,7 +443,7 @@
 </head>
 <body>
 
-  <!-- Navigation bar will be injected here by navbar-loader.js -->
+  <!-- Navigation bar will be injected here by navbar-loader.js - REPLACED the old header -->
   <div id="navbar-container"></div>
 
   <!-- ===== DESKTOP LAYOUT ===== -->
@@ -654,16 +654,16 @@
       if (e.key === 'ArrowLeft')  goTo(current - 1);
     });
 
-    // Sync layout for mobile
+    // REMOVED the old navbar JavaScript and replaced with simple sync for mobile layout
     function syncLayout() {
       const navbar = document.querySelector('.navbar');
       const footerH = document.querySelector('.footer').offsetHeight;
       const ml = document.getElementById('mobile-layout');
-      if (navbar) {
+      if (navbar && ml) {
         const navH = navbar.offsetHeight;
         ml.style.paddingTop = navH + 'px';
+        ml.style.paddingBottom = footerH + 'px';
       }
-      ml.style.paddingBottom = footerH + 'px';
     }
     
     // Wait for navbar to load
