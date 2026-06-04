@@ -13,9 +13,7 @@
       --black: #0a0a0a;
       --white: #f5f0eb;
       --white-muted: rgba(245,240,235,0.65);
-      --white-faint: rgba(245,240,235,0.08);
       --border: rgba(192,57,43,0.35);
-      --gold: #c8a96e;
       --gold-dim: rgba(200,169,110,0.45);
     }
 
@@ -23,11 +21,10 @@
 
     html, body {
       width: 100%; height: 100%;
-      overflow: hidden;
       font-family: 'Raleway', sans-serif;
       background: var(--black);
       color: var(--white);
-      cursor: default;
+      overflow: hidden;
     }
 
     /* Grain */
@@ -43,7 +40,7 @@
     .navbar {
       display: flex; align-items: center; justify-content: center;
       padding: 1.1rem 5%;
-      background: rgba(10,10,10,0.5);
+      background: rgba(10,10,10,0.6);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(16px);
       gap: 2rem; position: relative;
@@ -57,7 +54,7 @@
     .hamburger { display: none; font-size: 1.9rem; cursor: pointer; color: var(--white-muted); position: absolute; right: 5%; top: 50%; transform: translateY(-50%); }
     .sidebar {
       position: fixed; top: 0; right: -100%; width: min(280px, 70%); height: 100vh;
-      background: rgba(10,10,10,0.75); backdrop-filter: blur(20px);
+      background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
       border-left: 1px solid rgba(192,57,43,0.5); z-index: 2000; padding: 2rem;
       transition: right 0.3s ease; display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
@@ -67,9 +64,43 @@
     .sidebar a:hover, .sidebar a.active { color: var(--red); }
     .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1500; }
     .overlay.active { opacity: 1; pointer-events: all; }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } }
 
-    /* ===== SCENE — the whole viewport ===== */
+    /* ===== FOOTER ===== */
+    .footer {
+      position: fixed;
+      bottom: 0; left: 0; width: 100%;
+      z-index: 5;
+      padding: 0.75rem 5%;
+      background: rgba(10,10,10,0.7);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      text-align: center;
+      font-size: 0.68rem;
+      color: rgba(245,240,235,0.3);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+    }
+    .footer span { color: var(--red); }
+
+    /* ===== SLIDE COUNTER (vertical, desktop only) ===== */
+    .slide-num {
+      position: fixed;
+      top: 50%; right: 2rem;
+      transform: translateY(-50%);
+      z-index: 10;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(245,240,235,0.18);
+      writing-mode: vertical-rl;
+      user-select: none;
+    }
+
+    /* ============================================================
+       DESKTOP LAYOUT  (> 768px)
+       Image centred, info fixed bottom-left, CTA fixed bottom-right
+    ============================================================ */
     .scene {
       position: fixed; inset: 0;
       z-index: 1;
@@ -79,51 +110,23 @@
       overflow: hidden;
     }
 
-    /* ===== GIANT BACKGROUND WORD ===== */
+    /* bg word — scales with viewport width so it never overflows */
     .bg-word {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-family: 'Cinzel', serif;
-      font-size: clamp(10rem, 22vw, 22rem);
+      font-size: clamp(5rem, 18vw, 22rem);
       font-weight: 900;
       letter-spacing: 0.04em;
       white-space: nowrap;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(245,240,235,0.06);
+      -webkit-text-stroke: 1px rgba(245,240,235,0.055);
       user-select: none;
       pointer-events: none;
-      transition: opacity 0.6s ease;
       z-index: 0;
     }
 
-    /* ===== FLOATING PRODUCT IMAGE ===== */
-    .product-img-wrap {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* floating animation */
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .product-img-wrap img {
-      max-height: 52vh;
-      max-width: 45vw;
-      object-fit: contain;
-      /* deep drop shadow for detached floating look */
-      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(192,57,43,0.12));
-      display: block;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-18px); }
-    }
-
-    /* ===== AMBIENT GLOW BEHIND PRODUCT ===== */
     .product-glow {
       position: absolute;
       top: 50%; left: 50%;
@@ -131,131 +134,335 @@
       width: 50vw; height: 50vh;
       border-radius: 50%;
       background: radial-gradient(ellipse, rgba(192,57,43,0.1) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-      transition: opacity 0.6s ease;
+      pointer-events: none; z-index: 1;
     }
 
-    /* ===== BOTTOM-LEFT PRODUCT INFO ===== */
+    .product-img-wrap {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      animation: float 5s ease-in-out infinite;
+    }
+    .product-img-wrap img {
+      max-height: 52vh;
+      max-width: 45vw;
+      object-fit: contain;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(192,57,43,0.12));
+      display: block;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-16px); }
+    }
+
+    /* desktop info panel — fixed bottom-left */
     .product-info {
       position: fixed;
-      bottom: 3.5vh;
+      bottom: 4.5rem;
       left: 5vw;
       z-index: 10;
-      max-width: 260px;
+      max-width: 280px;
     }
     .product-info-name {
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 0.95rem; font-weight: 700;
       letter-spacing: 0.05em;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.35rem;
       transition: opacity 0.4s ease;
     }
     .product-info-name em { color: var(--red); font-style: normal; }
     .product-info-desc {
       font-size: 0.75rem;
       color: var(--white-muted);
-      line-height: 1.6;
-      font-weight: 400;
+      line-height: 1.65; font-weight: 400;
       transition: opacity 0.4s ease;
     }
-
-    /* ===== BOTTOM-RIGHT CTA ===== */
-    .product-cta {
-      position: fixed;
-      bottom: 3.5vh;
-      right: 5vw;
-      z-index: 10;
+    .product-info-price {
+      margin-top: 0.6rem;
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.7rem;
+      align-items: baseline;
+      gap: 0.5rem;
     }
-    .cta-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
+    .price-amount {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.03em;
+    }
+    .price-member {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold-dim);
-      font-weight: 600;
+    }
+
+    /* desktop CTA — fixed bottom-right */
+    .product-cta {
+      position: fixed;
+      bottom: 4.5rem; right: 5vw;
+      z-index: 10;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem;
+    }
+    .cta-label {
+      font-size: 0.6rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--gold-dim); font-weight: 600;
     }
     .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
+      display: inline-flex; align-items: center; gap: 0.55rem;
       padding: 0.75rem 1.7rem;
       background: transparent;
       border: 1px solid rgba(192,57,43,0.6);
       color: var(--white);
       font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
+      font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
       transition: background 0.25s, border-color 0.25s;
     }
     .cta-btn:hover { background: var(--red); border-color: var(--red); }
     .cta-btn i { font-size: 0.65rem; }
 
-    /* ===== DOT NAV ===== */
+    /* dot nav */
     .dot-nav {
       position: fixed;
-      bottom: 3.5vh;
-      left: 50%;
+      bottom: 4.5rem; left: 50%;
       transform: translateX(-50%);
       z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+      display: flex; align-items: center; gap: 0.7rem;
     }
     .dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
+      width: 5px; height: 5px; border-radius: 50%;
       background: rgba(245,240,235,0.2);
       border: 1px solid rgba(245,240,235,0.25);
       cursor: pointer;
       transition: background 0.3s, transform 0.3s, border-color 0.3s;
     }
-    .dot.active {
-      background: var(--red);
-      border-color: var(--red);
-      transform: scale(1.5);
-    }
+    .dot.active { background: var(--red); border-color: var(--red); transform: scale(1.5); }
 
-    /* ===== SLIDE COUNTER TOP RIGHT ===== */
-    .slide-num {
+    /* side arrows */
+    .slide-arrow {
       position: fixed;
-      top: 50%;
-      right: 2.5rem;
-      transform: translateY(-50%);
+      top: 50%; transform: translateY(-50%);
       z-index: 10;
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: rgba(245,240,235,0.2);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      user-select: none;
+      width: 46px; height: 46px;
+      border: 1px solid rgba(192,57,43,0.45);
+      background: rgba(10,10,10,0.55);
+      backdrop-filter: blur(10px);
+      color: var(--white-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.22s, border-color 0.22s, color 0.22s, opacity 0.22s;
+      font-size: 0.85rem; user-select: none;
     }
+    .slide-arrow:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+    .slide-arrow.disabled { opacity: 0.15; pointer-events: none; }
+    .slide-arrow-prev { left: 1.4rem; }
+    .slide-arrow-next { right: 1.4rem; }
 
-    /* ===== SWIPE TRANSITION ===== */
-    .product-img-wrap.switching img {
-      opacity: 0;
-      transform: scale(0.94);
-    }
+    /* image fade-out class */
+    .product-img-wrap.switching img { opacity: 0; transform: scale(0.94); }
 
-    @media (max-width: 768px) {
-      .product-img-wrap img { max-height: 44vh; max-width: 70vw; }
-      .bg-word { font-size: clamp(6rem, 18vw, 12rem); }
-      .product-info { max-width: 55vw; }
+    /* ============================================================
+       TABLET  (≤ 900px)
+    ============================================================ */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+
+      .bg-word { font-size: clamp(4rem, 16vw, 10rem); }
+      .product-img-wrap img { max-height: 44vh; max-width: 58vw; }
+
+      .product-info { max-width: 46vw; }
       .slide-num { display: none; }
+
+      .slide-arrow { width: 38px; height: 38px; font-size: 0.75rem; }
+      .slide-arrow-prev { left: 0.5rem; }
+      .slide-arrow-next { right: 0.5rem; }
     }
-    @media (max-width: 500px) {
-      .product-cta { bottom: 9vh; }
-      .dot-nav { bottom: 5vh; }
-      .product-info { bottom: 13vh; }
+
+    /* Mobile layout hidden by default — only shown on small screens */
+    .mobile-layout { display: none; }
+
+    /* ============================================================
+       MOBILE  (≤ 600px)
+       Switch to a vertical flex layout:
+         [navbar]
+         [bg-word + image — top half]
+         [info + cta — bottom half, above footer]
+    ============================================================ */
+    @media (max-width: 600px) {
+
+      html, body { overflow: hidden; }
+
+      /* full-screen flex column */
+      .mobile-layout {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+      }
+
+      /* top zone: image lives here */
+      .mobile-image-zone {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* bottom zone: name + desc + cta + dots */
+      .mobile-info-zone {
+        flex: 0 0 auto;
+        padding: 0.9rem 1.2rem 0.6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        background: rgba(10,10,10,0.4);
+        backdrop-filter: blur(8px);
+      }
+
+      /* hide the desktop fixed elements on mobile */
+      .scene,
+      .product-info,
+      .product-cta,
+      .dot-nav,
+      .slide-num {
+        display: none !important;
+      }
+
+      /* Keep side arrows but restyle for mobile — fixed to viewport sides */
+      .slide-arrow {
+        display: flex !important;
+        width: 36px; height: 36px;
+        font-size: 0.72rem;
+        top: 50%;
+        z-index: 20;
+      }
+      .slide-arrow-prev { left: 0.5rem; }
+      .slide-arrow-next { right: 0.5rem; }
+
+      /* mobile image zone internals */
+      .mobile-bg-word {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Cinzel', serif;
+        /* Scale font so even "DETECTOR" fits: 8 chars × ~12vw each ≈ 96vw, so use ~11vw per char */
+        font-size: var(--word-size, 13vw);
+        font-weight: 900;
+        white-space: nowrap;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(245,240,235,0.055);
+        user-select: none; pointer-events: none;
+        letter-spacing: 0.04em;
+      }
+
+      .mobile-glow {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%,-50%);
+        width: 80vw; height: 40vw;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(192,57,43,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .mobile-img-wrap {
+        position: relative; z-index: 2;
+        display: flex; align-items: center; justify-content: center;
+        animation: float 5s ease-in-out infinite;
+        width: 100%; height: 100%;
+      }
+      .mobile-img-wrap img {
+        max-height: 100%;
+        max-width: 72vw;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.85)) drop-shadow(0 0 30px rgba(192,57,43,0.12));
+        display: block;
+        transition: opacity 0.45s ease, transform 0.45s ease;
+      }
+      .mobile-img-wrap.switching img { opacity: 0; transform: scale(0.93); }
+
+      /* mobile info */
+      .mobile-product-name {
+        font-family: 'Cinzel', serif;
+        font-size: 0.88rem; font-weight: 700;
+        letter-spacing: 0.05em;
+        line-height: 1.3;
+      }
+      .mobile-product-name em { color: var(--red); font-style: normal; }
+      .mobile-product-desc {
+        font-size: 0.72rem;
+        color: var(--white-muted);
+        line-height: 1.6; font-weight: 400;
+      }
+      .mobile-product-price {
+        display: flex;
+        align-items: baseline;
+        gap: 0.45rem;
+      }
+      .mobile-price-amount {
+        font-family: 'Cinzel', serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 0.03em;
+      }
+      .mobile-price-member {
+        font-size: 0.55rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold-dim);
+      }
+
+      /* mobile cta row */
+      .mobile-cta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 0.2rem;
+      }
+      .mobile-dots {
+        display: flex; align-items: center; gap: 0.5rem;
+      }
+      .mobile-dot {
+        width: 5px; height: 5px; border-radius: 50%;
+        background: rgba(245,240,235,0.2);
+        border: 1px solid rgba(245,240,235,0.25);
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s, border-color 0.3s;
+      }
+      .mobile-dot.active { background: var(--red); border-color: var(--red); transform: scale(1.5); }
+
+      .mobile-shop-btn {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.55rem 1.1rem;
+        background: transparent;
+        border: 1px solid rgba(192,57,43,0.6);
+        color: var(--white);
+        font-family: 'Raleway', sans-serif;
+        font-size: 0.65rem; font-weight: 800;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        text-decoration: none;
+        transition: background 0.22s, border-color 0.22s;
+      }
+      .mobile-shop-btn:active { background: var(--red); border-color: var(--red); }
+
+      /* push content below navbar and above footer — set dynamically by JS */
+      .mobile-layout {
+        padding-top: 56px; /* fallback, overridden by JS */
+      }
+
+      .footer { font-size: 0.58rem; padding: 0.55rem 4%; }
     }
   </style>
 </head>
@@ -286,7 +493,7 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <!-- Scene -->
+  <!-- ===== DESKTOP LAYOUT ===== -->
   <div class="scene">
     <div class="bg-word" id="bg-word">GLOVES</div>
     <div class="product-glow"></div>
@@ -295,49 +502,88 @@
     </div>
   </div>
 
-  <!-- Bottom left info -->
   <div class="product-info">
     <div class="product-info-name" id="info-name"></div>
     <div class="product-info-desc" id="info-desc"></div>
+    <div class="product-info-price">
+      <span class="price-amount" id="info-price"></span>
+      <span class="price-member">Members Save 15%</span>
+    </div>
   </div>
 
-  <!-- Bottom right CTA -->
   <div class="product-cta">
     <span class="cta-label">Members Save</span>
     <a href="#" class="cta-btn" id="cta-btn">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
-  <!-- Dot nav -->
   <div class="dot-nav" id="dot-nav">
     <div class="dot active" data-i="0"></div>
     <div class="dot" data-i="1"></div>
     <div class="dot" data-i="2"></div>
   </div>
 
-  <!-- Slide counter -->
   <div class="slide-num" id="slide-num">01 / 03</div>
+  <div class="slide-arrow slide-arrow-prev" id="arrow-prev"><i class="fa fa-chevron-left"></i></div>
+  <div class="slide-arrow slide-arrow-next" id="arrow-next"><i class="fa fa-chevron-right"></i></div>
+
+  <!-- ===== MOBILE LAYOUT ===== -->
+  <div class="mobile-layout" id="mobile-layout">
+    <!-- top: image -->
+    <div class="mobile-image-zone">
+      <div class="mobile-bg-word" id="m-bg-word">GLOVES</div>
+      <div class="mobile-glow"></div>
+      <div class="mobile-img-wrap" id="m-img-wrap">
+        <img id="m-product-img" src="" alt="Product">
+      </div>
+    </div>
+    <!-- bottom: info + controls -->
+    <div class="mobile-info-zone">
+      <div class="mobile-product-name" id="m-info-name"></div>
+      <div class="mobile-product-desc" id="m-info-desc"></div>
+      <div class="mobile-product-price">
+        <span class="mobile-price-amount" id="m-info-price"></span>
+        <span class="mobile-price-member">Members Save 15%</span>
+      </div>
+      <div class="mobile-cta-row">
+        <div class="mobile-dots" id="m-dots">
+          <div class="mobile-dot active" data-mi="0"></div>
+          <div class="mobile-dot" data-mi="1"></div>
+          <div class="mobile-dot" data-mi="2"></div>
+        </div>
+        <a href="#" class="mobile-shop-btn" id="m-cta-btn">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort
+  </footer>
 
   <script>
     const products = [
       {
         word:  'GLOVES',
-        img:   'https://www.army-range.com/1166-large_default/101inc-gloves-tactical-operator-black.jpg',
+        img:   'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&auto=format&fit=crop&q=80',
         name:  'Tactical Operator <em>Gloves</em>',
         desc:  'Full-dexterity cut-resistant gloves built for lab days and field operations. Touchscreen-compatible. You can still type fast.',
+        price: '$49.00',
         link:  'IMAGES/gloves.png'
       },
       {
         word:  'WALLET',
-        img:   'https://m.media-amazon.com/images/I/71YQQTXDQ+L._AC_SX679_.jpg',
+        img:   'https://images.unsplash.com/photo-1627123424574-724758594913?w=600&auto=format&fit=crop&q=80',
         name:  'RFID Blocking <em>Wallet</em>',
         desc:  'Military-grade RFID shielding in a slim front-pocket form. A daily reminder of what you protect — and what you know how to exploit.',
+        price: '$39.00',
         link:  'IMAGES/wallet.png'
       },
       {
         word:  'DETECTOR',
-        img:   'https://m.media-amazon.com/images/I/61Z0jLMxfwL._AC_SX679_.jpg',
+        img:   'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&auto=format&fit=crop&q=80',
         name:  'RF Signal Detector <em>Wand</em>',
-        desc:  'Sweeps 1MHz–8GHz. Detects hidden cameras, GPS trackers, wireless bugs. Know what\'s transmitting before you start work.',
+        desc:  "Sweeps 1MHz–8GHz. Detects hidden cameras, GPS trackers, wireless bugs. Know what's transmitting before you start work.",
+        price: '$89.00',
         link:  'IMAGES/detector.png'
       }
     ];
@@ -345,71 +591,109 @@
     let current = 0;
     let locked  = false;
 
-    const bgWord   = document.getElementById('bg-word');
-    const imgWrap  = document.getElementById('img-wrap');
-    const img      = document.getElementById('product-img');
-    const infoName = document.getElementById('info-name');
-    const infoDesc = document.getElementById('info-desc');
-    const ctaBtn   = document.getElementById('cta-btn');
-    const slideNum = document.getElementById('slide-num');
-    const dots     = document.querySelectorAll('.dot');
+    // --- Desktop elements ---
+    const bgWord    = document.getElementById('bg-word');
+    const imgWrap   = document.getElementById('img-wrap');
+    const img       = document.getElementById('product-img');
+    const infoName  = document.getElementById('info-name');
+    const infoDesc  = document.getElementById('info-desc');
+    const infoPrice = document.getElementById('info-price');
+    const ctaBtn    = document.getElementById('cta-btn');
+    const slideNum  = document.getElementById('slide-num');
+    const dots      = document.querySelectorAll('.dot');
+    const arrowPrev = document.getElementById('arrow-prev');
+    const arrowNext = document.getElementById('arrow-next');
+
+    // --- Mobile elements ---
+    const mBgWord    = document.getElementById('m-bg-word');
+    const mImgWrap   = document.getElementById('m-img-wrap');
+    const mImg       = document.getElementById('m-product-img');
+    const mName      = document.getElementById('m-info-name');
+    const mDesc      = document.getElementById('m-info-desc');
+    const mPrice     = document.getElementById('m-info-price');
+    const mCtaBtn    = document.getElementById('m-cta-btn');
+    const mDots      = document.querySelectorAll('.mobile-dot');
+
+    // Scale the bg word so it always fits within the mobile viewport
+    function setWordSize(word) {
+      // Max chars we can fit at 13vw each before hitting ~90vw total
+      // vw per char: slightly less for longer words
+      const len = word.length;
+      // approx each Cinzel char ≈ 0.72em wide; target max 88vw
+      const vw = Math.min(13, Math.floor(88 / (len * 0.78)));
+      document.documentElement.style.setProperty('--word-size', vw + 'vw');
+    }
 
     function pad(n) { return String(n + 1).padStart(2, '0'); }
+
+    function updateAll(idx) {
+      const p = products[idx];
+
+      // desktop
+      img.src              = p.img;
+      bgWord.textContent   = p.word;
+      infoName.innerHTML   = p.name;
+      infoDesc.textContent = p.desc;
+      infoPrice.textContent = p.price;
+      ctaBtn.href          = p.link;
+      slideNum.textContent = `${pad(idx)} / ${pad(products.length - 1)}`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      arrowPrev.classList.toggle('disabled', idx === 0);
+      arrowNext.classList.toggle('disabled', idx === products.length - 1);
+
+      // mobile
+      mImg.src             = p.img;
+      mBgWord.textContent  = p.word;
+      mName.innerHTML      = p.name;
+      mDesc.textContent    = p.desc;
+      mPrice.textContent   = p.price;
+      mCtaBtn.href         = p.link;
+      mDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      setWordSize(p.word);
+    }
 
     function goTo(idx) {
       if (locked || idx === current || idx < 0 || idx >= products.length) return;
       locked = true;
 
-      const p = products[idx];
-
-      // Fade out image
+      // fade out both image wraps
       imgWrap.classList.add('switching');
+      mImgWrap.classList.add('switching');
 
       setTimeout(() => {
-        // Swap everything
         current = idx;
-        img.src        = p.img;
-        bgWord.textContent = p.word;
-        infoName.innerHTML = p.name;
-        infoDesc.textContent = p.desc;
-        ctaBtn.href    = p.link;
-        slideNum.textContent = `${pad(idx)} / ${pad(products.length - 1)}`;
-
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-
-        // Fade back in
+        updateAll(idx);
         imgWrap.classList.remove('switching');
+        mImgWrap.classList.remove('switching');
         locked = false;
       }, 380);
     }
 
-    // Init first slide immediately
-    (function init() {
-      const p = products[0];
-      img.src        = p.img;
-      bgWord.textContent = p.word;
-      infoName.innerHTML = p.name;
-      infoDesc.textContent = p.desc;
-    })();
+    // Init
+    updateAll(0);
 
-    // Dot clicks
+    // Desktop dots & arrows
     dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i))));
+    arrowPrev.addEventListener('click', () => goTo(current - 1));
+    arrowNext.addEventListener('click', () => goTo(current + 1));
 
-    // Touch swipe
+    // Mobile dots
+    mDots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.mi))));
+
+    // Touch swipe (works on both layouts)
     let tx = 0;
     document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) < 45) return;
+      if (Math.abs(dx) < 40) return;
       goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
 
-    // Mouse drag
+    // Mouse drag (desktop)
     let mx = 0, mdown = false;
     document.addEventListener('mousedown', e => { mx = e.clientX; mdown = true; });
     document.addEventListener('mouseup', e => {
-      if (!mdown) return;
-      mdown = false;
+      if (!mdown) return; mdown = false;
       const dx = e.clientX - mx;
       if (Math.abs(dx) < 55) return;
       goTo(dx < 0 ? current + 1 : current - 1);
@@ -427,7 +711,17 @@
     const overlay   = document.getElementById('overlay');
     hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
     overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-  </script>
 
+    // Sync navbar top padding and footer bottom padding on mobile layout
+    function syncLayout() {
+      const navH    = document.querySelector('.navbar').offsetHeight;
+      const footerH = document.querySelector('.footer').offsetHeight;
+      const ml = document.getElementById('mobile-layout');
+      ml.style.paddingTop    = navH + 'px';
+      ml.style.paddingBottom = footerH + 'px';
+    }
+    syncLayout();
+    window.addEventListener('resize', syncLayout);
+  </script>
 </body>
 </html>
