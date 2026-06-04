@@ -108,8 +108,22 @@
       to   { transform: translateX(-50%); }
     }
 
+    /* Transparent wrapper — reserves space only, no visible styling of its own */
     .partner-logo {
       position: relative;
+      min-width: 180px;
+      height: 56px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      cursor: default;
+    }
+
+    /* Normal card — full border/bg/content, clips away LEFT as scanner passes
+       mirrors: .card-normal { clip-path: inset(0 0 0 var(--clip-right, 0%)); } */
+    .p-card-normal {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,33 +133,15 @@
       border-radius: 10px;
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(4px);
-      white-space: nowrap;
-      cursor: default;
-      transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-      overflow: hidden;
-      min-width: 180px;
-      height: 56px;
-      outline: none;
-      box-shadow: none;
-    }
-
-    .partner-logo:hover {
-      border-color: rgba(180,50,30,0.7);
-      background: rgba(0,0,0,0.85);
-      transform: translateY(-3px);
-    }
-
-    /* Normal face — clips away as scanner passes */
-    .p-normal {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.9rem;
+      box-sizing: border-box;
       clip-path: inset(0 0 0 var(--clip-right, 0%));
       z-index: 2;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .partner-logo:hover .p-card-normal {
+      border-color: rgba(180,50,30,0.7);
+      background: rgba(0,0,0,0.85);
     }
 
     .p-icon { font-size: 1.6rem; }
@@ -158,14 +154,18 @@
       color: rgba(255,255,255,0.75);
     }
 
-    /* Code face — revealed by scanner */
-    .p-ascii {
+    /* ASCII card — dark bg + red border + code text, revealed behind scanner
+       mirrors: .card-ascii { clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0); } */
+    .p-card-ascii {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
+      border: 1px solid rgba(183,75,75,0.45);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.92);
+      box-sizing: border-box;
       clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
       z-index: 1;
-      border-radius: 10px;
       overflow: hidden;
     }
 
@@ -331,16 +331,16 @@
           <p class="footer-partners-label">TRUSTED PARTNERS &amp; SPONSORS</p>
           <div class="partners-track-wrapper">
             <div class="partners-track" id="partnersTrack">
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
-              <div class="partner-logo"><div class="p-normal"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div><div class="p-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🔥</span><span class="p-name">OffSec</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">💻</span><span class="p-name">INE Security</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🕷️</span><span class="p-name">BlackWidow Labs</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">🛡️</span><span class="p-name">HackTheBox</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
+              <div class="partner-logo"><div class="p-card-normal"><span class="p-icon">⚡</span><span class="p-name">TryHackMe</span></div><div class="p-card-ascii"><div class="p-ascii-content"></div></div></div>
             </div>
           </div>
         </div>
@@ -751,8 +751,8 @@
       document.querySelectorAll('.partner-logo').forEach(logo => {
         const r  = logo.getBoundingClientRect();
         const cL = r.left, cR = r.right, cW = r.width;
-        const nf = logo.querySelector('.p-normal');
-        const af = logo.querySelector('.p-ascii');
+        const nf = logo.querySelector('.p-card-normal');
+        const af = logo.querySelector('.p-card-ascii');
         if (!nf || !af) return;
 
         if (cL < sR && cR > sL) {
