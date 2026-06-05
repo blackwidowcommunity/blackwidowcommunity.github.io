@@ -38,7 +38,7 @@
     }
 
     html {
-      font-size: 78%;
+      font-size: 78%; /* bumped up from 68.5%: 1rem ≈ 12.5px, better readability across all text */
       scroll-behavior: smooth;
     }
 
@@ -51,6 +51,7 @@
       line-height: 1.5;
     }
 
+    /* Texture overlay + subtle web grain */
     body::before {
       content: '';
       position: fixed;
@@ -61,6 +62,7 @@
       z-index: 0;
     }
 
+    /* Spider web SVG (elegant background) */
     .web-svg {
       position: fixed;
       top: 50%;
@@ -73,6 +75,7 @@
       z-index: 0;
     }
 
+    /* ===== FIXED NAVBAR (larger tap targets) ===== */
     header {
       position: fixed;
       top: 0;
@@ -147,6 +150,7 @@
       transform: translateY(-50%);
     }
 
+    /* Mobile Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -210,13 +214,14 @@
       .navbar { padding: 2rem 5%; }
     }
 
+    /* ===== MAIN CONTENT ===== */
     .urgency-strip {
       background: linear-gradient(135deg, rgba(140,20,10,0.4) 0%, rgba(80,10,5,0.4) 100%);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 1rem 1rem;
       text-align: center;
-      font-size: 1rem;
+      font-size: 1rem;  /* larger */
       font-weight: 500;
       color: var(--white-muted);
       backdrop-filter: blur(4px);
@@ -304,6 +309,7 @@
       line-height: 1.6;
     }
 
+    /* PRICING GRID - same as before but larger type */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
@@ -339,6 +345,7 @@
     .card-title { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.6rem; }
     .card-desc { color: var(--white-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.8rem; }
     
+    /* Feature list styles (checkmark / cross) */
     .features-list-custom {
       list-style: none;
       display: flex;
@@ -370,6 +377,22 @@
       flex: 1;
     }
     
+    .price-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.8rem; }
+    .price-tier {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      background: var(--white-faint);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .price-tier.early { border-left: 3px solid var(--green); }
+    .price-tier.general { border-left: 3px solid var(--white-muted); }
+    .price-tier.late { border-left: 3px solid var(--red); }
+    .price-tier.early .tier-price { color: var(--green); font-weight: 700; }
+    .price-tier.late .tier-price { color: var(--red); font-weight: 700; }
+    
     .cta-btn {
       display: block;
       width: 100%;
@@ -387,6 +410,10 @@
     }
     .cta-btn:hover { background: var(--red-dark); transform: scale(0.98); }
 
+    /* ===== NEW PORTFOLIO SHOWCASE - 3 CARDS MATCHING PRICING CARD SIZE ===== */
+    .portfolio-showcase {
+      margin-top: 1rem;
+    }
     .portfolio-3col {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
@@ -436,6 +463,12 @@
       color: var(--red);
       margin-bottom: 0.6rem;
     }
+    .portfolio-card-content p {
+      font-size: 0.9rem;
+      color: var(--white-muted);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
     .portfolio-link {
       display: inline-flex;
       align-items: center;
@@ -460,6 +493,7 @@
       transform: translateX(4px);
     }
 
+    /* ===== Testimonials ===== */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -493,6 +527,14 @@
     .testimonial-name { font-weight: 800; font-size: 1rem; }
     .testimonial-role { font-size: 0.8rem; color: var(--red); margin-bottom: 0.6rem; }
     .testimonial-quote { font-size: 0.88rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
+    .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 16px; font-size: 0.85rem; }
+
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
     .footer {
       text-align: center;
@@ -506,6 +548,7 @@
     }
     .footer span { color: var(--red); font-weight: 600; }
 
+    /* larger tap targets for all buttons */
     button, a, .btn, .cta-btn, .portfolio-link, .nav-btn, .play-btn {
       cursor: pointer;
       min-height: 44px;
@@ -516,8 +559,10 @@
 
     @media (max-width: 650px) {
       .portfolio-card-content h3 { font-size: 1.2rem; }
+      .portfolio-card-content p { font-size: 0.85rem; }
     }
 
+    /* Card option sub-label */
     .card-option-label {
       font-size: 0.8rem;
       font-weight: 600;
@@ -528,6 +573,7 @@
       opacity: 0.85;
     }
 
+    /* ===== TAB SWITCHER ===== */
     .tab-switcher {
       display: flex;
       justify-content: center;
@@ -570,19 +616,87 @@
       cursor: pointer;
       white-space: nowrap;
       transition: color 0.25s;
-      min-height: unset;
+      /* Override the global button rule that forces inline-flex and min-height */
+      display: inline-block !important;
+      min-height: unset !important;
+      align-items: unset !important;
+      justify-content: unset !important;
     }
     .tab-btn.active { color: var(--white); }
     .tab-btn:not(.active):hover { color: var(--white); }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+    .tab-panel { display: none !important; }
+    .tab-panel.active { display: block !important; }
     @media (max-width: 500px) {
       .tab-btn { font-size: 0.75rem; padding: 0.6rem 1rem; letter-spacing: 0.04em; }
+    }
+
+    /* ===== ABOUT US SECTION ===== */
+    .about-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+    .about-img-wrapper {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 4/5;
+      background: var(--black-3);
+    }
+    .about-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-text h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      line-height: 1.3;
+    }
+    .about-text h3 span { color: var(--red); }
+    .about-text p {
+      font-size: 1rem;
+      color: var(--white-muted);
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+    .about-values {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .about-value-pill {
+      padding: 0.4rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-img-wrapper { aspect-ratio: 16/9; }
+      .about-section { padding: 3rem 1.2rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- spider web decoration -->
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
       <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
@@ -629,11 +743,15 @@
     <i class="fa-solid fa-spider spider-icon"></i>
     <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
     <p class="subtitle">The ultimate playground for ethical hackers. We build, we break, we level up together.<br>Our Core Values:<br><strong>Ethics</strong> | <strong>Curiosity</strong> | <strong>Collaboration</strong></p>
-    <p class="subtitle">Breaking into offensive security is brutal when certifications alone can't prove you actually have the technical skill. The key to break into offensive security is a digital asset: <strong>An Active Portfolio.</strong> To get you started, I'm giving away <strong>3 Portfolios</strong> that you can access down below, in the Portfolios Tab. During each meetup we build & add a new challenge to it. <strong>Giving you the undeniable proof of skill you need to break in.</strong></p>
-    <p class="subtitle">Don't just take my word for it, see our <strong>Member Stories</strong> in the Testimonials Tab.</p>
+    </br>
+    <p class="subtitle">Breaking into offensive security is brutal when certifications alone can't prove you actually have the technical skill. The key to break into offensive security is a digital asset: <strong>An Active Portfolio.</strong> To get you started, I’m giving away <strong>3 Portfolios</strong> that you can access down below, in the Portfolios Tab. During each meetup we buid & add a new challenge to it. <strong> Giving you the undeniable proof of skill you need to break in. </strong> </p>
+    </br>
+    <p class="subtitle">Don't just take my word for it, see our <strong> Member Stories </strong> in the Testimonials Tab.</p>
   </div>
 
   <div class="divider"></div>
+
+  </br>
 
   <!-- TAB SWITCHER -->
   <div class="tab-switcher">
@@ -645,7 +763,7 @@
     </div>
   </div>
 
-  <!-- PANEL 1: COMMUNITY -->
+  <!-- PANEL 1: COMMUNITY SUBSCRIPTIONS (Order: Member, Online, Physical) -->
   <div class="tab-panel active" id="panel-community">
     <section id="join">
       <p class="section-label">Choose Your Path</p>
@@ -653,7 +771,7 @@
       <p class="section-intro">Walk out with a live digital portfolio that attracts opportunities & cyber recruiters that will take you seriously.</p>
 
       <div class="pricing-grid">
-        <!-- 1. BECOME A MEMBER -->
+        <!-- 1. BECOME A MEMBER (Full access - all features checked) -->
         <div class="pricing-card featured">
           <div class="card-badge">Full Access · Best Value</div>
           <i class="fa-solid fa-id-card card-icon"></i>
@@ -665,7 +783,7 @@
             <li><i class="fa-solid fa-check-circle"></i><span>Errors will be fixed in real time during sessions.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Full access to in-person networking opportunities.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Full access to online weekly sessions.</span></li>
-            <li><i class="fa-solid fa-check-circle"></i><span>Discounted prices on certifications.</span></li>
+            <li><i class="fa-solid fa-check-circle"></i><span>Discounted prices on certfications.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Discounted prices on our online shop.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Community chat room that has job postings, CTF challenges, and paid bug bounty opportunities.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Recordings of all previous sessions, refer back whenever you need.</span></li>
@@ -674,7 +792,7 @@
           <a href="#" class="cta-btn">Coming Soon</a>
         </div>
 
-        <!-- 2. PHYSICAL COMMUNITY -->
+        <!-- 2. PHYSICAL COMMUNITY (Portfolio + physical access + real-time fixes; rest unticked) -->
         <div class="pricing-card">
           <div class="card-badge">Melbourne CBD · Max 20 Seats</div>
           <i class="fa-solid fa-location-dot card-icon"></i>
@@ -686,7 +804,7 @@
             <li><i class="fa-solid fa-check-circle"></i><span>Errors will be fixed in real time during sessions.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Full access to in-person networking opportunities.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Discounted prices for weekly sessions.</span></li>
-            <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on certifications.</span></li>
+            <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on certfications.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on our online shop.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Community chat room that has job postings, CTF challenges, and paid bug bounty opportunities.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Recordings of all previous sessions, refer back whenever you need.</span></li>
@@ -695,7 +813,8 @@
           <a href="https://www.eventbrite.com/e/1990750125214?aff=oddtdtcreator" target="_blank" class="cta-btn">Reserve Your Physical Seat</a>
         </div>
 
-        <!-- 3. ONLINE COMMUNITY -->
+
+        <!-- 3. ONLINE COMMUNITY (Limited: only portfolio, real-time fixes; others unticked) -->
         <div class="pricing-card">
           <div class="card-badge">International · Max 20 Seats</div>
           <i class="fa-solid fa-wifi card-icon"></i>
@@ -707,7 +826,7 @@
             <li><i class="fa-solid fa-check-circle"></i><span>Errors will be fixed in real time during sessions.</span></li>
             <li><i class="fa-solid fa-check-circle"></i><span>Full access to online weekly sessions.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices for weekly sessions.</span></li>
-            <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on certifications.</span></li>
+            <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on certfications.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Discounted prices on our online shop.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Community chat room that has job postings, CTF challenges, and paid bug bounty opportunities.</span></li>
             <li><i class="fa-solid fa-times-circle"></i><span>Recordings of all previous sessions, refer back whenever you need.</span></li>
@@ -715,11 +834,13 @@
           </ul>
           <a href="#" class="cta-btn">Reserve Your Online Seat</a>
         </div>
+
       </div>
+
     </section>
   </div>
 
-  <!-- PANEL 2: PORTFOLIOS -->
+  <!-- PANEL 2: PORTFOLIOS (unchanged) -->
   <div class="tab-panel" id="panel-projects">
     <section>
       <p class="section-label">Real Digital Asset · Proof Of Skill</p>
@@ -729,7 +850,7 @@
       <div class="portfolio-3col">
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
-            <img src="IMAGES/Screenshot%202026-05-23%20144815.png" alt="Cosmic Void Portfolio" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://placehold.co/600x400/222/red?text=Cosmic+Void'">
+            <img src="IMAGES/Screenshot 2026-05-23 144815.png" alt="Cosmic Void Portfolio" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div class="portfolio-card-content">
             <h3>🪐 Cosmic Void</h3>
@@ -739,7 +860,7 @@
         
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
-            <img src="IMAGES/COMING%20SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://placehold.co/600x400/222/555?text=Coming+Soon'">
+            <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div class="portfolio-card-content">
             <h3>🌐 COMING SOON</h3>
@@ -749,7 +870,7 @@
         
         <div class="portfolio-card-large">
           <div class="portfolio-img-wrapper">
-            <img src="IMAGES/COMING%20SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://placehold.co/600x400/222/555?text=Coming+Soon'">
+            <img src="IMAGES/COMING SOON.png" alt="Portfolio" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div class="portfolio-card-content">
             <h3>⚔️ COMING SOON</h3>
@@ -760,7 +881,7 @@
     </section>
   </div>
 
-  <!-- PANEL 3: TESTIMONIALS -->
+  <!-- PANEL 3: TESTIMONIALS (unchanged) -->
   <div class="tab-panel" id="panel-testimonials">
     <section>
       <p class="section-label">From the Community</p>
@@ -768,35 +889,40 @@
       <p class="section-intro">Real members. Real results. Real feedback.</p>
       
       <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <video controls style="width:100%; aspect-ratio:16/9; object-fit:cover;">
-            <source src="MemberTestimonials/KabindraS.mp4" type="video/mp4">
-          </video>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Kabindra S.</div>
-            <div class="testimonial-role">Technical Service Engineer</div>
-            <p class="testimonial-quote">"This particular community has helped me to do a practical session and see how we can be on the ethical side of Ethical Hacking."</p>
+        <!-- MEMBER #1 -->
+          <div class="testimonial-card">
+            <video controls style="width:100%; aspect-ratio:16/9; object-fit:cover;">
+              <source src="MemberTestimonials/KabindraS.mp4" type="video/mp4">
+            </video>
+            <div class="testimonial-body">
+              <div class="testimonial-name">Kabindra S.</div>
+              <div class="testimonial-role">Technical Service Engineer</div>
+              <p class="testimonial-quote">"This particular community has helped me to do a practical session and see how we can be on the ethical side of Ethical Hacking."</p>
+            </div>
           </div>
-        </div>
 
-        <div class="testimonial-card">
-          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Abdimajid M.</div>
-            <div class="testimonial-role">Aspiring Ethical Hacker</div>
-            <p class="testimonial-quote">"I haven't done something like this before, it was amazing going to learn and meet new people. It was really a great experience."</p>
+        <!-- MEMBER #2 -->
+          <div class="testimonial-card">
+            <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            <div class="testimonial-body">
+              <div class="testimonial-name">Abdimajid M.</div>
+              <div class="testimonial-role">Aspiring Ethical Hacker</div>
+              <p class="testimonial-quote">"I haven't done something like this before, it was amazing going to learn and meet new people. It was really a great experience."</p>
+            </div>
           </div>
-        </div>
 
-        <div class="testimonial-card">
-          <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
-          <div class="testimonial-body">
-            <div class="testimonial-name">Coming Soon.</div>
-            <div class="testimonial-role">Coming Soon.</div>
-            <p class="testimonial-quote">"Coming Soon."</p>
+        <!-- MEMBER #3 -->
+          <div class="testimonial-card">
+            <div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            <div class="testimonial-body">
+              <div class="testimonial-name">Coming Soon.</div>
+              <div class="testimonial-role">Coming Soon.</div>
+              <p class="testimonial-quote">"Coming Soon."</p>
+            </div>
           </div>
-        </div>
+        
       </div>
+      
     </section>
   </div>
 
@@ -804,6 +930,7 @@
     <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
   </footer>
 
+  <!-- DYNAMIC NAVBAR OFFSET -->
   <script>
     function syncNavOffset() {
       const navbar = document.querySelector('.navbar');
@@ -816,14 +943,19 @@
     window.addEventListener('resize', syncNavOffset);
   </script>
 
+  <!-- NAVIGATION SCRIPT -->
   <script>
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
+    const menuSound = new Audio('menu.mp3');
+    const navSound = new Audio('nav.mp3');
 
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
 
     overlay.addEventListener('click', () => {
@@ -835,6 +967,9 @@
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const dest = link.getAttribute('href');
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        // If it's an anchor link (#about), smooth scroll instead of navigating
         if (dest && dest.startsWith('#')) {
           sidebar.classList.remove('active');
           overlay.classList.remove('active');
@@ -851,52 +986,70 @@
     });
   </script>
 
-  <!-- TAB SWITCHER SCRIPT - FIXED -->
+  <!-- TAB SWITCHER SCRIPT -->
   <script>
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    const slider = document.getElementById('tab-slider');
-
-    function moveSlider(btn) {
-      if (!slider) return;
-      slider.style.width = btn.offsetWidth + 'px';
-      slider.style.transform = 'translateX(' + btn.offsetLeft + 'px');
+    function switchTab(targetId) {
+      // Hide all panels
+      document.querySelectorAll('.tab-panel').forEach(function(p) {
+        p.style.display = 'none';
+        p.classList.remove('active');
+      });
+      // Deactivate all buttons
+      document.querySelectorAll('.tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      // Show the target panel
+      var panel = document.getElementById('panel-' + targetId);
+      if (panel) {
+        panel.style.display = 'block';
+        panel.classList.add('active');
+      }
+      // Activate the clicked button
+      var btn = document.querySelector('[data-tab="' + targetId + '"]');
+      if (btn) {
+        btn.classList.add('active');
+        // Move slider
+        var slider = document.getElementById('tab-slider');
+        if (slider) {
+          slider.style.width = btn.offsetWidth + 'px';
+          slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+        }
+      }
     }
 
-    // Initialize slider position on load
-    window.addEventListener('DOMContentLoaded', () => {
-      const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) {
-        moveSlider(activeBtn);
-      }
+    // Attach click listeners
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        switchTab(btn.getAttribute('data-tab'));
+      };
     });
 
-    // Also run after fonts/rendering
-    window.addEventListener('load', () => {
-      const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) {
-        moveSlider(activeBtn);
-      }
+    // Init: show community panel, hide others
+    document.querySelectorAll('.tab-panel').forEach(function(p) {
+      p.style.display = 'none';
+      p.classList.remove('active');
     });
+    var firstPanel = document.getElementById('panel-community');
+    if (firstPanel) {
+      firstPanel.style.display = 'block';
+      firstPanel.classList.add('active');
+    }
 
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.tab;
-        
-        // Update active states
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabPanels.forEach(p => p.classList.remove('active'));
-        
-        btn.classList.add('active');
-        const targetPanel = document.getElementById('panel-' + target);
-        if (targetPanel) {
-          targetPanel.classList.add('active');
+    // Init slider position after fonts load
+    function initSlider() {
+      var activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) {
+        var slider = document.getElementById('tab-slider');
+        if (slider) {
+          slider.style.width = activeBtn.offsetWidth + 'px';
+          slider.style.transform = 'translateX(' + activeBtn.offsetLeft + 'px)';
         }
-        
-        // Move the slider
-        moveSlider(btn);
-      });
-    });
+      }
+    }
+    window.addEventListener('load', initSlider);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(initSlider);
+    }
   </script>
 
 </body>
