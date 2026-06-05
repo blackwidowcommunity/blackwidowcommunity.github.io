@@ -303,7 +303,7 @@
     .section-intro {
       text-align: center;
       color: var(--white-muted);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       max-width: 620px;
       margin: 0 auto 2.8rem;
       line-height: 1.6;
@@ -329,6 +329,12 @@
       border-color: var(--red);
       background: linear-gradient(160deg, rgba(140,20,10,0.18) 0%, var(--black-3) 70%);
     }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
     .card-badge {
       display: inline-block;
       padding: 0.3rem 1rem;
@@ -338,12 +344,11 @@
       font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.1em;
-      margin-bottom: 1.2rem;
       width: fit-content;
     }
-    .card-icon { font-size: 2rem; color: var(--red); margin-bottom: 1rem; }
+    .card-icon { font-size: 1.6rem; color: var(--red); flex-shrink: 0; }
     .card-title { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .card-desc { color: var(--white-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.8rem; }
+    .card-desc { color: var(--white-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.8rem; }
     
     /* Feature list styles (checkmark / cross) */
     .features-list-custom {
@@ -357,7 +362,7 @@
       display: flex;
       align-items: flex-start;
       gap: 0.8rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--white-muted);
       line-height: 1.4;
     }
@@ -526,7 +531,7 @@
     .testimonial-body { padding: 1.2rem; }
     .testimonial-name { font-weight: 800; font-size: 1rem; }
     .testimonial-role { font-size: 0.8rem; color: var(--red); margin-bottom: 0.6rem; }
-    .testimonial-quote { font-size: 0.88rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
+    .testimonial-quote { font-size: 0.98rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
     .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 16px; font-size: 0.85rem; }
 
     .sep {
@@ -773,8 +778,10 @@
       <div class="pricing-grid">
         <!-- 1. BECOME A MEMBER (Full access - all features checked) -->
         <div class="pricing-card featured">
-          <div class="card-badge">Full Access · Best Value</div>
-          <i class="fa-solid fa-id-card card-icon"></i>
+          <div class="card-header">
+            <i class="fa-solid fa-id-card card-icon"></i>
+            <div class="card-badge">Full Access · Best Value</div>
+          </div>
           <div class="card-title">Become a Member</div>
           <div class="card-option-label">Monthly Membership</div>
           <p class="card-desc">Want to stop paying per session? Wherever you are in the world, our monthly membership unlocks unrestricted access to our weekly physical and online sessions. Get the full ecosystem built to accelerate your career into offensive security.</p>
@@ -794,8 +801,10 @@
 
         <!-- 2. PHYSICAL COMMUNITY (Portfolio + physical access + real-time fixes; rest unticked) -->
         <div class="pricing-card">
-          <div class="card-badge">Melbourne CBD · Max 20 Seats</div>
-          <i class="fa-solid fa-location-dot card-icon"></i>
+          <div class="card-header">
+            <i class="fa-solid fa-location-dot card-icon"></i>
+            <div class="card-badge">Melbourne CBD · Max 20 Seats</div>
+          </div>
           <div class="card-title">Physical Community</div>
           <div class="card-option-label">Weekly Workshop</div>
           <p class="card-desc">Want to experience the real-world community as a one-off? Every week we run a live offensive security challenge in-person in Melbourne's CBD. If you're local, you're welcome to join. Spots are capped at 20 seats, so everyone gets real one-to-one guidance. Seats sell out fast.</p>
@@ -816,8 +825,10 @@
 
         <!-- 3. ONLINE COMMUNITY (Limited: only portfolio, real-time fixes; others unticked) -->
         <div class="pricing-card">
-          <div class="card-badge">International · Max 20 Seats</div>
-          <i class="fa-solid fa-wifi card-icon"></i>
+          <div class="card-header">
+            <i class="fa-solid fa-wifi card-icon"></i>
+            <div class="card-badge">International · Max 20 Seats</div>
+          </div>
           <div class="card-title">Online Community</div>
           <div class="card-option-label">Weekly Workshop</div>
           <p class="card-desc">Are you based internationally or overseas? This is best for you if you want to experience the community as a one-off. Every week we do offensive security challenges, fully virtual. We cap it at 20 seats, it's not a webinar where you disappear into a crowd. You'll get direct guidance when you're stuck and need troubleshooting assistance. Seats sell out fast.</p>
