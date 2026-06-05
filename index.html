@@ -77,7 +77,23 @@
       z-index: 0;
     }
 
-    /* ===== NAVBAR handled by navbar-loader.js ===== */
+    /* ===== NAVBAR handled by navbar-loader.js =====
+       Reset font-size to 16px base so the 95% root doesn't inflate navbar */
+    header, header * {
+      font-size: revert;
+    }
+    .navbar {
+      font-size: 16px;
+    }
+    .nav-links li a {
+      font-size: 0.9rem !important;
+    }
+    .hamburger {
+      font-size: 1.9rem !important;
+    }
+    .sidebar a {
+      font-size: 1.4rem !important;
+    }
 
     /* ===== MAIN CONTENT ===== */
     .urgency-strip {
